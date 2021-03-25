@@ -23,7 +23,7 @@ public class DocController {
     @Autowired
     private DocStorageService docStorageService;
 
-    @GetMapping("/")
+    @GetMapping("/home")
     public String test(Model model) {
         List<Doc> docs = docStorageService.getFiles();
         model.addAttribute("docs", docs);

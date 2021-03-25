@@ -16,7 +16,7 @@ import java.util.UUID;
 
 @Service
 public class DocStorageService {
-    private final String baseSource = "/home/mcs/IdeaProjects/odum-docs";
+    private final String baseSource = "/home/robert/Pulpit/projekty/odum-docs";
     private final DocRepository docRepository;
 
     public DocStorageService(DocRepository docRepository) {
