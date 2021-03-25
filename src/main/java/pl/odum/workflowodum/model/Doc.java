@@ -6,20 +6,21 @@ import lombok.NoArgsConstructor;
 import javax.persistence.*;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
-import java.util.UUID;
 
 @Data
 @Entity
 @NoArgsConstructor
 public class Doc {
     @Id
-    private String uuid;
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private Long id;
     private String docName;
     private String docType;
     private LocalDate dateOfAdding;
     private LocalDateTime dateOfLastEdit;
     private Long userAddingId;
     private Long userEditingId;
+    private String sourcePath;
     @ManyToOne
     private Client client;
     @ManyToOne
