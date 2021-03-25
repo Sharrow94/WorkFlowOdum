@@ -18,8 +18,9 @@ public class DocServiceImpl implements DocService {
 
     @Override
     public void delete(String id) {
-        docRepository.deleteById(id);
+
     }
+
 
     @Override
     public Doc findById(Long id) {
