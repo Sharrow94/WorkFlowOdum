@@ -19,7 +19,9 @@ import java.util.List;
 
 @Service
 public class DocStorageService {
+
     private final static String USERS_BASE_PATH = "/home/mcs/IdeaProjects/odum-docs/users";
+
     private final DocRepository docRepository;
 
     public DocStorageService(DocRepository docRepository) {

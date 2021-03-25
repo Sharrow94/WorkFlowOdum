@@ -18,7 +18,7 @@ import java.util.List;
 public class DocController {
     private final DocStorageService docStorageService;
 
-    @GetMapping("/")
+    @GetMapping("/home")
     public String test(Model model) {
         List<Doc> docs = docStorageService.getFiles();
         model.addAttribute("docs", docs);
