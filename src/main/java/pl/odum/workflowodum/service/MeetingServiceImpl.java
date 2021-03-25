@@ -11,13 +11,11 @@ import java.util.List;
 public class MeetingServiceImpl implements MeetingService {
 
     private final MeetingRepository meetingRepository;
-    private final NotificationService notificationService;
-    private final UserService userService;
 
-    public MeetingServiceImpl(MeetingRepository meetingRepository, NotificationService notificationService, UserService userService) {
+
+    public MeetingServiceImpl(MeetingRepository meetingRepository) {
         this.meetingRepository = meetingRepository;
-        this.notificationService = notificationService;
-        this.userService = userService;
+
     }
 
     @Override
