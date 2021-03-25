@@ -8,7 +8,7 @@ import java.util.List;
 public interface MeetingService {
     void save(Meeting meeting);
     void delete(Long id);
-    List<Meeting>findAllForUser();
+    List<Meeting>findAllForUser(User user);
     Meeting findById(Long id);
     List<Meeting> findAllOutOfDate();
 }

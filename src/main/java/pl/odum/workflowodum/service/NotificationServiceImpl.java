@@ -1,23 +1,39 @@
 package pl.odum.workflowodum.service;
 
 import org.springframework.stereotype.Service;
+import pl.odum.workflowodum.model.Meeting;
 import pl.odum.workflowodum.model.Notification;
+import pl.odum.workflowodum.model.User;
 import pl.odum.workflowodum.repository.NotificationRepository;
-
+import java.time.LocalDate;
 import java.util.List;
 
 @Service
 public class NotificationServiceImpl implements NotificationService{
 
     private final NotificationRepository notificationRepository;
+    private final MeetingService meetingService;
+    private final UserService userService;
 
-    public NotificationServiceImpl(NotificationRepository notificationRepository) {
+    public NotificationServiceImpl(NotificationRepository notificationRepository, MeetingService meetingService, UserService userService) {
         this.notificationRepository = notificationRepository;
+        this.meetingService = meetingService;
+        this.userService = userService;
     }
 
     @Override
-    public void save(Notification notification) {
-        notificationRepository.save(notification);
+    public void save() {
+        List<Meeting> meetings = meetingService.findAllOutOfDate();
+        List<User> usersForNotification = userService.findAllAdmins();
+        meetings.forEach(meeting -> {
+            Notification notification = new Notification();
+            notification.setLocalDate(LocalDate.now());
+            usersForNotification.add(meeting.getUser());
+            notification.setUsers(usersForNotification);
+            notification.setMeeting(meeting);
+            notification.setDescription(meeting.getClient().getName(),meeting.getDateOfMeeting());
+            notificationRepository.save(notification);
+        });
     }
 
     @Override

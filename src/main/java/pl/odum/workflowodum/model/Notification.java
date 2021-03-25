@@ -19,4 +19,8 @@ public class Notification {
     private LocalDate localDate;
     @ManyToOne
     private Meeting meeting;
+
+    public void setDescription(String clientName,LocalDate date){
+        this.description="Brak notatki dla spotkania z klientem: "+clientName+" z dnia: "+date;
+    }
 }

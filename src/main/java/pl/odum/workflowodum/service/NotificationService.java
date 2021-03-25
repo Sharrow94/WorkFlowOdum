@@ -6,7 +6,7 @@ import java.util.List;
 
 public interface NotificationService {
 
-    void save(Notification notification);
+    void save();
     void delete(Long id);
     List<Notification>findAll();
 }

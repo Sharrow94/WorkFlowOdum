@@ -1,7 +1,6 @@
 package pl.odum.workflowodum.service;
 
 import pl.odum.workflowodum.model.User;
-
 import java.util.List;
 
 public interface UserService {
@@ -11,4 +10,5 @@ public interface UserService {
     void delete(Long id);
     User get(Long id);
     List<User> getUsers();
+    List<User>findAllAdmins();
 }

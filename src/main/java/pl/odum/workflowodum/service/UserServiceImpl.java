@@ -6,8 +6,7 @@ import pl.odum.workflowodum.model.Role;
 import pl.odum.workflowodum.model.User;
 import pl.odum.workflowodum.repository.RoleRepository;
 import pl.odum.workflowodum.repository.UserRepository;
-
-import java.util.Arrays;
+import java.util.Collections;
 import java.util.HashSet;
 import java.util.List;
 
@@ -33,7 +32,7 @@ public class UserServiceImpl implements UserService{
     public void saveUser(User user) {
         user.setPassword(passwordEncoder.encode(user.getPassword()));
         Role userRole = roleRepository.findByName("ROLE_USER");
-        user.setRoles(new HashSet<Role>(Arrays.asList(userRole)));
+        user.setRoles(new HashSet<>(Collections.singletonList(userRole)));
         userRepository.save(user);
     }
 
@@ -55,5 +54,11 @@ public class UserServiceImpl implements UserService{
     @Override
     public List<User> getUsers() {
         return userRepository.findAll();
+    }
+
+    @Override
+    public List<User> findAllAdmins() {
+        Role role=roleRepository.findById(2).orElseThrow(IllegalArgumentException::new);
+        return  userRepository.findAllByRoleAdmin(role);
     }
 }
