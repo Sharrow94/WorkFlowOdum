@@ -4,19 +4,19 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 import javax.persistence.*;
 import java.time.LocalDate;
+import java.util.List;
 
 @Data
 @Entity
 @NoArgsConstructor
-public class MeetingNote {
+public class Notification {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
-    private LocalDate dateOfMeeting;
+    @ManyToMany
+    private List<User> users;
+    private String description;
+    private LocalDate localDate;
     @ManyToOne
-    private Client client;
-    @ManyToOne
-    private User user;
-    @ManyToOne
-    private Doc doc;
+    private Meeting meeting;
 }
