@@ -19,7 +19,7 @@ import java.util.List;
 
 @Service
 public class DocStorageService {
-    private final String baseSource = "/home/mcs/IdeaProjects/odum-docs/users";
+    private final static String USERS_BASE_PATH = "/home/mcs/IdeaProjects/odum-docs/users";
     private final DocRepository docRepository;
 
     public DocStorageService(DocRepository docRepository) {
@@ -35,7 +35,7 @@ public class DocStorageService {
     }
 
     public File findFileByClientAndFileName(Client client, String name) {
-        File file = new File(baseSource + "/" + client.getName() + "/" + name);
+        File file = new File(USERS_BASE_PATH + "/" + client.getName() + "/" + name);
         if (file.exists()) {
             return file;
         }
@@ -62,7 +62,7 @@ public class DocStorageService {
         doc.setDocName(file.getOriginalFilename());
         doc.setDocType(file.getContentType());
         doc.setDateOfAdding(LocalDate.now());
-        doc.setSourcePath(baseSource);
+        doc.setSourcePath(USERS_BASE_PATH);
 
 
         file.transferTo(new File(doc.getSourcePath() + "/" + doc.getDocName()));
