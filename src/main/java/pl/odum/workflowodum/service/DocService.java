@@ -1,11 +1,22 @@
 package pl.odum.workflowodum.service;
 
+import org.springframework.web.multipart.MultipartFile;
+import pl.odum.workflowodum.model.Client;
 import pl.odum.workflowodum.model.Doc;
+import pl.odum.workflowodum.model.Permit;
+
+import javax.servlet.http.HttpServletResponse;
+import java.io.File;
+import java.io.IOException;
+import java.util.List;
 
 public interface DocService {
-
-    void save(Doc doc);
-    void delete(String id);
+    List<Doc> getFiles();
     Doc findById(Long id);
-
+    File findFileByClientAndFileName(Client client, String name);
+    File findFileByDoc(Doc doc);
+    Doc findByDocNameAndClientAndPermit(String docName, Client client, Permit permit);
+    void saveFile(MultipartFile file) throws IOException;
+    void saveFilesFromMultiPart(List<MultipartFile> files);
+    void download(Doc doc, HttpServletResponse response);
 }
