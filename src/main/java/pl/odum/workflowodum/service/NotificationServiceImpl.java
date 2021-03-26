@@ -28,9 +28,9 @@ public class NotificationServiceImpl implements NotificationService{
         meetings.forEach(meeting -> {
             Notification notification = new Notification();
             notification.setLocalDate(LocalDate.now());
-            usersForNotification.add(meeting.getUser());
-            notification.setUsers(usersForNotification);
-            notification.setMeeting(meeting);
+//            usersForNotification.add(meeting.getUser());
+//            notification.setUsers(usersForNotification);
+//            notification.setMeeting(meeting);
             notification.setDescription(meeting.getClient().getName(),meeting.getDateOfMeeting());
             notificationRepository.save(notification);
         });

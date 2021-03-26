@@ -30,7 +30,8 @@ public class MeetingServiceImpl implements MeetingService {
 
     @Override
     public List<Meeting> findAllForUser(User user) {
-        return meetingRepository.findAllByUser(user);
+//        return meetingRepository.findAllByUser(user);
+        return null;
     }
 
     @Override

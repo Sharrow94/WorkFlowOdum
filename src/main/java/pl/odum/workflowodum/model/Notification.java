@@ -13,12 +13,9 @@ public class Notification {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
-    @ManyToMany
-    private List<User> users;
     private String description;
     private LocalDate localDate;
-    @ManyToOne
-    private Meeting meeting;
+    private boolean isRead;
 
     public void setDescription(String clientName,LocalDate date){
         this.description="Brak notatki dla spotkania z klientem: "+clientName+" z dnia: "+date;

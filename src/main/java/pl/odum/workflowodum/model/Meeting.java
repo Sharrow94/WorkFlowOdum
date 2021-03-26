@@ -4,6 +4,7 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 import javax.persistence.*;
 import java.time.LocalDate;
+import java.util.List;
 
 @Data
 @Entity
@@ -15,8 +16,8 @@ public class Meeting {
     private LocalDate dateOfMeeting;
     @ManyToOne
     private Client client;
-    @ManyToOne
-    private User user;
     @OneToOne
     private Doc doc;
+    @OneToMany
+    List<User> usersToNotify;
 }
