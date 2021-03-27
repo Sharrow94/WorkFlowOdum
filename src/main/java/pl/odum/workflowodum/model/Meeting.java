@@ -4,6 +4,7 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 import javax.persistence.*;
 import java.time.LocalDate;
+import java.util.List;
 
 @Data
 @Entity
@@ -17,6 +18,6 @@ public class Meeting {
     private Client client;
     @ManyToOne
     private User user;
-    @OneToOne
-    private Doc doc;
+    @OneToMany
+    private List<Doc> doc;
 }

@@ -9,7 +9,6 @@ import pl.odum.workflowodum.model.Client;
 import pl.odum.workflowodum.model.Doc;
 import pl.odum.workflowodum.model.Permit;
 import pl.odum.workflowodum.repository.DocRepository;
-
 import javax.servlet.ServletOutputStream;
 import javax.servlet.http.HttpServletResponse;
 import javax.transaction.Transactional;
@@ -97,5 +96,21 @@ public class DocServiceImpl implements DocService {
         } catch (IOException e) {
             e.printStackTrace();
         }
+    }
+
+    @Override
+    public void prepareDocToRemoving(Long id) {
+        Doc doc=docRepository.findById(id).orElseThrow(IllegalArgumentException::new);
+        doc.setToRemove(true);
+        doc.setDateOfRemoving(LocalDate.now().plusDays(7));
+        docRepository.save(doc);
+    }
+
+
+
+    @Override
+    public void removeDocs() {
+        List<Doc>docsToRemove=docRepository.findAllByDateOfRemovingBeforeAndDateOfRemovingIsNotNull(LocalDate.now());
+        docsToRemove.forEach(doc-> docRepository.deleteById(doc.getId()));
     }
 }

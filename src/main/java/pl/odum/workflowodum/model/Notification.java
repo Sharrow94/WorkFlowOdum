@@ -17,7 +17,7 @@ public class Notification {
     private List<User> users;
     private String description;
     private LocalDate localDate;
-    @ManyToOne
+    @OneToOne
     private Meeting meeting;
 
     public void setDescription(String clientName,LocalDate date){

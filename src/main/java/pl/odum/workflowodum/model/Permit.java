@@ -15,4 +15,6 @@ public class Permit {
     private String type;
     @OneToMany
     private List<Doc> docs;
+    @ManyToOne
+    private Client client;
 }

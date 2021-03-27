@@ -19,4 +19,6 @@ public interface DocService {
     void saveFile(MultipartFile file) throws IOException;
     void saveFilesFromMultiPart(List<MultipartFile> files);
     void download(Doc doc, HttpServletResponse response);
+    void prepareDocToRemoving(Long id);
+    void removeDocs();
 }

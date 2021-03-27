@@ -25,4 +25,6 @@ public class Doc {
     @ManyToOne
     private Permit permit;
     private boolean isOk;
+    private boolean toRemove;
+    private LocalDate dateOfRemoving;
 }
