@@ -1,24 +1,20 @@
 package pl.odum.workflowodum.controller;
 
-import org.springframework.security.core.Authentication;
+import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 import pl.odum.workflowodum.model.User;
 import pl.odum.workflowodum.service.UserService;
-
 import javax.validation.Valid;
 import java.util.List;
 
 @Controller
+@AllArgsConstructor
 public class UserController {
 
     private final UserService userService;
-
-    public UserController(UserService userService) {
-        this.userService = userService;
-    }
 
     @GetMapping("/all")
     public String showAllUsers(Model model) {
@@ -38,7 +34,6 @@ public class UserController {
         if (result.hasErrors()) {
             return "user/addUser";
         }
-//        userService.add(user);
         userService.saveUser(user);
         return "redirect:/login";
     }
@@ -50,7 +45,6 @@ public class UserController {
         return "user/editUser";
     }
 
-//    @RequestMapping(value = "/edit", method = RequestMethod.POST)
     @PostMapping(value = "/edit/{id}")
     public String saveEditUser (@Valid @ModelAttribute("user") User user,
                                  @PathVariable Long id, BindingResult result){

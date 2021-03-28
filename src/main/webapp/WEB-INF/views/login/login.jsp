@@ -1,16 +1,12 @@
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ taglib prefix="spring" uri="http://www.springframework.org/tags" %>
-<%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 
-<spring:message code="app.login.loginButton" var="loginButton"/>
-<spring:message code="app.email" var="email"/>
-<spring:message code="app.login.password" var="password"/>
-<spring:message code="app.login.userName" var="username"/>
-<spring:message code="app.login.rememberMe" var="rememberMe"/>
-<spring:message code="app.login.createAccount" var="createAccount"/>
-<spring:message code="app.login" var="login"/>
 
-<html>
+
+<!DOCTYPE html>
+<html lang="en">
+
 <head>
 
     <meta charset="utf-8">
@@ -19,7 +15,7 @@
     <meta name="description" content="">
     <meta name="author" content="">
 
-    <title>${login}</title>
+    <title>Login</title>
 
     <!-- Custom fonts for this template-->
     <link href="<c:url value="/vendor/fontawesome-free/css/all.min.css"/>" rel="stylesheet" type="text/css">
@@ -30,9 +26,10 @@
     <!-- Custom styles for this template-->
     <link href="<c:url value="/css/sb-admin-2.min.css"/>" rel="stylesheet">
 
-
 </head>
-<body class="bg-dark">
+
+<body class="bg-gradient-primary">
+
 <div class="container">
 
     <!-- Outer Row -->
@@ -48,34 +45,35 @@
                         <div class="col-lg-6">
                             <div class="p-5">
                                 <div class="text-center">
-                                    <h1 class="h4 text-gray-900 mb-4"><spring:message code="app.login.logs"/></h1>
+                                    <h1 class="h4 text-gray-900 mb-4">Witaj w</h1>
+                                    <h1 class="h4 text-gray-900 mb-4">WorkFlowOdum</h1>
                                 </div>
                                 <form class="user" method="post">
                                     <div class="form-group">
                                         <input type="text" class="form-control form-control-user"
-                                               placeholder="${username}" name="username">
+                                               placeholder="Username" name="username">
                                     </div>
                                     <div class="form-group">
                                         <input type="password" class="form-control form-control-user"
                                                id="exampleInputPassword"
-                                               placeholder="${password}" name="password"/>
+                                               placeholder="Password" name="password"/>
                                     </div>
-<%--                                    <div class="form-group">--%>
-<%--                                        <div class="custom-control custom-checkbox small">--%>
-<%--                                            <input type="checkbox" class="custom-control-input" id="customCheck">--%>
-<%--                                            <label class="custom-control-label" for="customCheck">${rememberMe}</label>--%>
-<%--                                        </div>--%>
-<%--                                    </div>--%>
-                                    <div><input type="submit" value="${loginButton}"
-                                                class="btn btn-primary btn-user btn-block"/>
+                                    <div class="form-group">
+                                        <div class="custom-control custom-checkbox small">
+                                            <input type="checkbox" class="custom-control-input" id="customCheck">
+                                            <label class="custom-control-label" for="customCheck">Zapamiętaj mnie</label>
+                                        </div>
                                     </div>
+                                    <div><input type="submit" value="Zaloguj" class="btn btn-primary btn-user btn-block"/></div>
 
                                     <input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}"/>
-
                                 </form>
-
+                                <%--                                <div class="text-center">--%>
+                                <%--                                    <a class="small" href="forgot-password.html">Forgot Password?</a>--%>
+                                <%--                                </div>--%>
                                 <div class="text-center">
-                                    <a class="small" href="<c:url value="/add"/>">${createAccount}</a>
+                                    <br>
+                                    <a class="small" href="<c:url value="/add"/>">Zarejestruj się</a>
                                 </div>
                             </div>
                         </div>
@@ -89,15 +87,16 @@
 
 </div>
 
-<%--<!-- Bootstrap core JavaScript-->--%>
-<%--<script src="<c:url value="/vendor/jquery/jquery.min.js"/>"></script>--%>
-<%--<script src="<c:url value="/vendor/bootstrap/js/bootstrap.bundle.min.js"/>"></script>--%>
+<!-- Bootstrap core JavaScript-->
+<script src="<c:url value="/vendor/jquery/jquery.min.js"/>"></script>
+<script src="<c:url value="/vendor/bootstrap/js/bootstrap.bundle.min.js"/>"></script>
 
-<%--<!-- Core plugin JavaScript-->--%>
-<%--<script src="<c:url value="/vendor/jquery-easing/jquery.easing.min.js"/>"></script>--%>
+<!-- Core plugin JavaScript-->
+<script src="<c:url value="/vendor/jquery-easing/jquery.easing.min.js"/>"></script>
 
-<%--<!-- Custom scripts for all pages-->--%>
-<%--<script src="<c:url value="/js/sb-admin-2.min.js"/>"></script>--%>
+<!-- Custom scripts for all pages-->
+<script src="<c:url value="/js/sb-admin-2.min.js"/>"></script>
 
 </body>
+
 </html>
