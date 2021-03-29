@@ -23,6 +23,5 @@ public interface DocService {
     void prepareDocToRemoving(Long id);
     void removeDocs();
     void downloadMergedClientsDocx(Client client, HttpServletResponse response);
-    Set<Doc> findAllByClient(Client client);
     void downloadAll(HttpServletResponse response);
 }

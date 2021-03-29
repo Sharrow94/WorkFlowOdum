@@ -121,6 +121,8 @@ public class DocServiceImpl implements DocService {
         docsToRemove.forEach(doc -> docRepository.deleteById(doc.getId()));
     }
 
+
+    //Download merged documents
     @Override
     public void downloadMergedClientsDocx(Client client, HttpServletResponse response) {
         Set<Doc> docs = findAllByClient(client);
@@ -133,8 +135,7 @@ public class DocServiceImpl implements DocService {
         mergeDocs(docs, response);
     }
 
-    @Override
-    public Set<Doc> findAllByClient(Client client) {
+    private Set<Doc> findAllByClient(Client client) {
         List<Meeting> meetings = meetingService.findAllByClient(client);
         Set<Doc> docs = new HashSet<>();
         meetings.forEach(m -> {
