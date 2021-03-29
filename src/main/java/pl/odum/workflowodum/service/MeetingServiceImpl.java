@@ -41,7 +41,7 @@ public class MeetingServiceImpl implements MeetingService {
 
     @Override
     public List<Meeting> findAllOutOfDate() {
-        return meetingRepository.findAllByDateOfMeetingBefore(LocalDate.now());
+        return meetingRepository.findAllByDateOfMeetingBeforeAndDocIsNull(LocalDate.now().minusDays(14));
     }
 
     @Override

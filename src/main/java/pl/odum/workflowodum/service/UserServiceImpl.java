@@ -58,7 +58,7 @@ public class UserServiceImpl implements UserService{
 
     @Override
     public List<User> findAllAdmins() {
-        Role role=roleRepository.findById(2).orElseThrow(IllegalArgumentException::new);
+        Role role=roleRepository.findByName("ROLE_ADMIN");
         return  userRepository.findAllByRoleAdmin(role);
     }
 }

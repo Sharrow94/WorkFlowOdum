@@ -11,7 +11,7 @@ import java.util.List;
 
 @Repository
 public interface MeetingRepository extends JpaRepository<Meeting,Long> {
-    List<Meeting>findAllByDateOfMeetingBefore(LocalDate localDate);
+    List<Meeting>findAllByDateOfMeetingBeforeAndDocIsNull(LocalDate localDate);
     List<Meeting>findAllByUser(User user);
     List<Meeting> findAllByClient(Client client);
 }
