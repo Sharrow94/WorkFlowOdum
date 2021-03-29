@@ -159,7 +159,7 @@
                 <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapsePost"
                    aria-expanded="true" aria-controls="collapsePost">
                     <i class="fas fa-fw fa-wrench"></i>
-                    <span>Użytkownicy</span>
+                    <span>Informacje</span>
                 </a>
                 <div id="collapsePost" class="collapse" aria-labelledby="headingUtilities"
                      data-parent="#accordionSidebar">
