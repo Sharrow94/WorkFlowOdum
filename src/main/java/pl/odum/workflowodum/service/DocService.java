@@ -9,6 +9,7 @@ import javax.servlet.http.HttpServletResponse;
 import java.io.File;
 import java.io.IOException;
 import java.util.List;
+import java.util.Set;
 
 public interface DocService {
     List<Doc> getFiles();
@@ -21,4 +22,6 @@ public interface DocService {
     void download(Doc doc, HttpServletResponse response);
     void prepareDocToRemoving(Long id);
     void removeDocs();
+    void downloadMergedClientsDocx(Client client, HttpServletResponse response);
+    void downloadAll(HttpServletResponse response);
 }
