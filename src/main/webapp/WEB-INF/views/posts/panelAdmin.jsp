@@ -81,7 +81,7 @@
                                            style="background-color:#81994D; border-color:#81994D;color:#3a3b45">Edytuj</a>
                                         <a href='<c:url value="/admin/post/delete/${post.id}"/>'
                                            class="btn btn-primary"
-                                           style="background-color:#81994D; border-color:#81994D;color:#3a3b45">Usuń</a>
+                                           style="background-color:#ff253a; border-color:#ff253a;color:#3a3b45">Usuń</a>
                                     </td>
 
                                 </tr>
