@@ -14,14 +14,20 @@
     <title>Title</title>
 </head>
 <body>
-<%--<%@ include file="../header.jsp" %>--%>
+<%@ include file="../header.jsp" %>
 
 <div class="container-fluid">
     <div class="card shadow mb-4">
+        <div class="card-header py-3">
+            <h6 class="m-0 font-weight-bold text-primary">Lista użytkowników</h6>
+            <a href='<c:url value="/admin/user/add"/>'
+               class="btn btn-primary"
+               style="background-color:#81994D; color:#3a3b45;position: absolute;  right: 8%;width: 170px;margin:-25px; border: 10px #f6c23e;">
+                Dodaj użytkownika</a>
+        </div>
         <div class="card-body">
             <div class="table-responsive">
                 <div id="dataTable_wrapper" class="dataTables_wrapper dt-bootstrap4">
-
                     <div class="row">
                         <div class="col-sm-12 col-md-6">
                             <div class="dataTables_length" id="dataTable_length"><label><spring:message
@@ -62,6 +68,9 @@
                                     <spring:message code="app.id"/></th>
                                 <th class="sorting" tabindex="0" aria-controls="dataTable" rowspan="1" colspan="1"
                                     aria-label="Position: activate to sort column ascending" style="width: 150px;">
+                                    <spring:message code="app.userName"/></th>
+                                <th class="sorting" tabindex="0" aria-controls="dataTable" rowspan="1" colspan="1"
+                                    aria-label="Position: activate to sort column ascending" style="width: 150px;">
                                     <spring:message code="app.firstName"/></th>
                                 <th class="sorting" tabindex="0" aria-controls="dataTable" rowspan="1" colspan="1"
                                     aria-label="Position: activate to sort column ascending" style="width: 150px;">
@@ -79,6 +88,7 @@
 
                             <tr>
                                 <th rowspan="1" colspan="1"><spring:message code="app.id"/></th>
+                                <th rowspan="1" colspan="1"><spring:message code="app.userName"/></th>
                                 <th rowspan="1" colspan="1"><spring:message code="app.firstName"/></th>
                                 <th rowspan="1" colspan="1"><spring:message code="app.lastName"/></th>
                                 <th rowspan="1" colspan="1"><spring:message code="app.email"/></th>
@@ -92,6 +102,7 @@
                             <c:forEach items="${user}" var="user">
                                 <tr role="row" class="odd">
                                     <td><c:out value="${user.id}"/></td>
+                                    <td><c:out value="${user.userName}"/></td>
                                     <td><c:out value="${user.firstName}"/></td>
                                     <td><c:out value="${user.lastName}"/></td>
                                     <td><c:out value="${user.email}"/></td>
@@ -100,10 +111,15 @@
 
 
                                         <td>
-                                            <a href='<c:url value="/edit/${user.id}"/>'
+                                            <a href='<c:url value="/admin/user/edit/${user.id}"/>'
                                                class="btn btn-primary"
-                                               style="background-color:#0000ff; border-color:#0000ff;color:#ffffff"><spring:message
+                                               style="background-color:#81994D; border-color:#81994D;color:#3a3b45"><spring:message
                                                     code="app.edit"/></a>
+                                            <a href='<c:url value="/admin/user/switch-enable/${user.id}"/>'
+                                               class="btn btn-primary"
+                                               style="background-color:#81994D; border-color:#81994D;color:#3a3b45"><spring:message
+                                                    code="app.changeAuthorization"/></a>
+
 <%--                                            <a href='<c:url value="/admin/user/delete/${user.id}"/>'--%>
 <%--                                               class="btn btn-primary"--%>
 <%--                                               style="background-color:#FF0000; border-color:#FF0000;color:#ffffff"><spring:message--%>
@@ -121,7 +137,7 @@
         </div>
     </div>
 </div>
-<%--<%@ include file="../footer.jsp" %>--%>
+<%@ include file="../footer.jsp" %>
 
 </body>
 </html>

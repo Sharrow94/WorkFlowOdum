@@ -149,6 +149,25 @@
                     <div class="bg-gray-900 py-2 collapse-inner rounded">
                             <%--                    <h6 class="collapse-header">Operacje:</h6>--%>
                         <a class="collapse-item text-gray-100" href="<c:url value="/admin/user/all"/>">Lista</a>
+                                <a class="collapse-item text-gray-100" href="<c:url value="/admin/user/add"/>">Dodaj</a>
+                    </div>
+                </div>
+            </li>
+        </sec:authorize>
+
+        <sec:authorize access="hasRole('ADMIN')">
+            <li class="nav-item">
+                <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapsePost"
+                   aria-expanded="true" aria-controls="collapsePost">
+                    <i class="fas fa-fw fa-wrench"></i>
+                    <span>Informacje</span>
+                </a>
+                <div id="collapsePost" class="collapse" aria-labelledby="headingUtilities"
+                     data-parent="#accordionSidebar">
+                    <div class="bg-gray-900 py-2 collapse-inner rounded">
+
+                        <a class="collapse-item text-gray-100" href="<c:url value="/admin/post/list"/>">Lista</a>
+                        <a class="collapse-item text-gray-100" href="<c:url value="/admin/post/add"/>">Dodaj</a>
                     </div>
                 </div>
             </li>
