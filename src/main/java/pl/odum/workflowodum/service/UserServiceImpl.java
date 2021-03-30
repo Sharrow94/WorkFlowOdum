@@ -9,6 +9,7 @@ import pl.odum.workflowodum.repository.UserRepository;
 import java.util.Collections;
 import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 
 @Service
 public class UserServiceImpl implements UserService{
@@ -60,5 +61,20 @@ public class UserServiceImpl implements UserService{
     public List<User> findAllAdmins() {
         Role role=roleRepository.findByName("ROLE_ADMIN");
         return  userRepository.findAllByRoleAdmin(role);
+    }
+
+    @Override
+    public void changeStatus(Long id) {
+        Role roleUser = roleRepository.findByName("ROLE_USER");
+        User user = userRepository.findById(id).orElseThrow(IllegalArgumentException::new);
+        Set<Role>roles = user.getRoles();
+        if(user.getRoles().contains(roleUser)){
+            roles.remove(roleUser);
+        }
+        else {
+            roles.add(roleUser);
+        }
+        user.setRoles(roles);
+        userRepository.save(user);
     }
 }

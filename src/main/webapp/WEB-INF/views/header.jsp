@@ -149,6 +149,7 @@
                     <div class="bg-gray-900 py-2 collapse-inner rounded">
                             <%--                    <h6 class="collapse-header">Operacje:</h6>--%>
                         <a class="collapse-item text-gray-100" href="<c:url value="/admin/user/all"/>">Lista</a>
+                                <a class="collapse-item text-gray-100" href="<c:url value="/admin/user/add"/>">Dodaj</a>
                     </div>
                 </div>
             </li>

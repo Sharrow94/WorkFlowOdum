@@ -12,6 +12,7 @@ import java.util.List;
 
 @Controller
 @AllArgsConstructor
+@RequestMapping("/admin/user")
 public class UserController {
 
     private final UserService userService;
@@ -40,18 +41,23 @@ public class UserController {
 
     @RequestMapping(value = "/edit/{id}")
     public String editUser (Model model, @PathVariable Long id){
-
         model.addAttribute("user", userService.get(id));
-        return "user/editUser";
+        return "user/editUserAdmin";
     }
 
-    @PostMapping(value = "/edit/{id}")
+    @PostMapping(value = "/edit")
     public String saveEditUser (@Valid @ModelAttribute("user") User user,
-                                 @PathVariable Long id, BindingResult result){
+                                BindingResult result){
         if(result.hasErrors()){
-            return "user/editUser";
+            return "user/editUserAdmin";
         }
         userService.add(user);
-        return "redirect:/home";
+        return "redirect:/admin/user/all";
+    }
+
+    @GetMapping("/switch-enable/{id}")
+    public String switchEnable(@PathVariable Long id){
+        userService.changeStatus(id);
+        return "redirect:/admin/user/all";
     }
 }

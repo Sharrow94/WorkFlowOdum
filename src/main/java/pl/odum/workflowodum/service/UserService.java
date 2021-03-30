@@ -11,4 +11,5 @@ public interface UserService {
     User get(Long id);
     List<User> getUsers();
     List<User>findAllAdmins();
+    void changeStatus(Long id);
 }
