@@ -45,9 +45,8 @@ public class UserController {
         return "user/editUser";
     }
 
-    @PostMapping(value = "/edit/{id}")
-    public String saveEditUser (@Valid @ModelAttribute("user") User user,
-                                 @PathVariable Long id, BindingResult result){
+    @PostMapping(value = "/edit")
+    public String saveEditUser (@Valid @ModelAttribute("user") User user,BindingResult result){
         if(result.hasErrors()){
             return "user/editUser";
         }

@@ -28,7 +28,7 @@ public class DocController {
 
     @PostMapping("/upload")
     public String uploadFilePost(@RequestParam("files") List<MultipartFile> files) {
-        docService.saveFilesFromMultiPart(files);
+//        docService.saveFilesFromMultiPart(files,);
         return "redirect:/home";
     }
 

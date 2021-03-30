@@ -25,7 +25,7 @@ import static java.util.stream.Collectors.toList;
 @Service
 @AllArgsConstructor
 public class DocServiceImpl implements DocService {
-    private final static String USERS_BASE_PATH = "/home/mcs/IdeaProjects/odum-docs/users";
+    private final static String USERS_BASE_PATH = "/home/maciej/odum-docs/clients";
     private final static String FILE_NOT_FOUND_EXC = "File not found";
     private final static String RESPONSE_CONTENT_TYPE = "application/octet-stream";
     private final static String HEADER_KEY = "Content-Disposition";
@@ -64,18 +64,13 @@ public class DocServiceImpl implements DocService {
     }
 
     @Override
-    public Doc findByDocNameAndClientAndPermit(String docName, Client client, Permit permit) {
-        return docRepository.findByDocNameAndClientAndPermit(docName, client, permit);
-    }
-
-    @Override
     @Transactional
-    public void saveFile(MultipartFile file) throws IOException {
+    public void saveFile(MultipartFile file,Client client,Permit permit) throws IOException {
         Doc doc = new Doc();
         doc.setDocName(file.getOriginalFilename());
         doc.setDocType(file.getContentType());
         doc.setDateOfAdding(LocalDate.now());
-        doc.setSourcePath(USERS_BASE_PATH);
+        doc.setSourcePath(client.getHomePath()+"/"+permit.getType());
 
 
         file.transferTo(new File(doc.getSourcePath() + "/" + doc.getDocName()));
@@ -83,10 +78,10 @@ public class DocServiceImpl implements DocService {
     }
 
     @Override
-    public void saveFilesFromMultiPart(List<MultipartFile> files) {
+    public void saveFilesFromMultiPart(List<MultipartFile> files,Client client,Permit permit) {
         files.forEach(file -> {
             try {
-                saveFile(file);
+                saveFile(file,client,permit);
             } catch (IOException e) {
                 e.printStackTrace();
             }
