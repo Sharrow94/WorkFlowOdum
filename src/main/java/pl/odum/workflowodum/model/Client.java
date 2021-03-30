@@ -22,7 +22,7 @@ public class Client {
     private String homePath;
 //    @Email
     private String email;
-    @OneToMany
+    @OneToMany(mappedBy = "client")
     private List<Doc>docs;
 
     public void setHomePath(String homePath){

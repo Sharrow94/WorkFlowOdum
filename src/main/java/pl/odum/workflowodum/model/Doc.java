@@ -23,6 +23,8 @@ public class Doc {
     @ManyToOne
     private Permit permit;
     private boolean isOk;
+    @ManyToOne
+    private Client client;
     private boolean toRemove;
     private LocalDate dateOfRemoving;
 }
