@@ -38,12 +38,12 @@
 
 <div class="container mt-4">
     <!-- Account page navigation-->
-        <nav class="nav nav-borders">
-            <a class="nav-link active ml-0" href="<c:url value="/app/user/edit"/>">Profile</a>
+<%--    <nav class="nav nav-borders">--%>
+<%--        <a class="nav-link active ml-0" href="<c:url value="/user/edit"/>">Profile</a>--%>
 
-            <a class="nav-link" href="<c:url value="/app/user/security"/>">Security</a>
-        </nav>
-        <hr class="mt-0 mb-4">
+<%--        <a class="nav-link" href="<c:url value="/user/security"/>">Security</a>--%>
+<%--    </nav>--%>
+<%--    <hr class="mt-0 mb-4">--%>
     <div class="row">
         <%--        <div class="col-xl-4">--%>
         <%--            <!-- Profile picture card-->--%>
@@ -64,7 +64,7 @@
             <div class="card mb-4">
                 <div class="card-header">Account Details</div>
                 <div class="card-body">
-                    <form:form method="post" modelAttribute="users" action="/app/user/edit">
+                    <form:form method="post" modelAttribute="user" action="/admin/user/edit">
                         <!-- Form Group (username)-->
                         <form:hidden path="id"/>
                         <form:hidden path="password"/>
