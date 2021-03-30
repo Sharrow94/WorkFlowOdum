@@ -54,13 +54,14 @@
                                    role="button" aria-expanded="false" aria-controls="collapseCardMeal">
                                         <span class="text-gray-900">
                                                 <div class="row">
-                                                    <div class="col-md-5">
+                                                    <div class="col-md-4">
                                                         Załączone pliki
                                                     </div>
-                                                    <div class="col-md-2">
-                                                    </div>
-                                                    <div class="col-md-5">
+                                                    <div class="col-md-4">
                                                         Data dodania
+                                                    </div>
+                                                    <div class="col-md-4">
+
                                                     </div>
                                                 </div>
                                         </span>
@@ -72,17 +73,17 @@
                                     <div class="card-body">
                                         <c:forEach items="${meeting.doc}" var="d">
                                             <div class="form-group row">
-                                                <div class="col-sm-10 mb-3 mb-sm-0">
+                                                <div class="col-sm-4 mb-3 mb-sm-0">
                                                         ${d.docName}
                                                 </div>
-                                                <div class="col-sm-2 mb-3 mb-sm-0">
+                                                <div class="col-sm-8 mb-3 mb-sm-0">
                                                         ${d.dateOfAdding}
                                                 </div>
                                             </div>
                                         </c:forEach>
                                         <div class="form-group row">
                                             <div class="col-sm-10 mb-3 mb-sm-0">
-                                                    <input class="btn btn-primary btn-user btn-block" type="file" name="files" multiple required/>
+                                                    <input class="btn btn-primary btn-user btn-block" value="Załącz pliki" type="file" name="files" multiple required/>
                                             </div>
                                         </div>
                                     </div>
@@ -92,10 +93,6 @@
                         <br><br>
                         <div class="row">
                             <div class="col-md-6">
-                                <a href="#"
-                                   class="btn btn-primary btn-user btn-block">
-                                    Powrót
-                                </a>
                             </div>
                             <div class="col-md-6">
                                 <input type="submit"
@@ -103,6 +100,14 @@
                             </div>
                             </form:form>
 
+                        </div>
+                        <div class="row">
+                            <div class="col-md-12">
+                                <a href="#"
+                                   class="btn btn-primary btn-user btn-block">
+                                    Powrót
+                                </a>
+                            </div>
                         </div>
                     </div>
                 </div>

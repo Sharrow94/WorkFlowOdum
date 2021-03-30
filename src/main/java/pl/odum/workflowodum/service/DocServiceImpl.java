@@ -154,7 +154,8 @@ public class DocServiceImpl implements DocService {
     @Override
     public void downloadMergedClientsDocx(Client client, HttpServletResponse response) {
         Set<Doc> docs = findAllByClient(client);
-        mergeDocs(docs, response);
+        Set<Doc> collect = docs.stream().filter(doc -> doc.getSourcePath().endsWith("/meetings")).collect(Collectors.toSet());
+        mergeDocs(collect, response);
     }
 
     @Override
