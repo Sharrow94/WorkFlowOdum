@@ -1,6 +1,7 @@
 package pl.odum.workflowodum.service;
 
 import lombok.AllArgsConstructor;
+import lombok.SneakyThrows;
 import org.apache.commons.io.FileUtils;
 import org.springframework.scheduling.annotation.Async;
 import org.springframework.stereotype.Service;
@@ -12,12 +13,15 @@ import pl.odum.workflowodum.model.Permit;
 import pl.odum.workflowodum.repository.DocRepository;
 import pl.odum.workflowodum.utils.DirectoryCreator;
 import pl.odum.workflowodum.word.WordMerge;
-
 import javax.servlet.ServletOutputStream;
 import javax.servlet.http.HttpServletResponse;
 import javax.transaction.Transactional;
 import java.io.*;
+import java.nio.file.Files;
+import java.nio.file.Path;
+import java.nio.file.Paths;
 import java.time.LocalDate;
+import java.time.LocalDateTime;
 import java.util.*;
 import java.util.stream.Collectors;
 
@@ -67,25 +71,36 @@ public class DocServiceImpl implements DocService {
 
     @Override
     @Transactional
-    public void saveFile(MultipartFile file,Client client,Permit permit) throws IOException {
+    public void saveFile(MultipartFile file,Client client,Permit permit,Long userId) throws IOException {
         Doc doc = new Doc();
         doc.setDocName(file.getOriginalFilename());
         doc.setDocType(file.getContentType());
         doc.setDateOfAdding(LocalDate.now());
         doc.setPermit(permit);
+        doc.setToRemove(false);
+        doc.setUserAddingId(userId);
         doc.setSourcePath(client.getHomePath()+"/"+permit.getType());
         directoryCreator.createDirectoryPermitForClient(client,permit);
-        File destination=new File(doc.getSourcePath() +"/"+doc.getDocName());
+        File destination=new File(doc.getSourcePath()+"/"+doc.getDocName());
         file.transferTo(destination);
 
-        docRepository.save(doc);
+        if (docRepository.findFirstByDocNameAndSourcePath(doc.getDocName(),(doc.getSourcePath()+"/"+doc.getDocName())).isEmpty()){
+            docRepository.save(doc);
+        }else{
+            Doc editDoc=docRepository.findFirstByDocNameAndSourcePath(doc.getDocName(),(doc.getSourcePath()+"/"+doc.getDocName())).get();
+            if (!editDoc.isToRemove()){
+                editDoc.setDateOfLastEdit(LocalDateTime.now());
+                editDoc.setUserEditingId(userId);
+                docRepository.save(editDoc);
+            }
+        }
     }
 
     @Override
-    public void saveFilesFromMultiPart(List<MultipartFile> files,Client client,Permit permit) {
+    public void saveFilesFromMultiPart(List<MultipartFile> files,Client client,Permit permit,Long userId) {
         files.forEach(file -> {
             try {
-                saveFile(file,client,permit);
+                saveFile(file,client,permit,userId);
             } catch (IOException e) {
                 e.printStackTrace();
             }
@@ -106,18 +121,30 @@ public class DocServiceImpl implements DocService {
     }
 
     @Override
+    @SneakyThrows
     public void prepareDocToRemoving(Long id) {
         Doc doc = docRepository.findById(id).orElseThrow(IllegalArgumentException::new);
         doc.setToRemove(true);
+        File oldFile=new File(doc.getSourcePath());
+        Files.createDirectories(Paths.get(doc.getClient().getHomePath()+"/to-remove"));
+        File file=new File(doc.getClient().getHomePath()+"/"+"remove/"+doc.getDocName());
+        boolean b = oldFile.renameTo(file);
         doc.setDateOfRemoving(LocalDate.now().plusDays(7));
         docRepository.save(doc);
     }
 
-
+    @Transactional
     @Override
     public void removeDocs() {
         List<Doc> docsToRemove = docRepository.findAllByDateOfRemovingBeforeAndDateOfRemovingIsNotNull(LocalDate.now());
-        docsToRemove.forEach(doc -> docRepository.deleteById(doc.getId()));
+        docsToRemove.forEach(doc -> {
+            try {
+                Files.delete(Path.of(doc.getSourcePath()));
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+            docRepository.deleteById(doc.getId());
+        });
     }
 
 
