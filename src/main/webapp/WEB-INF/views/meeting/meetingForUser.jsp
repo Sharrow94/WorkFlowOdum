@@ -73,7 +73,7 @@
                                         <td><c:out value="${meeting.dateOfMeeting}"/></td>
                                         <td nowrap="nowrap">
 
-                                            <a href='<c:url value="/meeting/${meeting.id}"/>'
+                                            <a href='<c:url value="/app/meeting/details/${meeting.id}"/>'
                                                class="btn btn-primary"
                                                style="background-color:#81994D; border-color:#81994D;color:#3a3b45">Szczegóły</a>
                                             <a href='<c:url value="/admin/supplier/edit/${meeting.id}"/>'

@@ -16,6 +16,8 @@ import javax.servlet.ServletOutputStream;
 import javax.servlet.http.HttpServletResponse;
 import javax.transaction.Transactional;
 import java.io.*;
+import java.nio.file.Files;
+import java.nio.file.Paths;
 import java.time.LocalDate;
 import java.util.*;
 import java.util.stream.Collectors;
@@ -25,7 +27,7 @@ import static java.util.stream.Collectors.toList;
 @Service
 @AllArgsConstructor
 public class DocServiceImpl implements DocService {
-    private final static String USERS_BASE_PATH = "/home/maciej/odum-docs/clients";
+    private final static String USERS_BASE_PATH = "/home/mcs/IdeaProjects/odum-docs";
     private final static String FILE_NOT_FOUND_EXC = "File not found";
     private final static String RESPONSE_CONTENT_TYPE = "application/octet-stream";
     private final static String HEADER_KEY = "Content-Disposition";
@@ -75,6 +77,37 @@ public class DocServiceImpl implements DocService {
 
         file.transferTo(new File(doc.getSourcePath() + "/" + doc.getDocName()));
         docRepository.save(doc);
+    }
+
+    @Transactional
+    public void addNoteToMeeting(MultipartFile file, Meeting meeting) throws IOException {
+        Doc doc = new Doc();
+        doc.setDocName(file.getOriginalFilename());
+        doc.setDocType(file.getContentType());
+        doc.setDateOfAdding(LocalDate.now());
+        doc.setSourcePath(meeting.getClient().getHomePath()+"/meetings");
+
+        Files.createDirectories(Paths.get(doc.getSourcePath()));
+
+        file.transferTo(new File(doc.getSourcePath() + "/" + doc.getDocName()));
+
+        List<Doc> docs = meeting.getDoc();
+        docs.add(doc);
+
+        docRepository.save(doc);
+        meetingService.save(meeting);
+    }
+
+    @Override
+    @Transactional
+    public void addNotesToMeeting(List<MultipartFile> files, Meeting meeting) {
+        files.forEach(file->{
+            try {
+                addNoteToMeeting(file, meeting);
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+        });
     }
 
     @Override
