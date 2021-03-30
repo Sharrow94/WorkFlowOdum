@@ -16,11 +16,14 @@ public class Notification {
     @ManyToMany
     private List<User> users;
     private String description;
-    private LocalDate localDate;
     @OneToOne
     private Meeting meeting;
 
-    public void setDescription(String clientName,LocalDate date){
-        this.description="Brak notatki dla spotkania z klientem: "+clientName+" z dnia: "+date;
+    public void setDescription(){
+        if (this.meeting!=null){
+            this.description="Brak notatki dla spotkania z klientem: "+this.meeting.getClient().getName()+" z dnia: "+this.meeting.getDateOfMeeting();
+        }else
+            throw new IllegalArgumentException("Meeting is null");
+
     }
 }

@@ -9,6 +9,5 @@ import java.time.LocalDate;
 import java.util.List;
 
 public interface DocRepository extends JpaRepository<Doc, Long> {
-    Doc findByDocNameAndClientAndPermit(String docName, Client client, Permit permit);
     List<Doc>findAllByDateOfRemovingBeforeAndDateOfRemovingIsNotNull(LocalDate localDate);
 }

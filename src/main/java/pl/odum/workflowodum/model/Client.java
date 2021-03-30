@@ -23,7 +23,7 @@ public class Client {
 //    @Email
     private String email;
     @OneToMany
-    private List<Permit>permits;
+    private List<Doc>docs;
 
     public void setHomePath(String homePath){
         this.homePath = homePath.strip().replace(" ", "-");

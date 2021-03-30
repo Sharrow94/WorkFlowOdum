@@ -21,8 +21,6 @@ public class Doc {
     private Long userEditingId;
     private String sourcePath;
     @ManyToOne
-    private Client client;
-    @ManyToOne
     private Permit permit;
     private boolean isOk;
     private boolean toRemove;

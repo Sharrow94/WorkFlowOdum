@@ -113,7 +113,7 @@
                     <div class="bg-gray-900 py-2 collapse-inner rounded">
                             <%--                    <h6 class="collapse-header">Operacje:</h6>--%>
                         <a class="collapse-item text-gray-100" href="<c:url value="/admin/sOi/list"/>">Wszystkie pliki</a>
-                        <a class="collapse-item text-gray-100" href="<c:url value="/admin/ingredient/all"/>">Dodaj plik</a>
+                        <a class="collapse-item text-gray-100" href="<c:url value="/home"/>">Dodaj plik</a>
                     </div>
                 </div>
             </li>
@@ -129,8 +129,8 @@
                      data-parent="#accordionSidebar">
                     <div class="bg-gray-900 py-2 collapse-inner rounded">
                             <%--                        <h6 class="collapse-header">Operacje:</h6>--%>
-                        <a class="collapse-item text-gray-100" href="<c:url value="/admin/supplier/all"/>">Lista</a>
-                        <a class="collapse-item text-gray-100" href="<c:url value="/admin/supplier/add"/>">Dodaj</a>
+                        <a class="collapse-item text-gray-100" href="<c:url value="/client/list"/>">Lista</a>
+                        <a class="collapse-item text-gray-100" href="<c:url value="/client/add"/>">Dodaj</a>
                     </div>
                 </div>
             </li>
@@ -196,21 +196,6 @@
                 <button id="sidebarToggleTop" class="btn btn-link d-md-none rounded-circle mr-3">
                     <i class="fa fa-bars"></i>
                 </button>
-
-                <!-- Topbar Search -->
-                <form
-                        class="d-none d-sm-inline-block form-inline mr-auto ml-md-3 my-2 my-md-0 mw-100 navbar-search">
-                    <div class="input-group">
-                        <input type="text" class="form-control bg-light border-0 small" placeholder="Search for..."
-                               aria-label="Search" aria-describedby="basic-addon2">
-                        <div class="input-group-append">
-                            <button class="btn btn-primary" type="button">
-                                <i class="fas fa-search fa-sm" style="color: black"></i>
-                            </button>
-                        </div>
-                    </div>
-                </form>
-
                 <!-- Topbar Navbar -->
                 <ul class="navbar-nav ml-auto">
 

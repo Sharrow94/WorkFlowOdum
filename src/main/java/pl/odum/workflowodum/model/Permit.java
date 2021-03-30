@@ -3,7 +3,6 @@ package pl.odum.workflowodum.model;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 import javax.persistence.*;
-import java.util.List;
 
 @Data
 @Entity
@@ -13,8 +12,4 @@ public class Permit {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
     private String type;
-    @OneToMany
-    private List<Doc> docs;
-    @ManyToOne
-    private Client client;
 }

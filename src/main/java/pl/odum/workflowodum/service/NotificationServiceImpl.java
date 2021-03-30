@@ -5,7 +5,6 @@ import pl.odum.workflowodum.model.Meeting;
 import pl.odum.workflowodum.model.Notification;
 import pl.odum.workflowodum.model.User;
 import pl.odum.workflowodum.repository.NotificationRepository;
-import java.time.LocalDate;
 import java.util.List;
 
 @Service
@@ -27,11 +26,10 @@ public class NotificationServiceImpl implements NotificationService{
         List<User> usersForNotification = userService.findAllAdmins();
         meetings.forEach(meeting -> {
             Notification notification = new Notification();
-            notification.setLocalDate(LocalDate.now());
             usersForNotification.add(meeting.getUser());
             notification.setUsers(usersForNotification);
             notification.setMeeting(meeting);
-            notification.setDescription(meeting.getClient().getName(),meeting.getDateOfMeeting());
+            notification.setDescription();
             notificationRepository.save(notification);
         });
     }

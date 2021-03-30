@@ -16,9 +16,8 @@ public interface DocService {
     Doc findById(Long id);
     File findFileByClientAndFileName(Client client, String name);
     File findFileByDoc(Doc doc);
-    Doc findByDocNameAndClientAndPermit(String docName, Client client, Permit permit);
-    void saveFile(MultipartFile file) throws IOException;
-    void saveFilesFromMultiPart(List<MultipartFile> files);
+    void saveFile(MultipartFile file,Client client,Permit permit) throws IOException;
+    void saveFilesFromMultiPart(List<MultipartFile> files,Client client,Permit permit);
     void download(Doc doc, HttpServletResponse response);
     void prepareDocToRemoving(Long id);
     void removeDocs();
