@@ -7,7 +7,9 @@ import pl.odum.workflowodum.model.Permit;
 
 import java.time.LocalDate;
 import java.util.List;
+import java.util.Optional;
 
 public interface DocRepository extends JpaRepository<Doc, Long> {
     List<Doc>findAllByDateOfRemovingBeforeAndDateOfRemovingIsNotNull(LocalDate localDate);
+    Optional<Doc>findFirstByDocNameAndSourcePath(String docName,String sourcePath);
 }
