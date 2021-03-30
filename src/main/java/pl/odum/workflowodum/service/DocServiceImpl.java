@@ -10,6 +10,7 @@ import pl.odum.workflowodum.model.Doc;
 import pl.odum.workflowodum.model.Meeting;
 import pl.odum.workflowodum.model.Permit;
 import pl.odum.workflowodum.repository.DocRepository;
+import pl.odum.workflowodum.utils.DirectoryCreator;
 import pl.odum.workflowodum.word.WordMerge;
 
 import javax.servlet.ServletOutputStream;
@@ -32,6 +33,7 @@ public class DocServiceImpl implements DocService {
     private final static String HEADER_VALUE = "attachment; filename=";
     private final DocRepository docRepository;
     private final MeetingService meetingService;
+    private final DirectoryCreator directoryCreator;
 
     @Override
     public List<Doc> getFiles() {
@@ -70,10 +72,12 @@ public class DocServiceImpl implements DocService {
         doc.setDocName(file.getOriginalFilename());
         doc.setDocType(file.getContentType());
         doc.setDateOfAdding(LocalDate.now());
+        doc.setPermit(permit);
         doc.setSourcePath(client.getHomePath()+"/"+permit.getType());
+        directoryCreator.createDirectoryPermitForClient(client,permit);
+        File destination=new File(doc.getSourcePath() +"/"+doc.getDocName());
+        file.transferTo(destination);
 
-
-        file.transferTo(new File(doc.getSourcePath() + "/" + doc.getDocName()));
         docRepository.save(doc);
     }
 
@@ -133,9 +137,7 @@ public class DocServiceImpl implements DocService {
     private Set<Doc> findAllByClient(Client client) {
         List<Meeting> meetings = meetingService.findAllByClient(client);
         Set<Doc> docs = new HashSet<>();
-        meetings.forEach(m -> {
-            docs.addAll(m.getDoc().stream().filter(Objects::nonNull).collect(Collectors.toSet()));
-        });
+        meetings.forEach(m -> docs.addAll(m.getDoc().stream().filter(Objects::nonNull).collect(Collectors.toSet())));
         return docs;
     }
 

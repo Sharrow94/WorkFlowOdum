@@ -4,7 +4,7 @@ import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Service;
 import pl.odum.workflowodum.model.Client;
 import pl.odum.workflowodum.repository.ClientRepository;
-import pl.odum.workflowodum.utils.ClientDirectoryCreator;
+import pl.odum.workflowodum.utils.DirectoryCreator;
 import javax.transaction.Transactional;
 import java.io.IOException;
 import java.util.List;
@@ -14,14 +14,14 @@ import java.util.List;
 public class ClientServiceImpl implements ClientService {
     private final static String USERS_BASE_PATH = "/home/maciej/odum-docs/users";
     private final ClientRepository clientRepository;
-    private final ClientDirectoryCreator clientDirectoryCreator;
+    private final DirectoryCreator directoryCreator;
 
     @Override
     @Transactional
     public void save(Client client){
         client.setHomePath(USERS_BASE_PATH+"/"+client.getName().toLowerCase());
         try {
-            clientDirectoryCreator.createDirectoryForClient(client);
+            directoryCreator.createDirectoryForClient(client);
         } catch (IOException e) {
             e.printStackTrace();
         }

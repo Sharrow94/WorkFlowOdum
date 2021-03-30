@@ -11,6 +11,20 @@
     <h3>Upload Multiple Files</h3>
     <form:form modelAttribute="docs" method="post" action="/upload" encType="multipart/form-data">
         <input type="file" name="files" multiple required/>
+        <select name="client">
+            <c:forEach items="${clients}" var="client">
+                <option value="${client.id}">
+                        ${client.name}
+                </option>
+            </c:forEach>
+        </select>
+        <select name="permit">
+            <c:forEach items="${permits}" var="permit">
+                <option value="${permit.id}">
+                        ${permit.type}
+                </option>
+            </c:forEach>
+        </select>
         <button type="submit">Submit</button>
     </form:form>
 </div>
