@@ -3,7 +3,10 @@ package pl.odum.workflowodum.service;
 import lombok.AllArgsConstructor;
 import lombok.SneakyThrows;
 import org.apache.commons.io.FileUtils;
+import org.apache.commons.io.FilenameUtils;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.scheduling.annotation.Async;
+import org.springframework.security.core.Authentication;
 import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
 import pl.odum.workflowodum.model.Client;
@@ -21,7 +24,6 @@ import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.time.LocalDate;
-import java.time.LocalDateTime;
 import java.util.*;
 import java.util.stream.Collectors;
 
@@ -30,7 +32,6 @@ import static java.util.stream.Collectors.toList;
 @Service
 @AllArgsConstructor
 public class DocServiceImpl implements DocService {
-
     private final static String RESPONSE_CONTENT_TYPE = "application/octet-stream";
     private final static String HEADER_KEY = "Content-Disposition";
     private final static String HEADER_VALUE = "attachment; filename=";
@@ -69,6 +70,11 @@ public class DocServiceImpl implements DocService {
 
     @Transactional
     public void addNoteToMeeting(MultipartFile file, Meeting meeting) throws IOException {
+
+        if(!FilenameUtils.getExtension(file.getOriginalFilename()).equals(".docx")){
+            throw new IllegalStateException("File must have extension docx!");
+        }
+
         Doc doc = new Doc();
         doc.setUuid(UUID.randomUUID().toString());
         doc.setDocName(file.getOriginalFilename());
@@ -76,12 +82,15 @@ public class DocServiceImpl implements DocService {
         doc.setDateOfAdding(LocalDate.now());
         doc.setSourcePath(meeting.getClient().getHomePath() + "/meetings");
 
+
         Files.createDirectories(Paths.get(doc.getSourcePath()));
+
 
         file.transferTo(doc.getFile());
 
         List<Doc> docs = meeting.getDoc();
         docs.add(doc);
+
 
         docRepository.save(doc);
         meetingService.save(meeting);
