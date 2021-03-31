@@ -12,4 +12,6 @@ import java.util.Optional;
 public interface DocRepository extends JpaRepository<Doc, Long> {
     List<Doc>findAllByDateOfRemovingBeforeAndDateOfRemovingIsNotNull(LocalDate localDate);
     Optional<Doc>findFirstByDocNameAndSourcePath(String docName,String sourcePath);
+    Doc findByUuid(String uuid);
+    Doc deleteByUuid(String uuid);
 }

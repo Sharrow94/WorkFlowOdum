@@ -47,19 +47,4 @@ public class DocController {
         Doc doc = docService.findById(id);
         docService.download(doc, response);
     }
-
-
-    //Testing section of download merged docx
-    @GetMapping("/download/client")
-    public String downloadFromClientGet(Model model){
-        model.addAttribute("clients", clientService.findAll());
-        return "client/check";
-    }
-
-    @PostMapping("/download/client")
-    public void downloadFromClientPost(Client client, HttpServletResponse response){
-        docService.downloadAll(response);
-//        Dla wybranego klienta powinno pobrac wszystkie
-//        docService.downloadMergedClientsDocx(client, response);
-    }
 }
