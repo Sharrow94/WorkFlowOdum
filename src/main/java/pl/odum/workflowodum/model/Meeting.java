@@ -23,4 +23,8 @@ public class Meeting {
     private User user;
     @OneToMany
     private List<Doc> doc;
+
+    public int getCountOfDocs(){
+        return this.doc.size();
+    }
 }

@@ -11,8 +11,8 @@ import pl.odum.workflowodum.model.Doc;
 import pl.odum.workflowodum.model.Meeting;
 import pl.odum.workflowodum.model.Permit;
 import pl.odum.workflowodum.repository.DocRepository;
-import pl.odum.workflowodum.utils.DirectoryCreator;
 import pl.odum.workflowodum.word.WordMerge;
+import pl.odum.workflowodum.utils.DirectoryCreator;
 import javax.servlet.ServletOutputStream;
 import javax.servlet.http.HttpServletResponse;
 import javax.transaction.Transactional;
@@ -96,6 +96,37 @@ public class DocServiceImpl implements DocService {
         }
     }
 
+    @Transactional
+    public void addNoteToMeeting(MultipartFile file, Meeting meeting) throws IOException {
+        Doc doc = new Doc();
+        doc.setDocName(file.getOriginalFilename());
+        doc.setDocType(file.getContentType());
+        doc.setDateOfAdding(LocalDate.now());
+        doc.setSourcePath(meeting.getClient().getHomePath() + "/meetings");
+
+        Files.createDirectories(Paths.get(doc.getSourcePath()));
+
+        file.transferTo(new File(doc.getSourcePath() + "/" + doc.getDocName()));
+
+        List<Doc> docs = meeting.getDoc();
+        docs.add(doc);
+
+        docRepository.save(doc);
+        meetingService.save(meeting);
+    }
+
+    @Override
+    @Transactional
+    public void addNotesToMeeting(List<MultipartFile> files, Meeting meeting) {
+        files.forEach(file -> {
+            try {
+                addNoteToMeeting(file, meeting);
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+        });
+    }
+
     @Override
     public void saveFilesFromMultiPart(List<MultipartFile> files,Client client,Permit permit,Long userId) {
         files.forEach(file -> {
@@ -152,7 +183,8 @@ public class DocServiceImpl implements DocService {
     @Override
     public void downloadMergedClientsDocx(Client client, HttpServletResponse response) {
         Set<Doc> docs = findAllByClient(client);
-        mergeDocs(docs, response);
+        Set<Doc> collect = docs.stream().filter(doc -> doc.getSourcePath().endsWith("/meetings")).collect(Collectors.toSet());
+        mergeDocs(collect, response);
     }
 
     @Override

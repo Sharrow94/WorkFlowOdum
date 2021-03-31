@@ -4,13 +4,11 @@ import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Component;
 import pl.odum.workflowodum.model.Client;
 import pl.odum.workflowodum.model.Permit;
-import pl.odum.workflowodum.service.ClientService;
 
 import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
-import java.nio.file.StandardCopyOption;
 
 @Component
 @AllArgsConstructor

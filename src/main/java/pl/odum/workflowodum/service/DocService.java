@@ -3,6 +3,7 @@ package pl.odum.workflowodum.service;
 import org.springframework.web.multipart.MultipartFile;
 import pl.odum.workflowodum.model.Client;
 import pl.odum.workflowodum.model.Doc;
+import pl.odum.workflowodum.model.Meeting;
 import pl.odum.workflowodum.model.Permit;
 import javax.servlet.http.HttpServletResponse;
 import java.io.File;
@@ -21,4 +22,5 @@ public interface DocService {
     void removeDocs();
     void downloadMergedClientsDocx(Client client, HttpServletResponse response);
     void downloadAll(HttpServletResponse response);
+    void addNotesToMeeting(List<MultipartFile> files, Meeting meeting);
 }
