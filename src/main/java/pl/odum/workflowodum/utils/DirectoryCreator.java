@@ -19,8 +19,8 @@ public class DirectoryCreator {
         Files.createDirectories(path);
     }
 
-    public void createDirectoryPermitForClient(Client client, Permit permit) throws IOException{
-        Path path=Paths.get(client.getHomePath()+"/"+permit.getType());
+    public void createDirectoryPermitForClient(String pathForDir) throws IOException{
+        Path path=Paths.get(pathForDir);
         Files.createDirectories(path);
     }
 

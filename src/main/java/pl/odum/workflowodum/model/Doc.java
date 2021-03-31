@@ -11,9 +11,9 @@ import java.time.LocalDateTime;
 @Entity
 @NoArgsConstructor
 public class Doc {
+
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long id;
+    private String uuid;
     private String docName;
     private String docType;
     private LocalDate dateOfAdding;
@@ -33,7 +33,7 @@ public class Doc {
         if(this.sourcePath==null || this.docName==null){
             throw new IllegalStateException("Source Path Or docName is empty!");
         }
-        return this.sourcePath+"/"+this.docName;
+        return this.sourcePath+"/"+this.uuid;
     }
 
     public File getFile(){

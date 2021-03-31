@@ -30,8 +30,7 @@ import static java.util.stream.Collectors.toList;
 @Service
 @AllArgsConstructor
 public class DocServiceImpl implements DocService {
-    private final static String USERS_BASE_PATH = "/home/maciej/odum-docs/clients";
-    private final static String FILE_NOT_FOUND_EXC = "File not found";
+
     private final static String RESPONSE_CONTENT_TYPE = "application/octet-stream";
     private final static String HEADER_KEY = "Content-Disposition";
     private final static String HEADER_VALUE = "attachment; filename=";
@@ -50,55 +49,28 @@ public class DocServiceImpl implements DocService {
     }
 
     @Override
-    public File findFileByClientAndFileName(Client client, String name) {
-        File file = new File(USERS_BASE_PATH + "/" + client.getName() + "/" + name);
-        if (file.exists()) {
-            return file;
-        }
-
-        throw new IllegalStateException(FILE_NOT_FOUND_EXC);
-    }
-
-    @Override
-    public File findFileByDoc(Doc doc) {
-        File file = new File(doc.getSourcePath() + "/" + doc.getDocName());
-        if (file.exists()) {
-            return file;
-        }
-
-        throw new IllegalStateException(FILE_NOT_FOUND_EXC);
-    }
-
-    @Override
     @Transactional
     public void saveFile(MultipartFile file,Client client,Permit permit,Long userId) throws IOException {
         Doc doc = new Doc();
+        doc.setUuid(UUID.randomUUID().toString());
         doc.setDocName(file.getOriginalFilename());
         doc.setDocType(file.getContentType());
         doc.setDateOfAdding(LocalDate.now());
+        doc.setClient(client);
         doc.setPermit(permit);
         doc.setToRemove(false);
         doc.setUserAddingId(userId);
         doc.setSourcePath(client.getHomePath()+"/"+permit.getType());
-        directoryCreator.createDirectoryPermitForClient(client,permit);
-        File destination=new File(doc.getSourcePath()+"/"+doc.getDocName());
+        directoryCreator.createDirectoryPermitForClient(doc.getSourcePath());
+        File destination=doc.getFile();
         file.transferTo(destination);
-
-        if (docRepository.findFirstByDocNameAndSourcePath(doc.getDocName(),(doc.getSourcePath()+"/"+doc.getDocName())).isEmpty()){
-            docRepository.save(doc);
-        }else{
-            Doc editDoc=docRepository.findFirstByDocNameAndSourcePath(doc.getDocName(),(doc.getSourcePath()+"/"+doc.getDocName())).get();
-            if (!editDoc.isToRemove()){
-                editDoc.setDateOfLastEdit(LocalDateTime.now());
-                editDoc.setUserEditingId(userId);
-                docRepository.save(editDoc);
-            }
-        }
+        docRepository.save(doc);
     }
 
     @Transactional
     public void addNoteToMeeting(MultipartFile file, Meeting meeting) throws IOException {
         Doc doc = new Doc();
+        doc.setUuid(UUID.randomUUID().toString());
         doc.setDocName(file.getOriginalFilename());
         doc.setDocType(file.getContentType());
         doc.setDateOfAdding(LocalDate.now());
@@ -143,7 +115,7 @@ public class DocServiceImpl implements DocService {
     public void download(Doc doc, HttpServletResponse response) {
         response.setContentType(RESPONSE_CONTENT_TYPE);
         response.setHeader(HEADER_KEY, HEADER_VALUE + doc.getDocName());
-        File file = findFileByDoc(doc);
+        File file =doc.getFile();
         try (ServletOutputStream os = response.getOutputStream()) {
             os.write(FileUtils.readFileToByteArray(file));
         } catch (IOException e) {
@@ -153,13 +125,9 @@ public class DocServiceImpl implements DocService {
 
     @Override
     @SneakyThrows
-    public void prepareDocToRemoving(Long id) {
-        Doc doc = docRepository.findById(id).orElseThrow(IllegalArgumentException::new);
+    public void prepareDocToRemoving(String uuid) {
+        Doc doc = docRepository.findByUuid(uuid);
         doc.setToRemove(true);
-        File oldFile=new File(doc.getSourcePath());
-        Files.createDirectories(Paths.get(doc.getClient().getHomePath()+"/to-remove"));
-        File file=new File(doc.getClient().getHomePath()+"/"+"remove/"+doc.getDocName());
-        boolean b = oldFile.renameTo(file);
         doc.setDateOfRemoving(LocalDate.now().plusDays(7));
         docRepository.save(doc);
     }
@@ -174,7 +142,7 @@ public class DocServiceImpl implements DocService {
             } catch (IOException e) {
                 e.printStackTrace();
             }
-            docRepository.deleteById(doc.getId());
+            docRepository.deleteByUuid(doc.getUuid());
         });
     }
 
@@ -187,12 +155,6 @@ public class DocServiceImpl implements DocService {
         mergeDocs(collect, response);
     }
 
-    @Override
-    public void downloadAll(HttpServletResponse response) {
-        Set<Doc> docs = new HashSet<>(docRepository.findAll());
-        mergeDocs(docs, response);
-    }
-
     private Set<Doc> findAllByClient(Client client) {
         List<Meeting> meetings = meetingService.findAllByClient(client);
         Set<Doc> docs = new HashSet<>();
@@ -203,9 +165,9 @@ public class DocServiceImpl implements DocService {
     private void mergeDocs(Set<Doc> docs, HttpServletResponse response) {
         response.setContentType(RESPONSE_CONTENT_TYPE);
         response.setHeader(HEADER_KEY, HEADER_VALUE + "merged.docx");
-        List<InputStream> inputStreams = docs.stream().map(d -> {
+        List<InputStream> inputStreams = docs.stream().map(doc->{
             try {
-                return new FileInputStream(d.getSourcePath() + "/" + d.getDocName());
+                return new FileInputStream(doc.getFile().getAbsolutePath());
             } catch (FileNotFoundException e) {
                 e.printStackTrace();
                 return null;

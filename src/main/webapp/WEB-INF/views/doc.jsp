@@ -42,7 +42,7 @@
         <c:forEach items="${docs}" var="doc">
             <tr>
                 <td>${doc.docName}</td>
-                <td><a href="/download/${doc.id}">Download</a></td>
+                <td><a href="/download/${doc.uuid}">Download</a></td>
             </tr>
         </c:forEach>
 
