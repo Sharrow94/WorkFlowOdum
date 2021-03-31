@@ -67,12 +67,12 @@ public class DocServiceImpl implements DocService {
 
     @Override
     @Transactional
-    public void saveFile(MultipartFile file,Client client,Permit permit) throws IOException {
+    public void saveFile(MultipartFile file, Client client, Permit permit) throws IOException {
         Doc doc = new Doc();
         doc.setDocName(file.getOriginalFilename());
         doc.setDocType(file.getContentType());
         doc.setDateOfAdding(LocalDate.now());
-        doc.setSourcePath(client.getHomePath()+"/"+permit.getType());
+        doc.setSourcePath(client.getHomePath() + "/" + permit.getType());
 
 
         file.transferTo(new File(doc.getSourcePath() + "/" + doc.getDocName()));
@@ -85,7 +85,7 @@ public class DocServiceImpl implements DocService {
         doc.setDocName(file.getOriginalFilename());
         doc.setDocType(file.getContentType());
         doc.setDateOfAdding(LocalDate.now());
-        doc.setSourcePath(meeting.getClient().getHomePath()+"/meetings");
+        doc.setSourcePath(meeting.getClient().getHomePath() + "/meetings");
 
         Files.createDirectories(Paths.get(doc.getSourcePath()));
 
@@ -101,7 +101,7 @@ public class DocServiceImpl implements DocService {
     @Override
     @Transactional
     public void addNotesToMeeting(List<MultipartFile> files, Meeting meeting) {
-        files.forEach(file->{
+        files.forEach(file -> {
             try {
                 addNoteToMeeting(file, meeting);
             } catch (IOException e) {
@@ -111,10 +111,10 @@ public class DocServiceImpl implements DocService {
     }
 
     @Override
-    public void saveFilesFromMultiPart(List<MultipartFile> files,Client client,Permit permit) {
+    public void saveFilesFromMultiPart(List<MultipartFile> files, Client client, Permit permit) {
         files.forEach(file -> {
             try {
-                saveFile(file,client,permit);
+                saveFile(file, client, permit);
             } catch (IOException e) {
                 e.printStackTrace();
             }

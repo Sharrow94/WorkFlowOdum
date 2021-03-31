@@ -79,6 +79,10 @@
                                             <a href='<c:url value="/admin/supplier/edit/${meeting.id}"/>'
                                                class="btn btn-primary"
                                                style="background-color:#81994D; border-color:#81994D;color:#3a3b45">Edytuj</a>
+                                            <a href="/app/client/${meeting.client.id}/meeting/download/merged"
+                                               class="btn btn-primary">
+                                                Pobierz scalony plik ze spotkań
+                                            </a>
                                         </td>
 
                                     </tr>
