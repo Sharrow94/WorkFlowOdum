@@ -106,7 +106,7 @@ public class DocServiceImpl implements DocService {
 
         Files.createDirectories(Paths.get(doc.getSourcePath()));
 
-        file.transferTo(new File(doc.getSourcePath() + "/" + doc.getDocName()));
+        file.transferTo(doc.getFile());
 
         List<Doc> docs = meeting.getDoc();
         docs.add(doc);
