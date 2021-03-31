@@ -3,6 +3,7 @@ package pl.odum.workflowodum.model;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 import javax.persistence.*;
+import java.io.File;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 
@@ -27,4 +28,15 @@ public class Doc {
     private Client client;
     private boolean toRemove;
     private LocalDate dateOfRemoving;
+
+    private String fullPath(){
+        if(this.sourcePath==null || this.docName==null){
+            throw new IllegalStateException("Source Path Or docName is empty!");
+        }
+        return this.sourcePath+"/"+this.docName;
+    }
+
+    public File getFile(){
+        return new File(fullPath());
+    }
 }
