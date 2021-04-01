@@ -157,11 +157,12 @@ public class DocServiceImpl implements DocService {
 
 
     //Download merged documents
+    @SneakyThrows
     @Override
-    public void downloadMergedClientsDocx(Client client, HttpServletResponse response) {
+    public void downloadMergedClientsDocx(Client client, HttpServletResponse response) throws IOException {
         Set<Doc> docs = findAllByClient(client);
         Set<Doc> collect = docs.stream().filter(doc -> doc.getSourcePath().endsWith("/meetings")).collect(Collectors.toSet());
-        mergeDocs(collect, response);
+        mergeDocs(response);
     }
 
     private Set<Doc> findAllByClient(Client client) {
@@ -171,29 +172,11 @@ public class DocServiceImpl implements DocService {
         return docs;
     }
 
-    private void mergeDocs(Set<Doc> docs, HttpServletResponse response) {
+    private void mergeDocs(HttpServletResponse response) throws Exception {
         response.setContentType(RESPONSE_CONTENT_TYPE);
         response.setHeader(HEADER_KEY, HEADER_VALUE + "merged.docx");
-        List<InputStream> inputStreams = docs.stream().map(doc->{
-            try {
-                return new FileInputStream(doc.getFile().getAbsolutePath());
-            } catch (FileNotFoundException e) {
-                e.printStackTrace();
-                return null;
-            }
-        })
-                .filter(Objects::nonNull)
-                .collect(toList());
-
-        try (OutputStream os = response.getOutputStream()) {
-            WordMerge wordMerge = new WordMerge(os);
-            for (InputStream inputStream : inputStreams) {
-                wordMerge.add(inputStream);
-            }
-            wordMerge.doMerge();
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
+        WordMerge wordMerge=new WordMerge();
+        wordMerge.WordMerge(response.getOutputStream());
     }
 
 }
