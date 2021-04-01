@@ -26,7 +26,9 @@
                                     <circle cx="12" cy="7" r="4"></circle>
                                 </svg>
                             </div>
-                            Account Settings - Profile
+<%--                            Account Settings - Profile--%>
+                            <spring:message code="app.editProfile"/>
+                            <p>${currentUser.firstName} ${currentUser.lastName}</p>
                         </h1>
                     </div>
                 </div>
@@ -37,32 +39,13 @@
 <body>
 
 <div class="container mt-4">
-    <!-- Account page navigation-->
-<%--    <nav class="nav nav-borders">--%>
-<%--        <a class="nav-link active ml-0" href="<c:url value="/user/edit"/>">Profile</a>--%>
 
-<%--        <a class="nav-link" href="<c:url value="/user/security"/>">Security</a>--%>
-<%--    </nav>--%>
-<%--    <hr class="mt-0 mb-4">--%>
     <div class="row">
-        <%--        <div class="col-xl-4">--%>
-        <%--            <!-- Profile picture card-->--%>
-        <%--            <div class="card">--%>
-        <%--                <div class="card-header">Profile Picture</div>--%>
-        <%--                <div class="card-body text-center">--%>
-        <%--                    <!-- Profile picture image-->--%>
-        <%--                    <img class="img-account-profile rounded-circle mb-2" src="assets/img/illustrations/profiles/profile-1.png" alt="">--%>
-        <%--                    <!-- Profile picture help block-->--%>
-        <%--                    <div class="small font-italic text-muted mb-4">JPG or PNG no larger than 5 MB</div>--%>
-        <%--                    <!-- Profile picture upload button-->--%>
-        <%--                    <button class="btn btn-primary" type="button">Upload new image</button>--%>
-        <%--                </div>--%>
-        <%--            </div>--%>
-        <%--        </div>--%>
+
         <div class="col-xl-8">
             <!-- Account details card-->
             <div class="card mb-4">
-                <div class="card-header">Account Details</div>
+                <div class="card-header"> <spring:message code="app.editProfile"/></div>
                 <div class="card-body">
                     <form:form method="post" modelAttribute="user" action="/admin/user/edit">
                         <!-- Form Group (username)-->
