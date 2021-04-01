@@ -153,7 +153,7 @@ public class DocServiceImpl implements DocService {
     public void downloadMergedClientsDocx(Client client, HttpServletResponse response) throws IOException {
         Set<Doc> docs = findAllByClient(client);
         Set<Doc> collect = docs.stream().filter(doc -> doc.getSourcePath().endsWith("/meetings")).collect(Collectors.toSet());
-        mergeDocs(collect, response);
+        mergeDocs(response);
     }
 
     private Set<Doc> findAllByClient(Client client) {
@@ -163,11 +163,11 @@ public class DocServiceImpl implements DocService {
         return docs;
     }
 
-    private void mergeDocs(Set<Doc> docs, HttpServletResponse response) throws Exception {
+    private void mergeDocs(HttpServletResponse response) throws Exception {
         response.setContentType(RESPONSE_CONTENT_TYPE);
         response.setHeader(HEADER_KEY, HEADER_VALUE + "merged.docx");
         WordMerge wordMerge=new WordMerge();
-        wordMerge.WordMerge(docs,response.getOutputStream());
+        wordMerge.WordMerge(response.getOutputStream());
     }
 
 }
