@@ -71,10 +71,10 @@
                                 <%--                                <div class="text-center">--%>
                                 <%--                                    <a class="small" href="forgot-password.html">Forgot Password?</a>--%>
                                 <%--                                </div>--%>
-                                <div class="text-center">
-                                    <br>
-                                    <a class="small" href="<c:url value="/add"/>">Zarejestruj się</a>
-                                </div>
+<%--                                <div class="text-center">--%>
+<%--                                    <br>--%>
+<%--                                    <a class="small" href="<c:url value="/add"/>">Zarejestruj się</a>--%>
+<%--                                </div>--%>
                             </div>
                         </div>
                     </div>

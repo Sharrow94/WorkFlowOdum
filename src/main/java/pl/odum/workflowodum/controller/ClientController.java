@@ -14,7 +14,7 @@ import java.io.FileNotFoundException;
 
 @Controller
 @AllArgsConstructor
-@RequestMapping("/client")
+@RequestMapping("/app/client")
 public class ClientController {
 
     private final ClientService clientService;

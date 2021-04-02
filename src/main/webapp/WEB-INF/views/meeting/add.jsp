@@ -16,7 +16,7 @@
                 <div class="col-lg-5 d-none d-lg-block bg-register-image"></div>
                 <div class="col-lg-7">
                     <div class="p-5">
-                        <form:form modelAttribute="meeting" action="/meeting/add" method="post">
+                        <form:form modelAttribute="meeting" action="/app/meeting/add" method="post">
                             <div class="text-center">
                                 <h1 class="h4 text-gray-900 mb-4">Dodaj spotkanie</h1>
                             </div>
@@ -39,7 +39,7 @@
 
                             <button type="submit" class="btn btn-primary btn-user btn-block">
                                 Dodaj</button>
-                            <a href="/meeting/all" class="btn btn-primary btn-user btn-block">
+                            <a href="/app/meeting/all" class="btn btn-primary btn-user btn-block">
                                 Cofnij</a>
                         </form:form>
                     </div>

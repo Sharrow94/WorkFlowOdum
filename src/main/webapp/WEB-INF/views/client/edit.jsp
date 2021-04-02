@@ -3,7 +3,7 @@
 <%@ taglib prefix="spring" uri="http://www.springframework.org/tags" %>
 <html>
 <head>
-    <title>Edytj klienta</title>
+    <title>Edytuj klienta</title>
 </head>
 <%@ include file="../header.jsp" %>
 <body>
@@ -81,7 +81,7 @@
                             </div>
                             <button type="submit" class="btn btn-primary btn-user btn-block">
                                 Edytuj</button>
-                            <a href="/client/list" class="btn btn-primary btn-user btn-block">
+                            <a href="/app/client/list" class="btn btn-primary btn-user btn-block">
                                 Cofnij</a>
                         </form:form>
                     </div>

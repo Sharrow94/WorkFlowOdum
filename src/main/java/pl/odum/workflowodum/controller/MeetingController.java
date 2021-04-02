@@ -14,7 +14,7 @@ import pl.odum.workflowodum.service.UserService;
 
 @Controller
 @AllArgsConstructor
-@RequestMapping("/meeting")
+@RequestMapping("/app/meeting")
 public class MeetingController {
 
     private final MeetingService meetingService;
@@ -45,6 +45,7 @@ public class MeetingController {
     @RequestMapping("/edit/{id}")
     public String showEditForm(@PathVariable("id")Long id,Model model){
         model.addAttribute("meeting",meetingService.findById(id));
+        model.addAttribute("clients",clientService.findAll());
         return "meeting/edit";
     }
 

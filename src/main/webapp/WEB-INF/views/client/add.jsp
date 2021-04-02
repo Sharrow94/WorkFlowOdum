@@ -1,5 +1,9 @@
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <%@taglib prefix="form" uri="http://www.springframework.org/tags/form" %>
+<%@ taglib prefix="spring" uri="http://www.springframework.org/tags" %>
+
+<spring:message code="app.add" var="add"/>
+
 <html>
 <head>
     <title>Dodaj klienta</title>
@@ -78,7 +82,10 @@
                                     </div>
                                 </div>
                             </div>
-                            <input type="submit" value="Dodaj">
+                            <button type="submit" class="btn btn-primary btn-user btn-block">
+                                ${add}</button>
+                            <a href="/app/client/list" class="btn btn-primary btn-user btn-block">
+                                Cofnij</a>
                         </form:form>
                     </div>
                 </div>

@@ -28,7 +28,7 @@
                             </div>
 <%--                            Account Settings - Profile--%>
                             <spring:message code="app.editProfile"/>
-                            <p>${currentUser.firstName} ${currentUser.lastName}</p>
+                            <p>${user.firstName} ${user.lastName}</p>
                         </h1>
                     </div>
                 </div>
