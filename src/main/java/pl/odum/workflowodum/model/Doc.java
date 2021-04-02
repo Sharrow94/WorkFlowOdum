@@ -29,7 +29,7 @@ public class Doc {
     private boolean toRemove;
     private LocalDate dateOfRemoving;
 
-    private String fullPath(){
+    public String fullPath(){
         if(this.sourcePath==null || this.docName==null){
             throw new IllegalStateException("Source Path Or docName is empty!");
         }

@@ -14,6 +14,7 @@ import pl.odum.workflowodum.service.MeetingService;
 import pl.odum.workflowodum.service.UserService;
 
 import javax.servlet.http.HttpServletResponse;
+import java.io.IOException;
 import java.util.List;
 
 @AllArgsConstructor
@@ -40,7 +41,9 @@ public class AppController {
     }
 
     @GetMapping("/client/{clientId}/meeting/download/merged")
-    public void downloadClientsMergedNotes(@PathVariable Long clientId, HttpServletResponse response){
+
+    public void downloadClientsMergedNotes(@PathVariable Long clientId, HttpServletResponse response) throws IOException {
+
         Client client = clientService.findById(clientId);
         docService.downloadMergedClientsDocx(client, response);
     }
