@@ -176,7 +176,7 @@ public class DocServiceImpl implements DocService {
         response.setContentType(RESPONSE_CONTENT_TYPE);
         response.setHeader(HEADER_KEY, HEADER_VALUE + "merged.docx");
         WordMerge wordMerge=new WordMerge();
-        wordMerge.WordMerge(response.getOutputStream());
+        wordMerge.doIt(response.getOutputStream());
     }
 
 }
