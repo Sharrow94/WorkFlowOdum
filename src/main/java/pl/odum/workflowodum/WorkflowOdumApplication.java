@@ -5,7 +5,6 @@ import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.scheduling.annotation.Scheduled;
 import pl.odum.workflowodum.service.DocService;
-import pl.odum.workflowodum.service.MeetingService;
 import pl.odum.workflowodum.service.NotificationService;
 
 @SpringBootApplication

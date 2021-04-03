@@ -8,8 +8,6 @@ import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import pl.odum.workflowodum.model.User;
 import pl.odum.workflowodum.service.UserService;
-
-
 import java.util.HashSet;
 import java.util.Set;
 
