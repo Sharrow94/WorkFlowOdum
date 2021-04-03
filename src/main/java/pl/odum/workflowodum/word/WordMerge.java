@@ -6,20 +6,31 @@ import org.apache.xmlbeans.XmlOptions;
 import org.openxmlformats.schemas.wordprocessingml.x2006.main.CTBody;
 
 import java.io.OutputStream;
+import java.util.ArrayList;
+import java.util.List;
 
 public class WordMerge {
 
 
-    public void WordMerge(OutputStream os) throws Exception {
-
+    public void doIt(OutputStream os) throws Exception {
+        List<OPCPackage> sources=new ArrayList<>();
+        OPCPackage src3Package=OPCPackage.open("/home/maciej/Pobrane/merged (10).docx");
+        sources.add(src3Package);
         OPCPackage src1Package = OPCPackage.open("/home/maciej/Pobrane/file-sample_1MB.docx");
+        sources.add(src1Package);
         OPCPackage src2Package = OPCPackage.open("/home/maciej/Pobrane/file-sample_100kB.docx");
-        XWPFDocument src1Document = new XWPFDocument(src1Package);
-        CTBody src1Body = src1Document.getDocument().getBody();
-        XWPFDocument src2Document = new XWPFDocument(src2Package);
-        CTBody src2Body = src2Document.getDocument().getBody();
-        appendBody(src1Body, src2Body);
-        src1Document.write(os);
+        sources.add(src2Package);
+
+        XWPFDocument mainDoc = new XWPFDocument(src3Package);
+        CTBody mainBody = mainDoc.getDocument().getBody();
+
+        for (int i = 1; i < sources.size(); i++) {
+            XWPFDocument src = new XWPFDocument(sources.get(i));
+            CTBody srcBody = src.getDocument().getBody();
+            appendBody(mainBody, srcBody);
+        }
+
+        mainDoc.write(os);
     }
 
     private static void appendBody(CTBody src, CTBody append) throws Exception {
