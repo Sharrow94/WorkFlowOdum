@@ -31,4 +31,9 @@ public class PermitServiceImpl implements PermitService {
     public Permit findById(Long id) {
         return permitRepository.findById(id).orElseThrow(IllegalArgumentException::new);
     }
+
+    @Override
+    public Permit findByPermitName(String name) {
+        return permitRepository.findByType("meetings");
+    }
 }

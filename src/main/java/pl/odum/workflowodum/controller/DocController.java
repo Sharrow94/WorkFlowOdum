@@ -42,9 +42,9 @@ public class DocController {
         return "redirect:/home";
     }
 
-    @GetMapping("/download/{id}")
-    public void downloadFileGet(@PathVariable Long id, HttpServletResponse response) {
-        Doc doc = docService.findById(id);
+    @GetMapping("/download/{uuid}")
+    public void downloadFileGet(@PathVariable String uuid, HttpServletResponse response) {
+        Doc doc = docService.findByUuid(uuid);
         docService.download(doc, response);
     }
 }

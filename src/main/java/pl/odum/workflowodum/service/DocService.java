@@ -11,7 +11,7 @@ import java.util.List;
 
 public interface DocService {
     List<Doc> getFiles();
-    Doc findById(Long id);
+    Doc findByUuid(String uuid);
     void saveFile(MultipartFile file,Client client,Permit permit,Long userId) throws IOException;
     void saveFilesFromMultiPart(List<MultipartFile> files,Client client,Permit permit,Long id);
     void download(Doc doc, HttpServletResponse response);
