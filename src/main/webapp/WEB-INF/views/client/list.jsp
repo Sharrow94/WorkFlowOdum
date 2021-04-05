@@ -7,7 +7,7 @@
     <div class="card shadow mb-4">
         <div class="card-header py-3">
             <h4 class="m-0 font-weight-bold text-primary">Lista klientów</h4>
-            <a href='<c:url value="/client/add"/>'
+            <a href='<c:url value="/app/client/add"/>'
                class="btn btn-primary"
                style="background-color:#81994D; color:#3a3b45;position: absolute;  right: 8%;width: 170px;margin:-30px; border: 10px #f6c23e;">
                 Dodaj klienta</a>
@@ -73,10 +73,10 @@
                                     <td><c:out value="${client.nip}"/></td>
                                     <td nowrap="nowrap">
 
-                                        <a href='<c:url value="/client/${client.id}"/>'
+                                        <a href='<c:url value="/app/client/${client.id}"/>'
                                            class="btn btn-primary"
                                            style="background-color:#81994D; border-color:#81994D;color:#3a3b45">Szczegóły</a>
-                                        <a href='<c:url value="/client/edit/${client.id}"/>'
+                                        <a href='<c:url value="/app/client/edit/${client.id}"/>'
                                            class="btn btn-primary"
                                            style="background-color:#81994D; border-color:#81994D;color:#3a3b45">Edytuj</a>
                                     </td>

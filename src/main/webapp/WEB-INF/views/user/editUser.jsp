@@ -26,7 +26,8 @@
                                     <circle cx="12" cy="7" r="4"></circle>
                                 </svg>
                             </div>
-                            Account Settings - Profile
+                            <spring:message code="app.editProfile"/>
+                            <p>${currentUser.firstName} ${currentUser.lastName}</p>
                         </h1>
                     </div>
                 </div>
@@ -39,9 +40,8 @@
 <div class="container mt-4">
     <!-- Account page navigation-->
         <nav class="nav nav-borders">
-            <a class="nav-link active ml-0" href="<c:url value="/app/user/edit"/>">Profile</a>
-
-            <a class="nav-link" href="<c:url value="/app/user/security"/>">Security</a>
+            <a class="nav-link active ml-0" href="<c:url value="/app/user/edit"/>"><spring:message code="app.profile"/></a>
+            <a class="nav-link" href="<c:url value="/app/user/security"/>"><spring:message code="app.password"/></a>
         </nav>
         <hr class="mt-0 mb-4">
     <div class="row">
@@ -62,7 +62,7 @@
         <div class="col-xl-8">
             <!-- Account details card-->
             <div class="card mb-4">
-                <div class="card-header">Account Details</div>
+                <div class="card-header"> <spring:message code="app.editProfile"/></div>
                 <div class="card-body">
                     <form:form method="post" modelAttribute="users" action="/app/user/edit">
                         <!-- Form Group (username)-->
@@ -98,6 +98,8 @@
 
                         <button type="submit" class="btn btn-primary">
                             <spring:message code="app.edit"/></button>
+                        <a href="/admin/user/all" class="btn btn-primary btn-user btn-block">
+                            Cofnij</a>
                     </form:form>
                 </div>
             </div>

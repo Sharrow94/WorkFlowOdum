@@ -103,7 +103,9 @@
                         </div>
                         <div class="row">
                             <div class="col-md-12">
-                                <a href="/meeting/all"
+
+                                <a href="/app/meeting/all"
+
                                    class="btn btn-primary btn-user btn-block">
                                     Powrót
                                 </a>

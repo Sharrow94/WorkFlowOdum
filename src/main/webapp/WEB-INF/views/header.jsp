@@ -73,8 +73,8 @@
             </a>
             <div id="collapsePlan" class="collapse" aria-labelledby="headingTwo" data-parent="#accordionSidebar">
                 <div class="bg-gray-900 py-2 collapse-inner rounded">
-                    <a class="collapse-item text-gray-100" href="<c:url value="/meeting/all"/>">Lista</a>
-                    <a class="collapse-item text-gray-100" href="<c:url value="/meeting/add"/>">Dodaj</a>
+                    <a class="collapse-item text-gray-100" href="<c:url value="/app/meeting/all"/>">Lista</a>
+                    <a class="collapse-item text-gray-100" href="<c:url value="/app/meeting/add"/>">Dodaj</a>
                 </div>
             </div>
         </li>
@@ -129,8 +129,8 @@
                      data-parent="#accordionSidebar">
                     <div class="bg-gray-900 py-2 collapse-inner rounded">
                             <%--                        <h6 class="collapse-header">Operacje:</h6>--%>
-                        <a class="collapse-item text-gray-100" href="<c:url value="/client/list"/>">Lista</a>
-                        <a class="collapse-item text-gray-100" href="<c:url value="/client/add"/>">Dodaj</a>
+                        <a class="collapse-item text-gray-100" href="<c:url value="/app/client/list"/>">Lista</a>
+                        <a class="collapse-item text-gray-100" href="<c:url value="/app/client/add"/>">Dodaj</a>
                     </div>
                 </div>
             </li>

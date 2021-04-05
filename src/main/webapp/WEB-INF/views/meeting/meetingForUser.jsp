@@ -7,10 +7,10 @@
         <div class="card shadow mb-4">
             <div class="card-header py-3">
                 <h6 class="m-0 font-weight-bold text-primary">Lista spotkań</h6>
-                <a href='<c:url value="/meeting/add"/>'
+                <a href='<c:url value="/app/meeting/add"/>'
                    class="btn btn-primary"
                    style="background-color:#81994D; color:#3a3b45;position: absolute;  right: 8%;width: 170px;margin:-25px; border: 10px #f6c23e;">
-                    Utwórz spotaknie</a>
+                    Utwórz spotakanie</a>
             </div>
             <div class="card-body">
                 <div class="table-responsive">
@@ -76,7 +76,7 @@
                                             <a href='<c:url value="/app/meeting/details/${meeting.id}"/>'
                                                class="btn btn-primary"
                                                style="background-color:#81994D; border-color:#81994D;color:#3a3b45">Szczegóły</a>
-                                            <a href='<c:url value="/admin/supplier/edit/${meeting.id}"/>'
+                                            <a href='<c:url value="/app/meeting/edit/${meeting.id}"/>'
                                                class="btn btn-primary"
                                                style="background-color:#81994D; border-color:#81994D;color:#3a3b45">Edytuj</a>
                                             <a href="/app/client/${meeting.client.id}/meeting/download/merged"
