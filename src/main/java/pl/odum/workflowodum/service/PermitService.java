@@ -10,5 +10,5 @@ public interface PermitService {
     void delete(Long id);
     List<Permit>findAll();
     Permit findById(Long id);
-
+    Permit findByPermitName(String name);
 }
