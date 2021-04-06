@@ -22,8 +22,6 @@ public class Client {
     private String homePath;
 //    @Email
     private String email;
-    @OneToMany(mappedBy = "client")
-    private List<Doc>docs;
 
     public void setHomePath(String homePath){
         this.homePath = homePath.strip().replace(" ", "-");

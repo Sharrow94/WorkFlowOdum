@@ -90,9 +90,9 @@
                 <div class="bg-gray-900 py-2 collapse-inner rounded">
                     <%--                    <h6 class="collapse-header">Operacje:</h6>--%>
                     <a class="collapse-item text-gray-100"
-                       href="<c:url value="/app/user/${currentUser.id}/orders/all"/>">Lista</a>
+                       href="<c:url value="/notification/${currentUser.id}"/>">Moje powiadomienia</a>
                     <sec:authorize access="hasRole('ADMIN')">
-                        <a class="collapse-item text-gray-100" href="<c:url value="/admin/orders/all"/>">Wszystkie
+                        <a class="collapse-item text-gray-100" href="<c:url value="/notification/admin"/>">Wszystkie
                             powiadomienia</a>
                     </sec:authorize>
 

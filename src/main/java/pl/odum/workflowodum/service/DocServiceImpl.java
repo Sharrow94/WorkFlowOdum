@@ -3,12 +3,10 @@ package pl.odum.workflowodum.service;
 import lombok.AllArgsConstructor;
 import lombok.SneakyThrows;
 import org.apache.commons.io.FileUtils;
+import org.springframework.security.core.Authentication;
 import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
-import pl.odum.workflowodum.model.Client;
-import pl.odum.workflowodum.model.Doc;
-import pl.odum.workflowodum.model.Meeting;
-import pl.odum.workflowodum.model.Permit;
+import pl.odum.workflowodum.model.*;
 import pl.odum.workflowodum.repository.DocRepository;
 import pl.odum.workflowodum.repository.PermitRepository;
 import pl.odum.workflowodum.utils.DirectoryCreator;
@@ -38,6 +36,7 @@ public class DocServiceImpl implements DocService {
     private final MeetingService meetingService;
     private final DirectoryCreator directoryCreator;
     private final PermitRepository permitRepository;
+    private final DownloadLogService downloadLogService;
 
     @Override
     public List<Doc> getFiles() {
@@ -123,12 +122,13 @@ public class DocServiceImpl implements DocService {
     }
 
     @Override
-    public void download(Doc doc, HttpServletResponse response) {
+    public void download(Doc doc, HttpServletResponse response, User user) {
         response.setContentType(RESPONSE_CONTENT_TYPE);
         response.setHeader(HEADER_KEY, HEADER_VALUE + doc.getDocName());
         File file =doc.getFile();
         try (ServletOutputStream os = response.getOutputStream()) {
             os.write(FileUtils.readFileToByteArray(file));
+            downloadLogService.addOrEdit(doc,user);
         } catch (IOException e) {
             e.printStackTrace();
         }
