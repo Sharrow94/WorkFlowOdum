@@ -55,4 +55,9 @@ public class NotificationServiceImpl implements NotificationService{
     public List<Notification> findAllForUser(User user) {
         return notificationRepository.findAllForUser(user);
     }
+
+    @Override
+    public Notification findFirstByMeeting(Meeting meeting) {
+        return notificationRepository.findFirstByMeeting(meeting);
+    }
 }

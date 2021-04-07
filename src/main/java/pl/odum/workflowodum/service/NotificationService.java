@@ -1,5 +1,6 @@
 package pl.odum.workflowodum.service;
 
+import pl.odum.workflowodum.model.Meeting;
 import pl.odum.workflowodum.model.Notification;
 import pl.odum.workflowodum.model.User;
 
@@ -12,4 +13,5 @@ public interface NotificationService {
     List<Notification>findAll();
     List<Notification>findAllForAdmin(User user);
     List<Notification>findAllForUser(User user);
+    Notification findFirstByMeeting(Meeting meeting);
 }
