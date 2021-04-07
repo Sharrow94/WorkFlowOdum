@@ -3,7 +3,6 @@ package pl.odum.workflowodum.service;
 import lombok.AllArgsConstructor;
 import lombok.SneakyThrows;
 import org.apache.commons.io.FileUtils;
-import org.springframework.security.core.Authentication;
 import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
 import pl.odum.workflowodum.model.*;
@@ -35,6 +34,7 @@ public class DocServiceImpl implements DocService {
     private final DirectoryCreator directoryCreator;
     private final PermitRepository permitRepository;
     private final DownloadLogService downloadLogService;
+    private final NotificationService notificationService;
 
     @Override
     public List<Doc> getFiles() {
@@ -92,6 +92,10 @@ public class DocServiceImpl implements DocService {
 
         docRepository.save(doc);
         meetingService.save(meeting);
+
+        if(notificationService.findFirstByMeeting(meeting)!=null){
+            notificationService.delete(notificationService.findFirstByMeeting(meeting).getId());
+        }
     }
 
     @Override
@@ -104,6 +108,19 @@ public class DocServiceImpl implements DocService {
                 e.printStackTrace();
             }
         });
+    }
+
+    @Override
+    public void edit(String uuid,MultipartFile file,User user) {
+        Doc doc=docRepository.findByUuid(uuid);
+        doc.setUserEditingId(user.getId());
+        doc.setDateOfLastEdit(LocalDateTime.now());
+        try {
+            file.transferTo(doc.getFile());
+            docRepository.save(doc);
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
     }
 
     @Override
