@@ -20,10 +20,8 @@ import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.time.LocalDate;
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Objects;
-import java.util.UUID;
+import java.time.LocalTime;
+import java.util.*;
 import java.util.stream.Collectors;
 
 @Service
@@ -56,6 +54,7 @@ public class DocServiceImpl implements DocService {
         doc.setDocName(file.getOriginalFilename());
         doc.setDocType(file.getContentType());
         doc.setDateOfAdding(LocalDate.now());
+        doc.setTimeOfAdding(LocalTime.now());
         doc.setClient(client);
         doc.setPermit(permit);
         doc.setToRemove(false);
@@ -70,15 +69,12 @@ public class DocServiceImpl implements DocService {
     @Transactional
     public void addNoteToMeeting(MultipartFile file, Meeting meeting) throws IOException {
 
-//        if(!Objects.requireNonNull(FilenameUtils.getExtension(file.getOriginalFilename())).contains(".docx")){
-//            throw new IllegalStateException("File must have extension docx!");
-//        }
-
         Doc doc = new Doc();
         doc.setUuid(UUID.randomUUID().toString());
         doc.setDocName(file.getOriginalFilename());
         doc.setDocType(file.getContentType());
         doc.setDateOfAdding(LocalDate.now());
+        doc.setTimeOfAdding(LocalTime.now());
         doc.setClient(meeting.getClient());
         doc.setUserAddingId(meeting.getUser().getId());
         doc.setPermit(permitRepository.findByType("meetings"));
@@ -171,6 +167,7 @@ public class DocServiceImpl implements DocService {
         List<Meeting> meetings = meetingService.findAllByClient(client);
         List<Doc> docs = new ArrayList<>();
         meetings.forEach(m -> docs.addAll(m.getDoc().stream().filter(Objects::nonNull).collect(Collectors.toList())));
+        Collections.sort(docs);
         return docs;
     }
 
