@@ -12,5 +12,8 @@ import java.util.List;
 public interface NotificationRepository extends JpaRepository<Notification,Long> {
 
     @Query(value = "select n from Notification n where :user member of n.users")
-    List<Notification>findAlForUser(User user);
+    List<Notification>findAllForAdmin(User user);
+    Notification findFirstByMeeting_Id(Long id);
+    @Query(value = "select n from Notification n where n.meeting.user=?1")
+    List<Notification>findAllForUser(User user);
 }

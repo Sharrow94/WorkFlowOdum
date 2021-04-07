@@ -1,6 +1,7 @@
 package pl.odum.workflowodum.controller;
 
 import lombok.AllArgsConstructor;
+import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -10,10 +11,7 @@ import pl.odum.workflowodum.model.Client;
 import pl.odum.workflowodum.model.Doc;
 import pl.odum.workflowodum.model.Permit;
 import pl.odum.workflowodum.model.User;
-import pl.odum.workflowodum.service.ClientService;
-import pl.odum.workflowodum.service.DocService;
-import pl.odum.workflowodum.service.PermitService;
-import pl.odum.workflowodum.service.UserService;
+import pl.odum.workflowodum.service.*;
 
 import javax.servlet.http.HttpServletResponse;
 import java.util.List;
@@ -43,8 +41,9 @@ public class DocController {
     }
 
     @GetMapping("/download/{uuid}")
-    public void downloadFileGet(@PathVariable String uuid, HttpServletResponse response) {
+    public void downloadFileGet(@PathVariable String uuid, HttpServletResponse response, Authentication auth) {
         Doc doc = docService.findByUuid(uuid);
-        docService.download(doc, response);
+        User user=userService.findByUserName(auth.getName());
+        docService.download(doc, response,user);
     }
 }

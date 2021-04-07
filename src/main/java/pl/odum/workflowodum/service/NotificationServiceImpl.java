@@ -25,12 +25,14 @@ public class NotificationServiceImpl implements NotificationService{
         List<Meeting> meetings = meetingService.findAllOutOfDate();
         List<User> usersForNotification = userService.findAllAdmins();
         meetings.forEach(meeting -> {
-            Notification notification = new Notification();
-            usersForNotification.add(meeting.getUser());
-            notification.setUsers(usersForNotification);
-            notification.setMeeting(meeting);
-            notification.setDescription();
-            notificationRepository.save(notification);
+            if(notificationRepository.findFirstByMeeting_Id(meeting.getId())==null){
+                Notification notification = new Notification();
+                usersForNotification.add(meeting.getUser());
+                notification.setUsers(usersForNotification);
+                notification.setMeeting(meeting);
+                notification.setDescription();
+                notificationRepository.save(notification);
+            }
         });
     }
 
@@ -42,5 +44,15 @@ public class NotificationServiceImpl implements NotificationService{
     @Override
     public List<Notification> findAll() {
         return null;
+    }
+
+    @Override
+    public List<Notification> findAllForAdmin(User user) {
+        return notificationRepository.findAllForAdmin(user);
+    }
+
+    @Override
+    public List<Notification> findAllForUser(User user) {
+        return notificationRepository.findAllForUser(user);
     }
 }
