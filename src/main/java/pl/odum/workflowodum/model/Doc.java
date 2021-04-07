@@ -6,17 +6,19 @@ import javax.persistence.*;
 import java.io.File;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
+import java.time.LocalTime;
 
 @Data
 @Entity
 @NoArgsConstructor
-public class Doc {
+public class Doc implements Comparable<Doc> {
 
     @Id
     private String uuid;
     private String docName;
     private String docType;
     private LocalDate dateOfAdding;
+    private LocalTime timeOfAdding;
     private LocalDateTime dateOfLastEdit;
     private Long userAddingId;
     private Long userEditingId;
@@ -38,5 +40,14 @@ public class Doc {
 
     public File getFile(){
         return new File(fullPath());
+    }
+
+    public LocalDateTime getDateTimeOfAdding(){
+        return LocalDateTime.of(this.dateOfAdding, this.timeOfAdding);
+    }
+
+    @Override
+    public int compareTo(Doc o) {
+        return getDateTimeOfAdding().compareTo(o.getDateTimeOfAdding());
     }
 }
