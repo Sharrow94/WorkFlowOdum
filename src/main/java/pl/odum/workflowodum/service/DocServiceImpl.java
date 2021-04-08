@@ -93,9 +93,9 @@ public class DocServiceImpl implements DocService {
 
         docRepository.save(doc);
         meetingService.save(meeting);
-
-        if(notificationService.findFirstByMeeting(meeting)!=null){
-            notificationService.delete(notificationService.findFirstByMeeting(meeting).getId());
+        Notification notification= notificationService.findFirstByMeeting(meeting);
+        if(notification!=null){
+            notificationService.delete(notification);
         }
     }
 

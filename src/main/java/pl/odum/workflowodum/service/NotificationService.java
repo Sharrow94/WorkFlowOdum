@@ -9,7 +9,7 @@ import java.util.List;
 public interface NotificationService {
 
     void save();
-    void delete(Long id);
+    void delete(Notification notification);
 
     List<Notification> findAll();
     List<Notification> findAllForAdmin(User admin);

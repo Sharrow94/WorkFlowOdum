@@ -38,8 +38,8 @@ public class NotificationServiceImpl implements NotificationService {
     }
 
     @Override
-    public void delete(Long id) {
-
+    public void delete(Notification notification){
+        notificationRepository.delete(notification);
     }
 
     @Override
