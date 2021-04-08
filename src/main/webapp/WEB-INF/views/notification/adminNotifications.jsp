@@ -75,15 +75,15 @@
                             </tr>
                             </tfoot>
                             <tbody>
-                            <c:forEach items="${notifications}" var="notification">
+                            <c:forEach items="${notificationsForAdmin}" var="notificationForAdmin">
                                 <tr role="row" class="odd">
-                                    <td><c:out value="${notification.meeting.user.userName}"/></td>
-                                    <td><c:out value="${notification.meeting.client.name}"/></td>
-                                    <td><c:out value="${notification.meeting.id}"/></td>
-                                    <td><c:out value="${notification.description}"/></td>
+                                    <td><c:out value="${notificationForAdmin.meeting.user.userName}"/></td>
+                                    <td><c:out value="${notificationForAdmin.meeting.client.name}"/></td>
+                                    <td><c:out value="${notificationForAdmin.meeting.id}"/></td>
+                                    <td><c:out value="${notificationForAdmin.description}"/></td>
                                     <td nowrap="nowrap">
 
-                                        <a href='/app/meeting/details/${notification.meeting.id}'
+                                        <a href='/app/meeting/details/${notificationForAdmin.meeting.id}'
                                            class="btn btn-primary"
                                            style="background-color:#81994D; border-color:#81994D;color:#3a3b45">Szczegóły</a>
                                     </td>

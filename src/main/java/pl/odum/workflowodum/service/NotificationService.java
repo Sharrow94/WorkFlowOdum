@@ -16,5 +16,6 @@ public interface NotificationService {
     List<Notification> findAllForAdmin(String username);
     List<Notification> findAllForUser(User user);
     List<Notification> findAllForUser(String username);
+    Notification findFirstByMeeting(Meeting meeting);
 
 }
