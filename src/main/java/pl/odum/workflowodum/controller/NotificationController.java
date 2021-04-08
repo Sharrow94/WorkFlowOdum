@@ -21,7 +21,6 @@ public class NotificationController {
 
     @GetMapping("/admin/notifications")
     public String showAdminNotifications(Model model, Authentication auth){
-        System.out.println(notificationService.findAllForAdmin(auth.getName()));
         model.addAttribute("notificationsForAdmin", notificationService.findAllForAdmin(auth.getName()));
         return "notification/adminNotifications";
     }
