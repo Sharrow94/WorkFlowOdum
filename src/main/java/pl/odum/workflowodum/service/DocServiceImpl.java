@@ -102,6 +102,7 @@ public class DocServiceImpl implements DocService {
     @Override
     @Transactional
     public void addNotesToMeeting(List<MultipartFile> files, Meeting meeting) {
+        //todo: usun powiadomienie w momencie zapisu pliku
         files.forEach(file -> {
             try {
                 addNoteToMeeting(file, meeting);

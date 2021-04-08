@@ -5,10 +5,11 @@ import pl.odum.workflowodum.model.Meeting;
 import pl.odum.workflowodum.model.Notification;
 import pl.odum.workflowodum.model.User;
 import pl.odum.workflowodum.repository.NotificationRepository;
+
 import java.util.List;
 
 @Service
-public class NotificationServiceImpl implements NotificationService{
+public class NotificationServiceImpl implements NotificationService {
 
     private final NotificationRepository notificationRepository;
     private final MeetingService meetingService;
@@ -25,7 +26,7 @@ public class NotificationServiceImpl implements NotificationService{
         List<Meeting> meetings = meetingService.findAllOutOfDate();
         List<User> usersForNotification = userService.findAllAdmins();
         meetings.forEach(meeting -> {
-            if(notificationRepository.findFirstByMeeting_Id(meeting.getId())==null){
+            if (notificationRepository.findFirstByMeeting_Id(meeting.getId()) == null) {
                 Notification notification = new Notification();
                 usersForNotification.add(meeting.getUser());
                 notification.setUsers(usersForNotification);
@@ -47,8 +48,20 @@ public class NotificationServiceImpl implements NotificationService{
     }
 
     @Override
-    public List<Notification> findAllForAdmin(User user) {
-        return notificationRepository.findAllForAdmin(user);
+    public List<Notification> findAllForAdmin(String username) {
+        User user = userService.findByUserName(username);
+        return findAllForAdmin(user);
+    }
+
+    @Override
+    public List<Notification> findAllForAdmin(User admin) {
+        return notificationRepository.findAllForAdmin(admin);
+    }
+
+    @Override
+    public List<Notification> findAllForUser(String username) {
+        User user = userService.findByUserName(username);
+        return findAllForUser(user);
     }
 
     @Override
