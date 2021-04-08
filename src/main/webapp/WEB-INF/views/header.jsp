@@ -44,14 +44,7 @@
                 pageContext.setAttribute("currentUser", currentUser);
                 List<Notification> notifications = notificationService.findAllForUser(currentUser);
                 pageContext.setAttribute("notificationNumber", notifications.size());
-                if(notifications.size()>4){
-                    List<Notification> notificationList = notifications.stream().limit(4).collect(Collectors.toList());
-                    pageContext.setAttribute("notifications", notificationList);
-                }
-                else {
-                    pageContext.setAttribute("notifications", notifications);
-                }
-
+                pageContext.setAttribute("notifications", notifications.stream().limit(4).collect(Collectors.toList()));
 
     %>
 <!-- Page Wrapper -->
