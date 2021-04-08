@@ -10,6 +10,7 @@ import pl.odum.workflowodum.repository.DocRepository;
 import pl.odum.workflowodum.repository.PermitRepository;
 import pl.odum.workflowodum.utils.DirectoryCreator;
 import pl.odum.workflowodum.word.WordMerge;
+
 import javax.servlet.ServletOutputStream;
 import javax.servlet.http.HttpServletResponse;
 import javax.transaction.Transactional;
@@ -21,8 +22,9 @@ import java.nio.file.Paths;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.LocalTime;
-import java.util.*;
-import java.util.stream.Collectors;
+import java.util.Collections;
+import java.util.List;
+import java.util.UUID;
 
 @Service
 @AllArgsConstructor
@@ -102,7 +104,6 @@ public class DocServiceImpl implements DocService {
     @Override
     @Transactional
     public void addNotesToMeeting(List<MultipartFile> files, Meeting meeting) {
-        //todo: usun powiadomienie w momencie zapisu pliku
         files.forEach(file -> {
             try {
                 addNoteToMeeting(file, meeting);
