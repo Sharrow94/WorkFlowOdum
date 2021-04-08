@@ -5,12 +5,7 @@ import org.springframework.security.core.Authentication;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestMapping;
-import pl.odum.workflowodum.model.User;
-import pl.odum.workflowodum.repository.RoleRepository;
 import pl.odum.workflowodum.service.NotificationService;
-import pl.odum.workflowodum.service.UserService;
 
 
 @Controller
@@ -24,6 +19,10 @@ public class NotificationController {
         return "notification/myNotifications";
     }
 
-
+    @GetMapping("/admin/notifications")
+    public String showAdminNotifications(Model model, Authentication auth){
+        model.addAttribute("notifications", notificationService.findAllForAdmin(auth.getName()));
+        return "notification/adminNotifications";
+    }
 
 }

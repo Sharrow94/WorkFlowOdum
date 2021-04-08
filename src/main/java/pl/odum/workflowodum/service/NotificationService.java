@@ -9,8 +9,9 @@ public interface NotificationService {
 
     void save();
     void delete(Long id);
-    List<Notification>findAll();
-    List<Notification>findAllForAdmin(User user);
-    List<Notification>findAllForUser(User user);
-    List<Notification>findAllForUser(String username);
+    List<Notification> findAll();
+    List<Notification> findAllForAdmin(User admin);
+    List<Notification> findAllForAdmin(String username);
+    List<Notification> findAllForUser(User user);
+    List<Notification> findAllForUser(String username);
 }

@@ -101,7 +101,7 @@
                     <a class="collapse-item text-gray-100"
                        href="/app/notifications">Moje powiadomienia</a>
                     <sec:authorize access="hasRole('ADMIN')">
-                        <a class="collapse-item text-gray-100" href="<c:url value="/notification/admin"/>">Wszystkie
+                        <a class="collapse-item text-gray-100" href="<c:url value="/admin/notifications"/>">Wszystkie
                             powiadomienia</a>
                     </sec:authorize>
 

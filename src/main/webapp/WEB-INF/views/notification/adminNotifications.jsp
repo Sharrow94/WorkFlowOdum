@@ -51,6 +51,9 @@
                             <tr role="row">
                                 <th class="sorting" tabindex="0" aria-controls="dataTable" rowspan="1" colspan="1"
                                     aria-label="Position: activate to sort column ascending" style="width: 160px;">
+                                    Prowadzący spotkanie</th>
+                                <th class="sorting" tabindex="0" aria-controls="dataTable" rowspan="1" colspan="1"
+                                    aria-label="Position: activate to sort column ascending" style="width: 160px;">
                                     Klient</th>
                                 <th class="sorting" tabindex="0" aria-controls="dataTable" rowspan="1" colspan="1"
                                     aria-label="Office: activate to sort column ascending" style="width: 132px;">
@@ -64,6 +67,7 @@
                             </thead>
                             <tfoot>
                             <tr>
+                                <th rowspan="1" colspan="1">Prowadzący spotkanie</th>
                                 <th rowspan="1" colspan="1">Klient</th>
                                 <th rowspan="1" colspan="1">Spotkanie</th>
                                 <th rowspan="1" colspan="1">Treść</th>
@@ -73,6 +77,7 @@
                             <tbody>
                             <c:forEach items="${notifications}" var="notification">
                                 <tr role="row" class="odd">
+                                    <td><c:out value="${notification.meeting.user.userName}"/></td>
                                     <td><c:out value="${notification.meeting.client.name}"/></td>
                                     <td><c:out value="${notification.meeting.id}"/></td>
                                     <td><c:out value="${notification.description}"/></td>
@@ -80,7 +85,7 @@
 
                                         <a href='/app/meeting/details/${notification.meeting.id}'
                                            class="btn btn-primary"
-                                           style="background-color:#81994D; border-color:#81994D;color:#3a3b45">Dodaj notatkę</a>
+                                           style="background-color:#81994D; border-color:#81994D;color:#3a3b45">Szczegóły</a>
                                     </td>
 
                                 </tr>
