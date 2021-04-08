@@ -16,15 +16,14 @@ import pl.odum.workflowodum.service.UserService;
 @Controller
 @AllArgsConstructor
 public class NotificationController {
-
     private final NotificationService notificationService;
-    private final UserService userService;
-    private final RoleRepository roleRepository;
 
     @GetMapping("/app/notifications")
-    public String showNotifications(Model model, Authentication auth){
+    public String showMyNotifications(Model model, Authentication auth){
         model.addAttribute("notifications", notificationService.findAllForUser(auth.getName()));
         return "notification/myNotifications";
     }
+
+
 
 }

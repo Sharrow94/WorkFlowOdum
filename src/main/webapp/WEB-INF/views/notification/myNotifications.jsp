@@ -51,32 +51,37 @@
                             <tr role="row">
                                 <th class="sorting" tabindex="0" aria-controls="dataTable" rowspan="1" colspan="1"
                                     aria-label="Position: activate to sort column ascending" style="width: 160px;">
-                                    Klient</th>
+                                    Prowadzący spotkanie</th>
                                 <th class="sorting" tabindex="0" aria-controls="dataTable" rowspan="1" colspan="1"
                                     aria-label="Office: activate to sort column ascending" style="width: 132px;">
-                                    NIP</th>
+                                    Spotkanie</th>
+                                <th class="sorting" tabindex="0" aria-controls="dataTable" rowspan="1" colspan="1"
+                                    aria-label="Office: activate to sort column ascending" style="width: 132px;">
+                                    Treść</th>
                                 <th class="sorting" tabindex="0" aria-controls="dataTable" rowspan="1" colspan="1"
                                     aria-label="Salary: activate to sort column ascending" style="width: 250px;">
                                     Akcje</th>
                             </thead>
                             <tfoot>
                             <tr>
-                                <th rowspan="1" colspan="1">Nazwa użytkownika</th>
-                                <th rowspan="1" colspan="1">NIP</th>
+                                <th rowspan="1" colspan="1">Prowadzący spotkanie</th>
+                                <th rowspan="1" colspan="1">Spotkanie</th>
+                                <th rowspan="1" colspan="1">Treść</th>
                                 <th rowspan="1" colspan="1">Akcje</th>
                             </tr>
                             </tfoot>
                             <tbody>
                             <c:forEach items="${notifications}" var="notification">
                                 <tr role="row" class="odd">
-                                    <td><c:out value="${client.name}"/></td>
-                                    <td><c:out value="${client.nip}"/></td>
+                                    <td><c:out value="${notification.meeting.user.userName}"/></td>
+                                    <td><c:out value="${notification.meeting.id}"/></td>
+                                    <td><c:out value="${notification.description}"/></td>
                                     <td nowrap="nowrap">
 
-                                        <a href='<c:url value="/app/client/${client.id}"/>'
+                                        <a href='#'
                                            class="btn btn-primary"
                                            style="background-color:#81994D; border-color:#81994D;color:#3a3b45">Szczegóły</a>
-                                        <a href='<c:url value="/app/client/edit/${client.id}"/>'
+                                        <a href='#'
                                            class="btn btn-primary"
                                            style="background-color:#81994D; border-color:#81994D;color:#3a3b45">Edytuj</a>
                                     </td>
