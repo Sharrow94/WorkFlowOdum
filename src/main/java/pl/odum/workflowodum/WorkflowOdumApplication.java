@@ -20,7 +20,7 @@ public class WorkflowOdumApplication {
     }
 
 
-    @Scheduled(fixedRate = 5000L)
+    @Scheduled(cron = "0 0 0 * * *")
     void executeTasks(){
         notificationService.save();
         docService.removeDocs();
