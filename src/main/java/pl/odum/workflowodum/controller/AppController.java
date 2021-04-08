@@ -47,4 +47,5 @@ public class AppController {
         Client client = clientService.findById(clientId);
         docService.downloadMergedClientsDocx(client, response);
     }
+
 }

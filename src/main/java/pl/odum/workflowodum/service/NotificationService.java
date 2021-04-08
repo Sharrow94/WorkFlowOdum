@@ -12,4 +12,5 @@ public interface NotificationService {
     List<Notification>findAll();
     List<Notification>findAllForAdmin(User user);
     List<Notification>findAllForUser(User user);
+    List<Notification>findAllForUser(String username);
 }

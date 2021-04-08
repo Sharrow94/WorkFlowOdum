@@ -99,7 +99,7 @@
                 <div class="bg-gray-900 py-2 collapse-inner rounded">
                     <%--                    <h6 class="collapse-header">Operacje:</h6>--%>
                     <a class="collapse-item text-gray-100"
-                       href="<c:url value="/notification/${currentUser.id}"/>">Moje powiadomienia</a>
+                       href="/app/notifications">Moje powiadomienia</a>
                     <sec:authorize access="hasRole('ADMIN')">
                         <a class="collapse-item text-gray-100" href="<c:url value="/notification/admin"/>">Wszystkie
                             powiadomienia</a>
@@ -262,7 +262,7 @@
                             </a>
                             </c:forEach>
 
-                            <a class="dropdown-item text-center small text-gray-500" href="#">Show All Alerts</a>
+                            <a class="dropdown-item text-center small text-gray-500" href="/app/notifications">Pokaż więcej</a>
                         </div>
                     </li>
 
