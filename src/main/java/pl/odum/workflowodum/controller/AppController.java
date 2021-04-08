@@ -27,9 +27,8 @@ public class AppController {
     private final ClientService clientService;
 
     @GetMapping("/meeting/details/{meetingId}")
-    public String meetingDetailsGet(@PathVariable Long meetingId, Model model, Authentication auth){
+    public String meetingDetailsGet(@PathVariable Long meetingId, Model model){
         model.addAttribute("meeting", meetingService.findById(meetingId));
-        model.addAttribute("user", userService.findByUserName(auth.getName()));
         return "meeting/meetingDetails";
     }
 

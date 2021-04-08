@@ -36,7 +36,7 @@
                                 </tr>
                                 <tr role="row" class="odd">
                                     <td>Pracownik</td>
-                                    <td>${user.firstName} ${user.lastName}</td>
+                                    <td>${meeting.user.firstName} ${meeting.user.lastName}</td>
                                 </tr>
                                 <tr role="row" class="odd">
                                     <td>Liczba notatek</td>
