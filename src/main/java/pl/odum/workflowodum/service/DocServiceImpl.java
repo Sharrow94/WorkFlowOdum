@@ -176,19 +176,10 @@ public class DocServiceImpl implements DocService {
     @SneakyThrows
     @Override
     public void downloadMergedClientsDocx(Client client, HttpServletResponse response) {
-        List<Doc> docs = findAllByClient(client);
-        List<Doc> collect = docs.stream().filter(doc -> doc.getSourcePath().endsWith("/meetings")).collect(Collectors.toList());
-        mergeDocs(collect,response);
-    }
-
-    private List<Doc> findAllByClient(Client client) {
-        List<Meeting> meetings = meetingService.findAllByClient(client);
-        List<Doc> docs = new ArrayList<>();
-        meetings.forEach(m -> docs.addAll(m.getDoc().stream().filter(Objects::nonNull).collect(Collectors.toList())));
+        List<Doc> docs = docRepository.findAllForClientMeetings(client);
         Collections.sort(docs);
-        return docs;
+        mergeDocs(docs,response);
     }
-
 
     private void mergeDocs(List<Doc>docs,HttpServletResponse response){
         response.setContentType(RESPONSE_CONTENT_TYPE);
