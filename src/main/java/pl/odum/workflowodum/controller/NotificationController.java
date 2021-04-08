@@ -15,7 +15,7 @@ public class NotificationController {
 
     @GetMapping("/app/notifications")
     public String showMyNotifications(Model model, Authentication auth){
-        model.addAttribute("notifications", notificationService.findAllForUser(auth.getName()));
+        model.addAttribute("notificationsForUser", notificationService.findAllForUser(auth.getName()));
         return "notification/myNotifications";
     }
 

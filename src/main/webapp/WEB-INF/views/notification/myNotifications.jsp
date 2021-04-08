@@ -71,7 +71,7 @@
                             </tr>
                             </tfoot>
                             <tbody>
-                            <c:forEach items="${notifications}" var="notification">
+                            <c:forEach items="${notificationsForUser}" var="notification">
                                 <tr role="row" class="odd">
                                     <td><c:out value="${notification.meeting.client.name}"/></td>
                                     <td><c:out value="${notification.meeting.id}"/></td>
