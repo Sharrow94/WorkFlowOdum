@@ -28,7 +28,7 @@ public class ClientController {
     @PostMapping("/add")
     public String addClientPost(Client client) throws FileNotFoundException {
         clientService.save(client);
-        return "redirect:/home";
+        return "redirect:/app/client/list";
     }
 
     @GetMapping("/list")
@@ -43,15 +43,18 @@ public class ClientController {
         return "client/details";
     }
 
-    @GetMapping("edit/{id}")
+    @GetMapping("/edit/{id}")
     public String showEditForm(@PathVariable("id")Long id,Model model){
         model.addAttribute("client",clientService.findById(id));
         return "client/edit";
     }
 
-    @PostMapping("edit")
+    @PostMapping("/edit")
     public String edit(Client client){
         clientService.edit(client);
         return "redirect:/client/list";
     }
+
 }
+
+

@@ -3,6 +3,17 @@
 <%@ taglib prefix="spring" uri="http://www.springframework.org/tags" %>
 <%@ include file="../header.jsp" %>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+<script>
+    $(document).ready(function(){
+        $("#data").on("keyup", function() {
+            let value = $(this).val().toLowerCase();
+            $("#myTable tr").filter(function() {
+                $(this).toggle($(this).text().toLowerCase().indexOf(value) > -1)
+            });
+        });
+    });
+</script>
 <div class="container-fluid">
     <div class="card shadow mb-4">
         <div class="card-header py-3">
@@ -31,15 +42,18 @@
                             </label>
                             </div>
                         </div>
+
                         <div class="col-sm-12 col-md-6">
 
                             <div id="dataTable_filter" class="dataTables_filter"
                                  style="position: absolute;  right: 0;width: 250px;">
-                                <label>Szukaj:<input type="search"
+                                <label>Szukaj:<input id="data" type="search"
                                                      class="form-control form-control-sm"
                                                      placeholder=""
                                                      aria-controls="dataTable"></label>
                             </div>
+
+
                         </div>
                     </div>
 
@@ -66,7 +80,7 @@
                                 <th rowspan="1" colspan="1">Akcje</th>
                             </tr>
                             </tfoot>
-                            <tbody>
+                            <tbody id="myTable">
                             <c:forEach items="${clients}" var="client">
                                 <tr role="row" class="odd">
                                     <td><c:out value="${client.name}"/></td>
