@@ -70,7 +70,14 @@ public class ClientController {
     @GetMapping("/{id}/employee/add")
     public String showAddForm(@PathVariable("id")Long id,Model model){
         model.addAttribute("employee",new ClientEmployee());
+        model.addAttribute("clientName",clientService.findById(id).getName());
         model.addAttribute("clientId",id);
         return "client/addEmployee";
+    }
+
+    @PostMapping("/{id}/employee/addEmployee")
+    public String addEmployee(ClientEmployee employee,@PathVariable("id")Long id){
+        clientService.addEmployeeToClient(id, employee);
+        return "redirect:";
     }
 }

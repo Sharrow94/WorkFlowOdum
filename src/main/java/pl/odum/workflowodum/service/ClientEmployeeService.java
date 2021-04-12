@@ -16,4 +16,12 @@ public class ClientEmployeeService {
     public List<ClientEmployee> findAllForClient(Long id){
         return clientEmployeeRepository.findEmployeesForClient(id);
     }
+
+    public void save(ClientEmployee clientEmployee){
+        clientEmployeeRepository.save(clientEmployee);
+    }
+
+    public ClientEmployee findToAddToClient(String firstName,String lastName,String email){
+        return clientEmployeeRepository.findByFirstNameAndAndLastNameAndEmail(firstName, lastName, email);
+    }
 }
