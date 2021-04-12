@@ -8,6 +8,7 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import pl.odum.workflowodum.model.Meeting;
+import pl.odum.workflowodum.model.User;
 import pl.odum.workflowodum.service.ClientService;
 import pl.odum.workflowodum.service.MeetingService;
 import pl.odum.workflowodum.service.UserService;
@@ -21,10 +22,10 @@ public class MeetingController {
     private final UserService userService;
     private final ClientService  clientService;
 
-    @RequestMapping("/all")
-    public String showMeetingsForUser(Model model){
-        String name = SecurityContextHolder.getContext().getAuthentication().getName();
-        model.addAttribute("meetings",meetingService.findAllForUser(userService.findByUserName(name)));
+    @RequestMapping("/all/{userId}")
+    public String showMeetingsForUser(Model model,@PathVariable("userId")Long id){
+        User user= userService.get(id);
+        model.addAttribute("meetings",meetingService.findAllForUser(user));
         return "meeting/meetingForUser";
     }
 

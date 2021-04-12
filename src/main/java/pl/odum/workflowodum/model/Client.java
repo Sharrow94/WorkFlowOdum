@@ -22,6 +22,8 @@ public class Client {
     private String homePath;
 //    @Email
     private String email;
+    @OneToMany
+    private List<ClientEmployee>employees;
 
     public void setHomePath(String homePath){
         this.homePath = homePath.strip().replace(" ", "-");

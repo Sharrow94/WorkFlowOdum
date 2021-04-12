@@ -6,49 +6,74 @@
     <meta charset="UTF-8">
     <title>File Upload / Download</title>
 </head>
+<%@ include file="header.jsp" %>
 <body>
-<div>
-    <h3>Upload Multiple Files</h3>
-    <form:form modelAttribute="docs" method="post" action="/upload" encType="multipart/form-data">
-        <input type="file" name="files" multiple required/>
-        <select name="client">
-            <c:forEach items="${clients}" var="client">
-                <option value="${client.id}">
-                        ${client.name}
-                </option>
-            </c:forEach>
-        </select>
-        <select name="permit">
-            <c:forEach items="${permits}" var="permit">
-                <option value="${permit.id}">
-                        ${permit.type}
-                </option>
-            </c:forEach>
-        </select>
-        <button type="submit">Submit</button>
-    </form:form>
-</div>
+<div class="container">
 
-<div>
-    <h3>List of Documents</h3>
-    <table>
-        <thead>
-        <tr>
-            <th>Name</th>
-            <th>Download Link</th>
-        </tr>
-        </thead>
-        <tbody>
-        <c:forEach items="${docs}" var="doc">
-            <tr>
-                <td>${doc.docName}</td>
-                <td><a href="/download/${doc.uuid}">Download</a></td>
-            </tr>
-        </c:forEach>
+    <div class="card o-hidden border-0 shadow-lg my-5">
+        <div class="card-body p-0">
+            <!-- Nested Row within Card Body -->
+            <div class="row">
+                <div class="col-lg-5 d-none d-lg-block bg-register-image"></div>
+                <div class="col-lg-7">
+                    <div class="p-5">
+                        <div>
+                            <div>
+                                <h3>Wrzuć pliki:</h3>
+                                <form:form modelAttribute="docs" method="post" action="/upload"
+                                           encType="multipart/form-data">
+                            </div>
 
-        </tbody>
-    </table>
+                            <div>
+                                <div class="align-items-stretch">
+                                    <p><h4>Klient:</h4></p>
+                                    <p>
+                                        <select name="client" class="form-control form-control-user">
+                                            <c:forEach items="${clients}" var="client">
+                                                <option value="${client.id}">
+                                                        ${client.name}
+                                                </option>
+                                            </c:forEach>
+                                        </select>
+                                    </p>
+                                </div>
+                                <div>
+                                    <div class="align-items-stretch">
+                                        <p><h5>Folder: </h5></p>
+                                        <p>
+                                            <select name="permit" class="form-control form-control-user">
+                                                <c:forEach items="${permits}" var="permit">
+                                                    <option value="${permit.id}">
+                                                            ${permit.type}
+                                                    </option>
+                                                </c:forEach>
+                                            </select>
+                                        </p>
+                                    </div>
+
+                                </div>
+
+                            </div>
+                            <div class="align-items-stretch">
+                                <p>
+                                    <input class="btn btn-primary btn-user btn-block" value="Załącz pliki" type="file"
+                                           name="files" multiple required/>
+                                </p>
+                                <p>
+                                    <button type="submit" class="btn btn-primary btn-user btn-block">Zatwierdź</button>
+                                </p>
+                            </div>
+                            </form:form>
+                        </div>
+
+
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
 </div>
 
 </body>
+<%@ include file="footer.jsp" %>
 </html>

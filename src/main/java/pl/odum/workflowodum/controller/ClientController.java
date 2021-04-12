@@ -8,6 +8,9 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import pl.odum.workflowodum.model.Client;
+import pl.odum.workflowodum.model.ClientEmployee;
+import pl.odum.workflowodum.repository.ClientEmployeeRepository;
+import pl.odum.workflowodum.service.ClientEmployeeService;
 import pl.odum.workflowodum.service.ClientService;
 
 import java.io.FileNotFoundException;
@@ -18,6 +21,7 @@ import java.io.FileNotFoundException;
 public class ClientController {
 
     private final ClientService clientService;
+    private final ClientEmployeeService clientEmployeeService;
 
     @GetMapping("/add")
     public String addClientGet(Model model){
@@ -43,15 +47,30 @@ public class ClientController {
         return "client/details";
     }
 
-    @GetMapping("edit/{id}")
+    @GetMapping("/edit/{id}")
     public String showEditForm(@PathVariable("id")Long id,Model model){
         model.addAttribute("client",clientService.findById(id));
         return "client/edit";
     }
 
-    @PostMapping("edit")
+    @PostMapping("/edit")
     public String edit(Client client){
         clientService.edit(client);
         return "redirect:/client/list";
+    }
+
+    @GetMapping("/{id}/employee")
+    public String showEmployees(@PathVariable("id")Long id,Model model){
+        model.addAttribute("employees",clientEmployeeService.findAllForClient(id));
+        model.addAttribute("clientName",clientService.findById(id).getName());
+        model.addAttribute("clientId",id);
+        return "client/clientEmployees";
+    }
+
+    @GetMapping("/{id}/employee/add")
+    public String showAddForm(@PathVariable("id")Long id,Model model){
+        model.addAttribute("employee",new ClientEmployee());
+        model.addAttribute("clientId",id);
+        return "client/addEmployee";
     }
 }
