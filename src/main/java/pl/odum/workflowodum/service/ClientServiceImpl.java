@@ -14,9 +14,10 @@ import java.util.List;
 @AllArgsConstructor
 public class ClientServiceImpl implements ClientService {
     private final static String USERS_BASE_PATH = "/home/maciej/odum-docs/clients";
+
     private final ClientRepository clientRepository;
     private final DirectoryCreator directoryCreator;
-
+    private final ClientEmployeeService clientEmployeeService;
     @Override
     @Transactional
     public void save(Client client){
@@ -52,7 +53,12 @@ public class ClientServiceImpl implements ClientService {
     @Override
     public void addEmployeeToClient(Long id, ClientEmployee employee) {
         Client client=clientRepository.findById(id).orElseThrow(IllegalArgumentException::new);
-        client.getEmployees().add(employee);
+
+        clientEmployeeService.save(employee);
+
+        ClientEmployee clientEmployee=clientEmployeeService.findToAddToClient(employee.getFirstName(),employee.getLastName(),employee.getEmail());
+        client.getEmployees().add(clientEmployee);
+
         clientRepository.save(client);
     }
 

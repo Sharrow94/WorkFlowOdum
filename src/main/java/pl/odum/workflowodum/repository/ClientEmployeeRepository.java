@@ -12,4 +12,6 @@ public interface ClientEmployeeRepository extends JpaRepository<ClientEmployee,L
 
     @Query(value = "select c.employees from Client c where c.id=?1")
     List<ClientEmployee>findEmployeesForClient(Long id);
+
+    ClientEmployee findByFirstNameAndAndLastNameAndEmail(String firstName,String lastName,String email);
 }
