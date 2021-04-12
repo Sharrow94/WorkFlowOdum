@@ -32,8 +32,11 @@
                                 <td>${client.name}</td>
                             </tr>
                             <tr role="row" class="odd">
-                                <td>Email</td>
-                                <td>${client.email}</td>
+                                <td>Osoby do kontaktu</td>
+                                <td>
+                                    <a href="/app/client/${client.id}/employee" class="btn btn-primary btn-user btn-block">
+                                        Pokaż</a>
+                                </td>
                             </tr>
                             <tr role="row" class="odd">
                                 <td>NIP</td>

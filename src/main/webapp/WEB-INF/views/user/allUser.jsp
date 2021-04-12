@@ -119,6 +119,10 @@
                                                class="btn btn-primary"
                                                style="background-color:#81994D; border-color:#81994D;color:#3a3b45"><spring:message
                                                     code="app.changeAuthorization"/></a>
+                                            <a href='<c:url value="/app/meeting/all/${user.id}"/>'
+                                               class="btn btn-primary"
+                                               style="background-color:#81994D; border-color:#81994D;color:#3a3b45"><spring:message
+                                                    code="app.meetings"/></a>
 
 <%--                                            <a href='<c:url value="/admin/user/delete/${user.id}"/>'--%>
 <%--                                               class="btn btn-primary"--%>

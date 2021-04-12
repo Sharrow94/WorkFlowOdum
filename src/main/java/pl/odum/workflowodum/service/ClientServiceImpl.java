@@ -3,6 +3,7 @@ package pl.odum.workflowodum.service;
 import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Service;
 import pl.odum.workflowodum.model.Client;
+import pl.odum.workflowodum.model.ClientEmployee;
 import pl.odum.workflowodum.repository.ClientRepository;
 import pl.odum.workflowodum.utils.DirectoryCreator;
 import javax.transaction.Transactional;
@@ -47,4 +48,13 @@ public class ClientServiceImpl implements ClientService {
     public List<Client> findAll() {
         return clientRepository.findAll();
     }
+
+    @Override
+    public void addEmployeeToClient(Long id, ClientEmployee employee) {
+        Client client=clientRepository.findById(id).orElseThrow(IllegalArgumentException::new);
+        client.getEmployees().add(employee);
+        clientRepository.save(client);
+    }
+
+
 }
