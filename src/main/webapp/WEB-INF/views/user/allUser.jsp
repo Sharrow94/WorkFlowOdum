@@ -28,33 +28,6 @@
         <div class="card-body">
             <div class="table-responsive">
                 <div id="dataTable_wrapper" class="dataTables_wrapper dt-bootstrap4">
-                    <div class="row">
-                        <div class="col-sm-12 col-md-6">
-                            <div class="dataTables_length" id="dataTable_length"><label><spring:message
-                                    code="app.show"/>
-                                <select
-                                        name="dataTable_length" aria-controls="dataTable"
-                                        class="custom-select custom-select-sm form-control form-control-sm">
-                                    <option value="10">10 <spring:message code="app.pages"/></option>
-                                    <option value="25">25 <spring:message code="app.pages"/></option>
-                                    <option value="50">50 <spring:message code="app.pages"/></option>
-                                    <option value="100">100 <spring:message code="app.pages"/></option>
-
-                                </select>
-                            </label>
-                            </div>
-                        </div>
-                        <div class="col-sm-12 col-md-6">
-                            <div id="dataTable_filter" class="dataTables_filter"
-                                 style="position: absolute;  right: 0;width: 250px;">
-                                <label><spring:message code="app.search"/>:<input type="search"
-                                                                                  class="form-control form-control-sm"
-                                                                                  placeholder=""
-                                                                                  aria-controls="dataTable"></label>
-                            </div>
-                        </div>
-                    </div>
-
 
                     <div class="col-sm-12">
                         <table class="table table-bordered dataTable" id="dataTable" width="100%" cellspacing="0"
@@ -128,7 +101,6 @@
 <%--                                    </sec:authorize>--%>
                                 </tr>
                             </c:forEach>
-
                             </tbody>
                         </table>
                     </div>

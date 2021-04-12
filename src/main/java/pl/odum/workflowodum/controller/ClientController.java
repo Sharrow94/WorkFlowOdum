@@ -52,7 +52,7 @@ public class ClientController {
     @PostMapping("/edit")
     public String edit(Client client){
         clientService.edit(client);
-        return "redirect:/client/list";
+        return "redirect:/app/client/list";
     }
 
 }
