@@ -37,8 +37,13 @@
                                     <td>${meeting.dateOfMeeting}</td>
                                 </tr>
                                 <tr role="row" class="odd">
+                                    <td>Nazwa dokumentu</td>
+                                    <td>${doc.docName}</td>
+                                </tr>
+                                <tr role="row" class="odd">
                                     <td>Wybierz pracownika</td>
-                                    <td><form:select path="id" items="${client.employees}" itemLabel="email" itemValue="id"/> </td>
+                                    <td><form:select path="id" items="${client.employees}" itemLabel="email" itemValue="id"
+                                    cssClass="form-control"/> </td>
                                 </tr>
                                 </tbody>
                             </table>
@@ -57,7 +62,7 @@
 
                         </div>
                         <div class="row">
-                            <div class="col-md-12">
+                            <div class="col-md-12 mb-3 pr-3">
 
                                 <a href="/app/meeting/details/${meeting.id}"
 

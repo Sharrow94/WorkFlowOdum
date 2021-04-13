@@ -11,10 +11,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import pl.odum.workflowodum.model.ClientEmployee;
 import pl.odum.workflowodum.model.Meeting;
 import pl.odum.workflowodum.model.User;
-import pl.odum.workflowodum.service.ClientService;
-import pl.odum.workflowodum.service.DocService;
-import pl.odum.workflowodum.service.MeetingService;
-import pl.odum.workflowodum.service.UserService;
+import pl.odum.workflowodum.service.*;
 
 @Controller
 @AllArgsConstructor
@@ -25,6 +22,7 @@ public class MeetingController {
     private final UserService userService;
     private final ClientService  clientService;
     private final DocService docService;
+    private final ClientEmployeeService clientEmployeeService;
 
     @RequestMapping("/all/{userId}")
     public String showMeetingsForUser(Model model,@PathVariable("userId")Long id){
@@ -69,8 +67,12 @@ public class MeetingController {
     }
 
     @PostMapping("/{meetingId}/send-attachment/{docUUID}")
-    public String showClientsPost(@PathVariable String docUUID, @PathVariable Long meetingId){
-
+    public String showClientsPost(
+            @PathVariable String docUUID,
+            ClientEmployee clientEmployee,
+            @PathVariable Long meetingId
+    ){
+        clientEmployeeService.sendEmailWithAttachment(clientEmployee.getId(), docUUID);
         return "meeting/sendToEmployee";
     }
 

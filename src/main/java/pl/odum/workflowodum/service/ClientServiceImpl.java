@@ -17,7 +17,7 @@ public class ClientServiceImpl implements ClientService {
 
     private final ClientRepository clientRepository;
     private final DirectoryCreator directoryCreator;
-    private final ClientEmployeeService clientEmployeeService;
+    private final ClientEmployeeServiceImpl clientEmployeeService;
     @Override
     @Transactional
     public void save(Client client){
