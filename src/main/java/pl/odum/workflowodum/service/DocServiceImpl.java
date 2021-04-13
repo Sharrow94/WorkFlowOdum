@@ -3,7 +3,6 @@ package pl.odum.workflowodum.service;
 import lombok.AllArgsConstructor;
 import lombok.SneakyThrows;
 import org.apache.commons.io.FileUtils;
-import org.springframework.security.core.Authentication;
 import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
 import pl.odum.workflowodum.model.*;
@@ -11,6 +10,7 @@ import pl.odum.workflowodum.repository.DocRepository;
 import pl.odum.workflowodum.repository.PermitRepository;
 import pl.odum.workflowodum.utils.DirectoryCreator;
 import pl.odum.workflowodum.word.WordMerge;
+
 import javax.servlet.ServletOutputStream;
 import javax.servlet.http.HttpServletResponse;
 import javax.transaction.Transactional;
@@ -20,11 +20,11 @@ import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.time.LocalDate;
-import java.util.ArrayList;
+import java.time.LocalDateTime;
+import java.time.LocalTime;
+import java.util.Collections;
 import java.util.List;
-import java.util.Objects;
 import java.util.UUID;
-import java.util.stream.Collectors;
 
 @Service
 @AllArgsConstructor
@@ -37,6 +37,7 @@ public class DocServiceImpl implements DocService {
     private final DirectoryCreator directoryCreator;
     private final PermitRepository permitRepository;
     private final DownloadLogService downloadLogService;
+    private final NotificationService notificationService;
 
     @Override
     public List<Doc> getFiles() {
@@ -56,6 +57,7 @@ public class DocServiceImpl implements DocService {
         doc.setDocName(file.getOriginalFilename());
         doc.setDocType(file.getContentType());
         doc.setDateOfAdding(LocalDate.now());
+        doc.setTimeOfAdding(LocalTime.now());
         doc.setClient(client);
         doc.setPermit(permit);
         doc.setToRemove(false);
@@ -70,15 +72,12 @@ public class DocServiceImpl implements DocService {
     @Transactional
     public void addNoteToMeeting(MultipartFile file, Meeting meeting) throws IOException {
 
-//        if(!Objects.requireNonNull(FilenameUtils.getExtension(file.getOriginalFilename())).contains(".docx")){
-//            throw new IllegalStateException("File must have extension docx!");
-//        }
-
         Doc doc = new Doc();
         doc.setUuid(UUID.randomUUID().toString());
         doc.setDocName(file.getOriginalFilename());
         doc.setDocType(file.getContentType());
         doc.setDateOfAdding(LocalDate.now());
+        doc.setTimeOfAdding(LocalTime.now());
         doc.setClient(meeting.getClient());
         doc.setUserAddingId(meeting.getUser().getId());
         doc.setPermit(permitRepository.findByType("meetings"));
@@ -96,6 +95,10 @@ public class DocServiceImpl implements DocService {
 
         docRepository.save(doc);
         meetingService.save(meeting);
+        Notification notification= notificationService.findFirstByMeeting(meeting);
+        if(notification!=null){
+            notificationService.delete(notification);
+        }
     }
 
     @Override
@@ -108,6 +111,19 @@ public class DocServiceImpl implements DocService {
                 e.printStackTrace();
             }
         });
+    }
+
+    @Override
+    public void edit(String uuid,MultipartFile file,User user) {
+        Doc doc=docRepository.findByUuid(uuid);
+        doc.setUserEditingId(user.getId());
+        doc.setDateOfLastEdit(LocalDateTime.now());
+        try {
+            file.transferTo(doc.getFile());
+            docRepository.save(doc);
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
     }
 
     @Override
@@ -162,18 +178,10 @@ public class DocServiceImpl implements DocService {
     @SneakyThrows
     @Override
     public void downloadMergedClientsDocx(Client client, HttpServletResponse response) {
-        List<Doc> docs = findAllByClient(client);
-        List<Doc> collect = docs.stream().filter(doc -> doc.getSourcePath().endsWith("/meetings")).collect(Collectors.toList());
-        mergeDocs(collect,response);
+        List<Doc> docs = docRepository.findAllForClientMeetings(client);
+        Collections.sort(docs);
+        mergeDocs(docs,response);
     }
-
-    private List<Doc> findAllByClient(Client client) {
-        List<Meeting> meetings = meetingService.findAllByClient(client);
-        List<Doc> docs = new ArrayList<>();
-        meetings.forEach(m -> docs.addAll(m.getDoc().stream().filter(Objects::nonNull).collect(Collectors.toList())));
-        return docs;
-    }
-
 
     private void mergeDocs(List<Doc>docs,HttpServletResponse response){
         response.setContentType(RESPONSE_CONTENT_TYPE);

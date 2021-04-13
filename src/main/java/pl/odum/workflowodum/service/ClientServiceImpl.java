@@ -3,6 +3,7 @@ package pl.odum.workflowodum.service;
 import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Service;
 import pl.odum.workflowodum.model.Client;
+import pl.odum.workflowodum.model.ClientEmployee;
 import pl.odum.workflowodum.repository.ClientRepository;
 import pl.odum.workflowodum.utils.DirectoryCreator;
 import javax.transaction.Transactional;
@@ -13,9 +14,10 @@ import java.util.List;
 @AllArgsConstructor
 public class ClientServiceImpl implements ClientService {
     private final static String USERS_BASE_PATH = "/home/maciej/odum-docs/clients";
+
     private final ClientRepository clientRepository;
     private final DirectoryCreator directoryCreator;
-
+    private final ClientEmployeeService clientEmployeeService;
     @Override
     @Transactional
     public void save(Client client){
@@ -47,4 +49,18 @@ public class ClientServiceImpl implements ClientService {
     public List<Client> findAll() {
         return clientRepository.findAll();
     }
+
+    @Override
+    public void addEmployeeToClient(Long id, ClientEmployee employee) {
+        Client client=clientRepository.findById(id).orElseThrow(IllegalArgumentException::new);
+
+        clientEmployeeService.save(employee);
+
+        ClientEmployee clientEmployee=clientEmployeeService.findToAddToClient(employee.getFirstName(),employee.getLastName(),employee.getEmail());
+        client.getEmployees().add(clientEmployee);
+
+        clientRepository.save(client);
+    }
+
+
 }

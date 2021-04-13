@@ -3,6 +3,12 @@
 <%@ taglib prefix="spring" uri="http://www.springframework.org/tags" %>
 <%@ include file="../header.jsp" %>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
+
+<style>
+    .table-danger td{
+        border-color: #e3e6f0;
+    }
+</style>
     <div class="container-fluid">
         <div class="card shadow mb-4">
             <div class="card-header py-3">
@@ -40,7 +46,12 @@
                                 </tfoot>
                                 <tbody>
                                 <c:forEach items="${meetings}" var="meeting">
-                                    <tr role="row" class="odd">
+                                    <c:if test="${meeting.countOfDocs==0}">
+                                        <tr role="row" class="odd table-danger" style="border-color: #e3e6f0;">
+                                    </c:if>
+                                    <c:if test="${meeting.countOfDocs!=0}">
+                                        <tr role="row" class="odd">
+                                    </c:if>
                                         <td><c:out value="${meeting.client.name}"/></td>
                                         <td><c:out value="${meeting.dateOfMeeting}"/></td>
                                         <td nowrap="nowrap">

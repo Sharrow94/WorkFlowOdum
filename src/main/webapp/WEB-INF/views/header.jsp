@@ -3,6 +3,10 @@
 <%@ page import="org.springframework.web.context.WebApplicationContext" %>
 <%@ page import="pl.odum.workflowodum.service.UserService" %>
 <%@ page import="pl.odum.workflowodum.model.User" %>
+<%@ page import="pl.odum.workflowodum.service.NotificationService" %>
+<%@ page import="pl.odum.workflowodum.model.Notification" %>
+<%@ page import="java.util.List" %>
+<%@ page import="java.util.stream.Collectors" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ taglib prefix="sec" uri="http://www.springframework.org/security/tags" %>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
@@ -37,7 +41,12 @@
                 WebApplicationContext context = WebApplicationContextUtils.getWebApplicationContext(application);
                 UserService userService = context.getBean(UserService.class);
                 User currentUser = userService.findByUserName(name);
+                NotificationService notificationService = context.getBean(NotificationService.class);
                 pageContext.setAttribute("currentUser", currentUser);
+                List<Notification> notifications = notificationService.findAllForUser(currentUser);
+                pageContext.setAttribute("notificationNumber", notifications.size());
+                pageContext.setAttribute("notifications", notifications.stream().limit(4).collect(Collectors.toList()));
+
     %>
 <!-- Page Wrapper -->
 <div id="wrapper">
@@ -74,7 +83,7 @@
             </a>
             <div id="collapsePlan" class="collapse" aria-labelledby="headingTwo" data-parent="#accordionSidebar">
                 <div class="bg-gray-900 py-2 collapse-inner rounded">
-                    <a class="collapse-item text-gray-100" href="<c:url value="/app/meeting/all"/>">Lista</a>
+                    <a class="collapse-item text-gray-100" href="<c:url value="/app/meeting/all/${currentUser.id}"/>">Lista</a>
                     <a class="collapse-item text-gray-100" href="<c:url value="/app/meeting/add"/>">Dodaj</a>
                 </div>
             </div>
@@ -91,9 +100,9 @@
                 <div class="bg-gray-900 py-2 collapse-inner rounded">
                     <%--                    <h6 class="collapse-header">Operacje:</h6>--%>
                     <a class="collapse-item text-gray-100"
-                       href="<c:url value="/notification/${currentUser.id}"/>">Moje powiadomienia</a>
+                       href="/app/notifications">Moje powiadomienia</a>
                     <sec:authorize access="hasRole('ADMIN')">
-                        <a class="collapse-item text-gray-100" href="<c:url value="/notification/admin"/>">Wszystkie
+                        <a class="collapse-item text-gray-100" href="<c:url value="/admin/notifications"/>">Wszystkie
                             powiadomienia</a>
                     </sec:authorize>
 
@@ -230,7 +239,9 @@
                            data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                             <i class="fas fa-bell fa-fw"></i>
                             <!-- Counter - Alerts -->
-                            <span class="badge badge-danger badge-counter">3+</span>
+                            <c:if test="${notificationNumber>0}">
+                            <span class="badge badge-danger badge-counter">${notificationNumber}</span>
+                            </c:if>
                         </a>
                         <!-- Dropdown - Alerts -->
                         <div class="dropdown-list dropdown-menu dropdown-menu-right shadow animated--grow-in"
@@ -238,6 +249,7 @@
                             <h6 class="dropdown-header">
                                 Alerts Center
                             </h6>
+                            <c:forEach items="${notifications}" var="notification">
                             <a class="dropdown-item d-flex align-items-center" href="#">
                                 <div class="mr-3">
                                     <div class="icon-circle bg-primary">
@@ -245,33 +257,13 @@
                                     </div>
                                 </div>
                                 <div>
-                                    <div class="small text-gray-500">December 12, 2019</div>
-                                    <span class="font-weight-bold">A new monthly report is ready to download!</span>
+                                    <div class="small text-gray-500">${notification.meeting.dateOfMeeting}</div>
+                                    ${notification.description}
                                 </div>
                             </a>
-                            <a class="dropdown-item d-flex align-items-center" href="#">
-                                <div class="mr-3">
-                                    <div class="icon-circle bg-success">
-                                        <i class="fas fa-donate text-white"></i>
-                                    </div>
-                                </div>
-                                <div>
-                                    <div class="small text-gray-500">December 7, 2019</div>
-                                    $290.29 has been deposited into your account!
-                                </div>
-                            </a>
-                            <a class="dropdown-item d-flex align-items-center" href="#">
-                                <div class="mr-3">
-                                    <div class="icon-circle bg-warning">
-                                        <i class="fas fa-exclamation-triangle text-white"></i>
-                                    </div>
-                                </div>
-                                <div>
-                                    <div class="small text-gray-500">December 2, 2019</div>
-                                    Spending Alert: We've noticed unusually high spending for your account.
-                                </div>
-                            </a>
-                            <a class="dropdown-item text-center small text-gray-500" href="#">Show All Alerts</a>
+                            </c:forEach>
+
+                            <a class="dropdown-item text-center small text-gray-500" href="/app/notifications">Pokaż więcej</a>
                         </div>
                     </li>
 
