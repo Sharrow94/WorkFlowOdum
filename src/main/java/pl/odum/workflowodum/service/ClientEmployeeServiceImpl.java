@@ -44,7 +44,7 @@ public class ClientEmployeeServiceImpl implements ClientEmployeeService {
     public EmailStatus sendEmailWithAttachment(Long id, String docUUID) {
         ClientEmployee employee = findById(id);
         Doc doc = docService.findByUuid(docUUID);
-        MyMailMessage mailMessage=null;
+        MyMailMessage mailMessage;
 
         try {
              mailMessage = MyMailMessage.builder()
