@@ -8,6 +8,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
+import pl.odum.workflowodum.email.EmailStatus;
 import pl.odum.workflowodum.model.ClientEmployee;
 import pl.odum.workflowodum.model.Meeting;
 import pl.odum.workflowodum.model.User;
@@ -72,8 +73,17 @@ public class MeetingController {
             ClientEmployee clientEmployee,
             @PathVariable Long meetingId
     ){
-        clientEmployeeService.sendEmailWithAttachment(clientEmployee.getId(), docUUID);
-        return "meeting/sendToEmployee";
+        EmailStatus result = clientEmployeeService.sendEmailWithAttachment(clientEmployee.getId(), docUUID);
+        switch(result){
+            case SUCCESS:
+                break;
+            case FAILURE:
+                return "messages/email/emailSendFailure";
+            case NOT_FILLED:
+                return "messages/email/emailNotFilled";
+        }
+
+        return "messages/email/emailSendSuccess";
     }
 
 }

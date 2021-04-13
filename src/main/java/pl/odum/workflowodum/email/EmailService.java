@@ -26,7 +26,7 @@ public class EmailService implements EmailSender {
     private final JavaMailSender javaMailSender;
 
     @Override
-    public void send(MyMailMessage myMailMessage) {
+    public EmailStatus send(MyMailMessage myMailMessage) {
         try {
             MimeMessage message = javaMailSender.createMimeMessage();
             MimeMessageHelper helper = new MimeMessageHelper(message, true);
@@ -43,11 +43,11 @@ public class EmailService implements EmailSender {
             }
 
             javaMailSender.send(message);
-
         } catch (MessagingException e) {
             LOGGER.error("Failed to send email", e);
-            throw new IllegalStateException("Failed to send email");
+            return EmailStatus.FAILURE;
         }
 
+        return EmailStatus.SUCCESS;
     }
 }
