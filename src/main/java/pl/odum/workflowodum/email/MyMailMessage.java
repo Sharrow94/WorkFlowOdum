@@ -11,7 +11,7 @@ public class MyMailMessage {
     private Doc attachment;
 
     private String buildEmail() {
-        return  "<div style=\"font-family:Helvetica,Arial,sans-serif;font-size:16px;margin:0;color:#0b0c0c\">\n" +
+        return "<div style=\"font-family:Helvetica,Arial,sans-serif;font-size:16px;margin:0;color:#0b0c0c\">\n" +
                 "\n" +
                 "<span style=\"display:none;font-size:1px;color:#fff;max-height:0\"></span>\n" +
                 "\n" +
@@ -28,8 +28,8 @@ public class MyMailMessage {
                 "                  \n" +
                 "                    </td>\n" +
                 "                    <td style=\"font-size:28px;line-height:1.315789474;Margin-top:4px;padding-left:10px\">\n" +
-                "                      <span style=\"font-family:Helvetica,Arial,sans-serif;font-weight:700;color:#ffffff;text-decoration:none;vertical-align:top;display:inline-block\">"+
-                //todo:place for header
+                "                      <span style=\"font-family:Helvetica,Arial,sans-serif;font-weight:700;color:#ffffff;text-decoration:none;vertical-align:top;display:inline-block\">" +
+                getSubject() +  //Mail header
                 "</span>\n" +
                 "                    </td>\n" +
                 "                  </tr>\n" +
@@ -68,9 +68,9 @@ public class MyMailMessage {
                 "      <td width=\"10\" valign=\"middle\"><br></td>\n" +
                 "      <td style=\"font-family:Helvetica,Arial,sans-serif;font-size:19px;line-height:1.315789474;max-width:560px\">\n" +
                 "        \n" +
-                "            <p style=\"Margin:0 0 20px 0;font-size:19px;line-height:25px;color:#0b0c0c\">Cześć " + this.receiver.getFirstName() + ",</p><p style=\"Margin:0 0 20px 0;font-size:19px;line-height:25px;color:#0b0c0c\"> "+
+                "            <p style=\"Margin:0 0 20px 0;font-size:19px;line-height:25px;color:#0b0c0c\">Cześć " + getReceiver().getFirstName() + ",</p><p style=\"Margin:0 0 20px 0;font-size:19px;line-height:25px;color:#0b0c0c\"> " +
                 //todo:place for text
-                " </p><blockquote style=\"Margin:0 0 20px 0;border-left:10px solid #b1b4b6;padding:15px 0 0.1px 15px;font-size:19px;line-height:25px\"><p style=\"Margin:0 0 20px 0;font-size:19px;line-height:25px;color:#0b0c0c\"> <a href=\"\">Ustaw Hasło</a> </p></blockquote>\n <p>Do zobaczenia!</p>" +
+//                " </p><blockquote style=\"Margin:0 0 20px 0;border-left:10px solid #b1b4b6;padding:15px 0 0.1px 15px;font-size:19px;line-height:25px\"><p style=\"Margin:0 0 20px 0;font-size:19px;line-height:25px;color:#0b0c0c\"> <a href=\"\">Ustaw Hasło</a> </p></blockquote>\n <p>Do zobaczenia!</p>" +
                 "        \n" +
                 "      </td>\n" +
                 "      <td width=\"10\" valign=\"middle\"><br></td>\n" +
@@ -99,42 +99,47 @@ public class MyMailMessage {
         this.attachment = attachment;
     }
 
-    public static MyMailMessageBuilder builder(){
+    public static MyMailMessageBuilder builder() {
         return new MyMailMessageBuilder();
     }
 
 
-    public static class MyMailMessageBuilder{
+    public static class MyMailMessageBuilder {
         private Receiver receiver;
         private String subject;
         private Doc attachment;
 
-        public MyMailMessageBuilder receiver(Receiver receiver){
-            this.receiver=receiver;
+        public MyMailMessageBuilder receiver(Receiver receiver) {
+            this.receiver = receiver;
             return this;
         }
 
-        public MyMailMessageBuilder subject(String subject){
-            this.subject=subject;
+        public MyMailMessageBuilder subject(String subject) {
+            this.subject = subject;
             return this;
         }
 
-        public MyMailMessageBuilder attachment(Doc attachment){
-            this.attachment=attachment;
+        public MyMailMessageBuilder attachment(Doc attachment) {
+            this.attachment = attachment;
             return this;
         }
 
-        public MyMailMessage build(){
+        public MyMailMessage build() {
             MyMailMessage myMailMessage = new MyMailMessage();
 
-            if(this.receiver!=null) {
+            if (this.receiver != null) {
                 myMailMessage.setReceiver(this.receiver);
-                myMailMessage.setSubject(this.subject);
-                myMailMessage.setMessage(myMailMessage.buildEmail());
-                myMailMessage.setAttachment(this.attachment);
-            }
-            else throw new IllegalStateException("Receiver is null!");
+            } else throw new IllegalStateException("Receiver is null!");
 
+            if (this.subject != null)
+                myMailMessage.setSubject(this.subject);
+            else throw new IllegalStateException("Subject is null!");
+
+            if(this.attachment!=null)
+                myMailMessage.setAttachment(this.attachment);
+            else throw new IllegalStateException("Attachment is null!");
+
+            myMailMessage.setMessage(myMailMessage.buildEmail());
             return myMailMessage;
         }
     }
