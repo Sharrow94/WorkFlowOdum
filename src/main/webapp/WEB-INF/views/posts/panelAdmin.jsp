@@ -47,7 +47,6 @@
                                     <td><c:out value="${post.dateOfPost}"/></td>
                                     <td nowrap="nowrap">
 
-
                                         <a href='<c:url value="/admin/post/edit/${post.id}"/>'
                                            class="btn btn-primary"
                                            style="background-color:#81994D; border-color:#81994D;color:#3a3b45">Edytuj</a>
@@ -55,10 +54,8 @@
                                            class="btn btn-primary"
                                            style="background-color:#ff253a; border-color:#ff253a;color:#3a3b45">Usuń</a>
                                     </td>
-
                                 </tr>
                             </c:forEach>
-
                             </tbody>
                         </table>
                     </div>

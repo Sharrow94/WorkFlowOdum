@@ -81,8 +81,6 @@
                                     <td><c:out value="${user.email}"/></td>
 
 <%--                                    <sec:authorize access="hasRole('ADMIN')">--%>
-
-
                                         <td>
                                             <a href='<c:url value="/admin/user/edit/${user.id}"/>'
                                                class="btn btn-primary"

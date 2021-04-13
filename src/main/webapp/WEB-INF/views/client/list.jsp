@@ -15,54 +15,41 @@
         </div>
         <div class="card-body">
             <div class="table-responsive">
-                <div id="dataTable_wrapper" class="dataTables_wrapper dt-bootstrap4">
 
-                    <div class="col-sm-12">
-                        <table class="table table-bordered dataTable" id="dataTable" width="100%" cellspacing="0"
-                               role="grid" aria-describedby="dataTable_info" style="width: 100%;">
-                            <thead>
-                            <tr role="row">
-                                <th class="sorting" tabindex="0" aria-controls="dataTable" rowspan="1" colspan="1"
-                                    aria-label="Position: activate to sort column ascending" style="width: 160px;">
-                                    Klient
-                                </th>
-                                <th class="sorting" tabindex="0" aria-controls="dataTable" rowspan="1" colspan="1"
-                                    aria-label="Office: activate to sort column ascending" style="width: 132px;">
-                                    NIP
-                                </th>
-                                <th class="sorting" tabindex="0" aria-controls="dataTable" rowspan="1" colspan="1"
-                                    aria-label="Salary: activate to sort column ascending" style="width: 250px;">
-                                    Akcje
-                                </th>
-                            </thead>
-                            <tfoot>
-                            <tr>
-                                <th rowspan="1" colspan="1">Klient</th>
-                                <th rowspan="1" colspan="1">NIP</th>
-                                <th rowspan="1" colspan="1">Akcje</th>
-                            </tr>
-                            </tfoot>
-                            <tbody>
-                            <c:forEach items="${clients}" var="client">
-                                <tr role="row" class="odd">
-                                    <td><c:out value="${client.name}"/></td>
-                                    <td><c:out value="${client.nip}"/></td>
-                                    <td nowrap="nowrap">
+                <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
+                    <thead>
+                    <tr>
+                        <th>Klient</th>
+                        <th>NIP</th>
+                        <th>Akcje</th>
+                    </tr>
+                    </thead>
+                    <tfoot>
+                    <tr>
+                        <th>Klient</th>
+                        <th>NIP</th>
+                        <th>Akcje</th>
+                    </tr>
+                    </tfoot>
+                    <tbody>
+                    <c:forEach items="${clients}" var="client">
+                        <tr role="row" class="odd">
+                            <td><c:out value="${client.name}"/></td>
+                            <td><c:out value="${client.nip}"/></td>
+                            <td nowrap="nowrap">
 
-                                        <a href='<c:url value="/app/client/${client.id}"/>'
-                                           class="btn btn-primary"
-                                           style="background-color:#81994D; border-color:#81994D;color:#3a3b45">Szczegóły</a>
-                                        <a href='<c:url value="/app/client/edit/${client.id}"/>'
-                                           class="btn btn-primary"
-                                           style="background-color:#81994D; border-color:#81994D;color:#3a3b45">Edytuj</a>
-                                    </td>
+                                <a href='<c:url value="/app/client/${client.id}"/>'
+                                   class="btn btn-primary"
+                                   style="background-color:#81994D; border-color:#81994D;color:#3a3b45">Szczegóły</a>
+                                <a href='<c:url value="/app/client/edit/${client.id}"/>'
+                                   class="btn btn-primary"
+                                   style="background-color:#81994D; border-color:#81994D;color:#3a3b45">Edytuj</a>
+                            </td>
 
-                                </tr>
-                            </c:forEach>
-                            </tbody>
-                        </table>
-                    </div>
-                </div>
+                        </tr>
+                    </c:forEach>
+                    </tbody>
+                </table>
             </div>
         </div>
     </div>

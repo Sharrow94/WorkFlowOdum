@@ -16,34 +16,6 @@
             <div class="table-responsive">
                 <div id="dataTable_wrapper" class="dataTables_wrapper dt-bootstrap4">
 
-                    <div class="row">
-                        <div class="col-sm-12 col-md-6">
-                            <div class="dataTables_length" id="dataTable_length"><label>Pokaż
-                                <select
-                                        name="dataTable_length" aria-controls="dataTable"
-                                        class="custom-select custom-select-sm form-control form-control-sm">
-                                    <option value="10">10 wyników</option>
-                                    <option value="25">25 wyników</option>
-                                    <option value="50">50 wyników</option>
-                                    <option value="100">100 wyników</option>
-
-                                </select>
-                            </label>
-                            </div>
-                        </div>
-                        <div class="col-sm-12 col-md-6">
-
-                            <div id="dataTable_filter" class="dataTables_filter"
-                                 style="position: absolute;  right: 0;width: 250px;">
-                                <label>Szukaj:<input type="search"
-                                                     class="form-control form-control-sm"
-                                                     placeholder=""
-                                                     aria-controls="dataTable"></label>
-                            </div>
-                        </div>
-                    </div>
-
-
                     <div class="col-sm-12">
                         <table class="table table-bordered dataTable" id="dataTable" width="100%" cellspacing="0"
                                role="grid" aria-describedby="dataTable_info" style="width: 100%;">
@@ -87,10 +59,8 @@
                                            class="btn btn-primary"
                                            style="background-color:#81994D; border-color:#81994D;color:#3a3b45">Szczegóły</a>
                                     </td>
-
                                 </tr>
                             </c:forEach>
-
                             </tbody>
                         </table>
                     </div>
