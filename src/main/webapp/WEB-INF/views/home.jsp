@@ -25,6 +25,10 @@
         <div class="collapse show" id="collapseCardExample" style="">
             <div class="card-body">
                 <c:out value="${post.description}"/>
+                <c:forEach items="${post.docs}" var="doc">
+                    <br>
+                    <a href="/download/${doc.uuid}">${doc.docName}</a>
+                </c:forEach>
             </div>
         </div>
     </div>

@@ -14,5 +14,6 @@ public interface ClientService {
     Client findById(Long id);
     List<Client> findAll();
     void addEmployeeToClient(Long id, ClientEmployee employee);
+    Client findByName(String name);
 
 }

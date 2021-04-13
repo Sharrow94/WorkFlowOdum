@@ -1,14 +1,14 @@
 package pl.odum.workflowodum.controller;
 
 import lombok.AllArgsConstructor;
+import org.springframework.security.core.Authentication;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.*;
+import org.springframework.web.multipart.MultipartFile;
 import pl.odum.workflowodum.model.Post;
 import pl.odum.workflowodum.service.PostService;
+import pl.odum.workflowodum.service.UserService;
 
 import java.time.LocalDate;
 import java.util.Date;
@@ -19,6 +19,7 @@ import java.util.List;
 @RequestMapping("/admin/post")
 public class PostController {
     private final PostService postService;
+    private final UserService userService;
 
     @GetMapping("/list")
     public String getList(Model model){
@@ -44,10 +45,9 @@ public class PostController {
         model.addAttribute("editPost", postService.findById(id));
         return "posts/editPost";
     }
-    @PostMapping("/edit/{id}")
-    public String editSavePost(Post post, @PathVariable Long id){
-        post.setDateOfPost(LocalDate.now());
-        postService.add(post);
+    @PostMapping("/edit")
+    public String editSavePost(Post post,@RequestParam("files") List<MultipartFile> files,Authentication auth){
+        postService.addDocsToPost(files,post, userService.findByUserName(auth.getName()));
         return"redirect:/admin/post/list";
     }
 
