@@ -65,13 +65,27 @@
                                                     </div>
                                                 </div>
                                         </span>
-                                <div class="card-collapsable-arrow">
-                                    <i class="fas fa-chevron-down" style="color: #333333;"></i>
-                                </div>
-                            </a>
-                            <div class="collapse" id="collapseCardMeal">
-                                <div class="card-body">
-                                    <c:forEach items="${meeting.doc}" var="d">
+
+                                    <div class="card-collapsable-arrow">
+                                        <i class="fas fa-chevron-down" style="color: #333333;"></i>
+                                    </div>
+                                </a>
+                                <div class="collapse" id="collapseCardMeal">
+                                    <div class="card-body">
+                                        <c:forEach items="${meeting.doc}" var="d">
+                                            <div class="form-group row">
+                                                <div class="col-sm-4 mb-3 mb-sm-0">
+                                                        ${d.docName}
+                                                </div>
+                                                <div class="col-sm-4 mb-3 mb-sm-0">
+                                                        ${d.dateOfAdding}
+                                                </div>
+                                                <div class="col-sm-4 mb-3 mb-sm-0">
+                                                        <a class="btn btn-primary btn-sm" href="/app/meeting/${meeting.id}/send-attachment/${d.uuid}">Wyślij</a>
+                                                </div>
+                                            </div>
+                                        </c:forEach>
+
                                         <div class="form-group row">
                                             <div class="col-sm-4 mb-3 mb-sm-0">
                                                     ${d.docName}

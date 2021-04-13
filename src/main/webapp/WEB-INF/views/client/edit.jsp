@@ -16,7 +16,7 @@
                 <div class="col-lg-5 d-none d-lg-block bg-register-image"></div>
                 <div class="col-lg-7">
                     <div class="p-5">
-                        <form:form modelAttribute="client" action="/client/edit" method="post">
+                        <form:form modelAttribute="client" action="/app/client/edit" method="post">
                             <form:hidden path="homePath"/>
                             <form:hidden path="id"/>
                             <div class="text-center">

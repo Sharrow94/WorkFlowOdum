@@ -9,8 +9,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import pl.odum.workflowodum.model.Client;
 import pl.odum.workflowodum.model.ClientEmployee;
-import pl.odum.workflowodum.repository.ClientEmployeeRepository;
-import pl.odum.workflowodum.service.ClientEmployeeService;
+import pl.odum.workflowodum.service.ClientEmployeeServiceImpl;
 import pl.odum.workflowodum.service.ClientService;
 
 import java.io.FileNotFoundException;
@@ -21,7 +20,7 @@ import java.io.FileNotFoundException;
 public class ClientController {
 
     private final ClientService clientService;
-    private final ClientEmployeeService clientEmployeeService;
+    private final ClientEmployeeServiceImpl clientEmployeeService;
 
     @GetMapping("/add")
     public String addClientGet(Model model){
@@ -32,7 +31,7 @@ public class ClientController {
     @PostMapping("/add")
     public String addClientPost(Client client) throws FileNotFoundException {
         clientService.save(client);
-        return "redirect:/home";
+        return "redirect:/app/client/list";
     }
 
     @GetMapping("/list")
@@ -56,8 +55,9 @@ public class ClientController {
     @PostMapping("/edit")
     public String edit(Client client){
         clientService.edit(client);
-        return "redirect:/client/list";
+        return "redirect:/app/client/list";
     }
+
 
     @GetMapping("/{id}/employee")
     public String showEmployees(@PathVariable("id")Long id,Model model){
@@ -80,4 +80,7 @@ public class ClientController {
         clientService.addEmployeeToClient(id, employee);
         return "redirect:";
     }
+
 }
+
+
