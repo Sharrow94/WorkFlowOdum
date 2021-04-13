@@ -66,32 +66,23 @@
                                                 </div>
                                         </span>
 
-                                    <div class="card-collapsable-arrow">
-                                        <i class="fas fa-chevron-down" style="color: #333333;"></i>
-                                    </div>
-                                </a>
-                                <div class="collapse" id="collapseCardMeal">
-                                    <div class="card-body">
-                                        <c:forEach items="${meeting.doc}" var="d">
-                                            <div class="form-group row">
-                                                <div class="col-sm-4 mb-3 mb-sm-0">
-                                                        ${d.docName}
-                                                </div>
-                                                <div class="col-sm-4 mb-3 mb-sm-0">
-                                                        ${d.dateOfAdding}
-                                                </div>
-                                                <div class="col-sm-4 mb-3 mb-sm-0">
-                                                        <a class="btn btn-primary btn-sm" href="/app/meeting/${meeting.id}/send-attachment/${d.uuid}">Wyślij</a>
-                                                </div>
-                                            </div>
-                                        </c:forEach>
-
+                                <div class="card-collapsable-arrow">
+                                    <i class="fas fa-chevron-down" style="color: #333333;"></i>
+                                </div>
+                            </a>
+                            <div class="collapse" id="collapseCardMeal">
+                                <div class="card-body">
+                                    <c:forEach items="${meeting.doc}" var="d">
                                         <div class="form-group row">
                                             <div class="col-sm-4 mb-3 mb-sm-0">
                                                     ${d.docName}
                                             </div>
-                                            <div class="col-sm-8 mb-3 mb-sm-0">
+                                            <div class="col-sm-4 mb-3 mb-sm-0">
                                                     ${d.dateOfAdding}
+                                            </div>
+                                            <div class="col-sm-4 mb-3 mb-sm-0">
+                                                <a class="btn btn-primary btn-sm"
+                                                   href="/app/meeting/${meeting.id}/send-attachment/${d.uuid}">Wyślij</a>
                                             </div>
                                         </div>
                                     </c:forEach>
@@ -104,7 +95,6 @@
                                 </div>
                             </div>
                         </div>
-                            <%--                        </c:if>--%>
                         <br><br>
                         <div class="row">
                             <div class="col-md-6">
@@ -118,12 +108,7 @@
                         </div>
                         <div class="row">
                             <div class="col-md-12">
-
-                                <a href="/app/meeting/all"
-
-                                   class="btn btn-primary btn-user btn-block">
-                                    Powrót
-                                </a>
+                                <a href="/app/meeting/all" class="btn btn-primary btn-user btn-block">Powrót</a>
                             </div>
                         </div>
                     </div>
