@@ -1,7 +1,6 @@
 package pl.odum.workflowodum.controller;
 
 import lombok.AllArgsConstructor;
-import org.springframework.security.core.Authentication;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
@@ -40,11 +39,21 @@ public class AppController {
     }
 
     @GetMapping("/client/{clientId}/meeting/download/merged")
-
     public void downloadClientsMergedNotes(@PathVariable Long clientId, HttpServletResponse response) throws IOException {
-
         Client client = clientService.findById(clientId);
         docService.downloadMergedClientsDocx(client, response);
+    }
+
+    @GetMapping("/folders")
+    public String showAllFolders(Model model){
+        model.addAttribute("clients", clientService.findAll());
+        return "folders/all";
+    }
+
+    @GetMapping("/folders/{clientId}")
+    public String showAllClientFolders(Model model, @PathVariable Long clientId){
+        model.addAttribute("clients", clientService.findAll());
+        return "folders/all";
     }
 
 }

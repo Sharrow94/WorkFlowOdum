@@ -1,6 +1,7 @@
 package pl.odum.workflowodum.repository;
 
 import org.springframework.data.jpa.repository.JpaRepository;
+import org.springframework.data.jpa.repository.Query;
 import org.springframework.stereotype.Repository;
 import pl.odum.workflowodum.model.Client;
 import pl.odum.workflowodum.model.Meeting;
