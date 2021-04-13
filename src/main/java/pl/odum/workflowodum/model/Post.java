@@ -21,5 +21,5 @@ public class Post {
     @DateTimeFormat(pattern = "yyyy-MM-dd")
     private LocalDate dateOfPost;
     @OneToMany
-    private List<Doc>attachments;
+    private List<Doc>docs;
 }
