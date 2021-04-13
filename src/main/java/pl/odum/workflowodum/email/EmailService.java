@@ -4,6 +4,7 @@ import lombok.AllArgsConstructor;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.mail.javamail.JavaMailSender;
+import org.springframework.mail.javamail.MimeMessageHelper;
 import org.springframework.stereotype.Service;
 import pl.odum.workflowodum.model.Doc;
 
@@ -15,6 +16,7 @@ import javax.mail.MessagingException;
 import javax.mail.internet.MimeBodyPart;
 import javax.mail.internet.MimeMessage;
 import javax.mail.internet.MimeMultipart;
+import java.io.File;
 import java.util.Optional;
 
 @Service
@@ -27,27 +29,19 @@ public class EmailService implements EmailSender {
     public void send(MyMailMessage myMailMessage) {
         try {
             MimeMessage message = javaMailSender.createMimeMessage();
-            MimeMultipart mimeMultipart = new MimeMultipart();
-            MimeBodyPart mimeBodyPart = new MimeBodyPart();
+            MimeMessageHelper helper = new MimeMessageHelper(message, true);
             Receiver receiver = myMailMessage.getReceiver();
             Optional<Doc> attachment = Optional.ofNullable(myMailMessage.getAttachment());
 
-            message.setRecipients(Message.RecipientType.TO, receiver.getEmail());
-            message.setSubject(myMailMessage.getSubject());
-
-            mimeBodyPart.setText(myMailMessage.getMessage());
-            mimeMultipart.addBodyPart(mimeBodyPart);
+            helper.setTo(receiver.getEmail());
+            helper.setSubject(myMailMessage.getSubject());
+            helper.setText(myMailMessage.getMessage(), true);
 
             if (attachment.isPresent()) {
                 Doc doc = attachment.get();
-                mimeBodyPart = new MimeBodyPart();
-                DataSource source = new FileDataSource(doc.fullPath());
-                mimeBodyPart.setDataHandler(new DataHandler(source));
-                mimeBodyPart.setFileName(doc.getDocName());
-                mimeMultipart.addBodyPart(mimeBodyPart);
+                helper.addAttachment(doc.getDocName(), new File(doc.fullPath()));
             }
 
-            message.setContent(mimeMultipart);
             javaMailSender.send(message);
 
         } catch (MessagingException e) {
