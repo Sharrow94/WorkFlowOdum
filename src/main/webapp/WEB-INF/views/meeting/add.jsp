@@ -39,7 +39,7 @@
 
                             <button type="submit" class="btn btn-primary btn-user btn-block">
                                 Dodaj</button>
-                            <a href="/app/meeting/all" class="btn btn-primary btn-user btn-block">
+                            <a href="/app/meeting/all/${currentUser.id}" class="btn btn-primary btn-user btn-block">
                                 Cofnij</a>
                         </form:form>
                     </div>

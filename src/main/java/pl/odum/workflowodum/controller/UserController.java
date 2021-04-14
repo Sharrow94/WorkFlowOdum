@@ -46,7 +46,6 @@ public class UserController {
     }
 
     @PostMapping(value = "/edit")
-
     public String saveEditUser (@Valid @ModelAttribute("user") User user,
                                 BindingResult result){
 

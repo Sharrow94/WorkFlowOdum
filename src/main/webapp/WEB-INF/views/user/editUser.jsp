@@ -76,7 +76,7 @@
 
                         <button type="submit" class="btn btn-primary btn-user btn-block">
                             <spring:message code="app.edit"/></button>
-                        <a href="/admin/user/all" class="btn btn-primary btn-user btn-block">
+                        <a href="/app/home" class="btn btn-primary btn-user btn-block">
                             Cofnij</a>
                     </form:form>
                 </div>
