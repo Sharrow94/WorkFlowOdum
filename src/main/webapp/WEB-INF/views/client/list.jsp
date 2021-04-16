@@ -44,6 +44,9 @@
                                 <a href='<c:url value="/app/client/edit/${client.id}"/>'
                                    class="btn btn-primary"
                                    style="background-color:#81994D; border-color:#81994D;color:#3a3b45">Edytuj</a>
+                                <a href='<c:url value="/app/client/${client.id}/meetings"/>'
+                                   class="btn btn-primary"
+                                   style="background-color:#81994D; border-color:#81994D;color:#3a3b45">Pokaż spotkania</a>
                             </td>
 
                         </tr>

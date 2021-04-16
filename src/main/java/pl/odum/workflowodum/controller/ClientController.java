@@ -11,6 +11,7 @@ import pl.odum.workflowodum.model.Client;
 import pl.odum.workflowodum.model.ClientEmployee;
 import pl.odum.workflowodum.service.ClientEmployeeServiceImpl;
 import pl.odum.workflowodum.service.ClientService;
+import pl.odum.workflowodum.service.MeetingService;
 
 import java.io.FileNotFoundException;
 
@@ -21,6 +22,7 @@ public class ClientController {
 
     private final ClientService clientService;
     private final ClientEmployeeServiceImpl clientEmployeeService;
+    private final MeetingService meetingService;
 
     @GetMapping("/add")
     public String addClientGet(Model model){
@@ -79,6 +81,14 @@ public class ClientController {
     public String addEmployee(ClientEmployee employee,@PathVariable("id")Long id){
         clientService.addEmployeeToClient(id, employee);
         return "redirect:";
+    }
+
+    @RequestMapping("/{id}/meetings")
+    public String showMeetingsForClient(@PathVariable("id")Long id,Model model){
+        Client client=clientService.findById(id);
+        model.addAttribute("clientName",client.getName());
+        model.addAttribute("meetings",meetingService.findAllByClient(client));
+        return "client/showMeetings";
     }
 
 }
