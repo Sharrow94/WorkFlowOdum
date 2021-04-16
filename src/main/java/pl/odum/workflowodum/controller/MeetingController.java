@@ -43,7 +43,7 @@ public class MeetingController {
     public String createMeeting(Meeting meeting){
         meeting.setUser(userService.findByUserName(SecurityContextHolder.getContext().getAuthentication().getName()));
         meetingService.save(meeting);
-        return "redirect:/app/meeting/all/"+meeting.getClient().getId();
+        return "redirect:/app/meeting/all/"+meeting.getUser().getId();
     }
 
     @RequestMapping("/edit/{id}")

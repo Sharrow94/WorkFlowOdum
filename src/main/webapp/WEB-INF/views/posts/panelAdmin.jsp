@@ -26,7 +26,7 @@
                                     Informacja</th>
                                 <th class="sorting" tabindex="0" aria-controls="dataTable" rowspan="1" colspan="1"
                                     aria-label="Office: activate to sort column ascending" style="width: 132px;">
-                                    Data spotkania</th>
+                                    Data dodania</th>
                                 <th class="sorting" tabindex="0" aria-controls="dataTable" rowspan="1" colspan="1"
                                     aria-label="Salary: activate to sort column ascending" style="width: 250px;">
                                     Akcje</th>
@@ -35,7 +35,7 @@
                             <tr>
                                 <th rowspan="1" colspan="1">Tytuł</th>
                                 <th rowspan="1" colspan="1">Informacja</th>
-                                <th rowspan="1" colspan="1">Data spotkania</th>
+                                <th rowspan="1" colspan="1">Data dodania</th>
                                 <th rowspan="1" colspan="1">Akcje</th>
                             </tr>
                             </tfoot>
