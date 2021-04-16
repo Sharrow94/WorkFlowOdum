@@ -124,7 +124,7 @@
                      data-parent="#accordionSidebar">
                     <div class="bg-gray-900 py-2 collapse-inner rounded">
                             <%--                    <h6 class="collapse-header">Operacje:</h6>--%>
-                        <a class="collapse-item text-gray-100" href="<c:url value="/admin/sOi/list"/>">Wszystkie pliki</a>
+                        <a class="collapse-item text-gray-100" href="<c:url value="/app/folders"/>">Wszystkie pliki</a>
                         <a class="collapse-item text-gray-100" href="<c:url value="/home"/>">Dodaj plik</a>
                     </div>
                 </div>
