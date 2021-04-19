@@ -38,7 +38,7 @@ public class AppController {
     @GetMapping("/client/{clientId}/meeting/download/merged")
     public void downloadClientsMergedNotes(@PathVariable Long clientId, HttpServletResponse response) throws IOException {
         Client client = clientService.findById(clientId);
-        docService.downloadMergedClientsDocx(client, response);
+        docService.downloadMergedPdfFromMeetings(client, response);
     }
 
     @GetMapping("/folders")

@@ -23,7 +23,7 @@ public class WordMerge {
         @Transactional
         public void doIt(List<Doc>docs, OutputStream os) throws Exception{
 
-            String newPath="/home/maciej/odum-docs/clients/"+docs.get(0).getClient().getName().toLowerCase()+"/meetings"+System.currentTimeMillis()+"merged.docx";
+            String newPath="/home/mcs/IdeaProjects/odum-docs/clients/"+docs.get(0).getClient().getName().toLowerCase()+"/meetings"+System.currentTimeMillis()+"merged.docx";
             try{
                 List<OPCPackage> sources = new ArrayList<>();
                 Files.createFile(Path.of(newPath));

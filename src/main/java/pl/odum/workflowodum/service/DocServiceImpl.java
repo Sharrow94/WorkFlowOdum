@@ -9,9 +9,11 @@ import pl.odum.workflowodum.model.*;
 import pl.odum.workflowodum.repository.DocRepository;
 import pl.odum.workflowodum.repository.PermitRepository;
 import pl.odum.workflowodum.utils.DirectoryCreator;
+import pl.odum.workflowodum.word.PdfMerge;
 import pl.odum.workflowodum.word.WordMerge;
 
 import javax.servlet.ServletOutputStream;
+import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.transaction.Transactional;
 import java.io.File;
@@ -38,6 +40,7 @@ public class DocServiceImpl implements DocService {
     private final PermitRepository permitRepository;
     private final DownloadLogService downloadLogService;
     private final NotificationService notificationService;
+    private final PdfMerge pdfMerge;
 
     @Override
     public List<Doc> getFiles() {
@@ -199,6 +202,11 @@ public class DocServiceImpl implements DocService {
             e.printStackTrace();
         }
 
+    }
+
+    @Override
+    public void downloadMergedPdfFromMeetings(Client client, HttpServletResponse response) throws IOException {
+        pdfMerge.mergeToPdf(client, response.getOutputStream());
     }
 
 }

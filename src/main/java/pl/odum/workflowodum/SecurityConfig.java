@@ -26,7 +26,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                 .antMatchers("/app/meeting/details/{meetingId}")
                     .access("@currentUser.isCurrentUsersMeeting(#meetingId, authentication) or hasRole('ADMIN')")
                 .antMatchers("/app/**").hasAnyRole("ADMIN", "USER")
-                .antMatchers("/admin/**").hasAnyRole("ADMIN")
+//                .antMatchers("/admin/**").hasAnyRole("ADMIN")
                 .anyRequest().permitAll()
                 .and().formLogin().loginPage("/login").defaultSuccessUrl("/app/home")
                 .and().logout().logoutSuccessUrl("/login")

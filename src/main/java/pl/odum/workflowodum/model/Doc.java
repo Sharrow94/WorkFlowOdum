@@ -23,6 +23,7 @@ public class Doc implements Comparable<Doc> {
     private Long userAddingId;
     private Long userEditingId;
     private String sourcePath;
+    private boolean hasPdf;
     @ManyToOne
     private Permit permit;
     private boolean isOk;
