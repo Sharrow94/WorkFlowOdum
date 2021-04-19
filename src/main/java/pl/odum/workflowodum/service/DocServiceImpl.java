@@ -206,6 +206,8 @@ public class DocServiceImpl implements DocService {
 
     @Override
     public void downloadMergedPdfFromMeetings(Client client, HttpServletResponse response) throws IOException {
+        response.setContentType(RESPONSE_CONTENT_TYPE);
+        response.setHeader(HEADER_KEY, HEADER_VALUE + "merged.pdf");
         pdfMerge.mergeToPdf(client, response.getOutputStream());
     }
 
