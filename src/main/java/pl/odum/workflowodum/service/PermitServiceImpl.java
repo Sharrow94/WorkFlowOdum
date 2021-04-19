@@ -36,4 +36,9 @@ public class PermitServiceImpl implements PermitService {
     public Permit findByPermitName(String name) {
         return permitRepository.findByType("meetings");
     }
+
+    @Override
+    public List<Permit> findAllExistForClient(Long id) {
+        return permitRepository.findAllExistForClient(id);
+    }
 }

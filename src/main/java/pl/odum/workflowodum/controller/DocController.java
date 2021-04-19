@@ -46,4 +46,14 @@ public class DocController {
         User user=userService.findByUserName(auth.getName());
         docService.download(doc, response,user);
     }
+
+
+    @GetMapping("/show/permits/{id}")
+    public String showPermits(@PathVariable("id")Long id,Model model){
+        model.addAttribute("permits",permitService.findAllExistForClient(id));
+        model.addAttribute("clientName",clientService.findById(id).getName());
+        model.addAttribute("clientId",id);
+
+        return "folders/permitsForClient";
+    }
 }

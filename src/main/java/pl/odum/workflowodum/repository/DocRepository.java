@@ -17,4 +17,5 @@ public interface DocRepository extends JpaRepository<Doc, Long> {
     Doc deleteByUuid(String uuid);
     @Query(value = "select d from Doc d where d.permit.type='meetings' and d.client=?1")
     List<Doc>findAllForClientMeetings(Client client);
+    List<Doc>findAllByPermitIdAndClientIdAndDateOfRemovingIsNull(Long permitId,Long clientId);
 }

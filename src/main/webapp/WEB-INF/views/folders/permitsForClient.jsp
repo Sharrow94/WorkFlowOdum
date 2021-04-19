@@ -16,16 +16,16 @@
 </style>
 <div class="container-fluid">
     <div class="mx-auto mt-md-5 col-md-8">
-        <h1 class="h1 text-gray-700">Foldery poszczególnych klientów</h1>
+        <h1 class="h1 text-gray-700">Foldery klienta: ${clientName}</h1>
     </div>
     <div class="container">
         <div class="row my-8">
-            <c:forEach items="${clients}" var="client">
+            <c:forEach items="${permits}" var="permit">
                 <div class="col-md-3 icon">
-                    <a href="/app/folders/${client.id}" class="d-block">
+                    <a href="/app/folders/${clientId}/${permit.id}" class="d-block">
                         <i class="fas fa-folder-open fa-7x" style="color: #ffd700;"></i><br>
                     </a>
-                    <span class="text-center">${client.name}</span>
+                    <span class="text-center">${permit.type}</span>
                 </div>
             </c:forEach>
         </div>

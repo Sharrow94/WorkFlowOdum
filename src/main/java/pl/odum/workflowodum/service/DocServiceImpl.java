@@ -117,6 +117,7 @@ public class DocServiceImpl implements DocService {
     public void edit(String uuid,MultipartFile file,User user) {
         Doc doc=docRepository.findByUuid(uuid);
         doc.setUserEditingId(user.getId());
+        doc.setDateOfRemoving(null);
         doc.setDateOfLastEdit(LocalDateTime.now());
         try {
             file.transferTo(doc.getFile());
@@ -124,6 +125,11 @@ public class DocServiceImpl implements DocService {
         } catch (IOException e) {
             e.printStackTrace();
         }
+    }
+
+    @Override
+    public List<Doc> findAllByPermitIdAndClientId(Long permitId, Long clientId) {
+        return docRepository.findAllByPermitIdAndClientIdAndDateOfRemovingIsNull(permitId,clientId);
     }
 
     @Override
