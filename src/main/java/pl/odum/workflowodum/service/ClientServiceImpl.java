@@ -13,7 +13,7 @@ import java.util.List;
 @Service
 @AllArgsConstructor
 public class ClientServiceImpl implements ClientService {
-    private final static String USERS_BASE_PATH = "/home/mcs/IdeaProjects/odum-docs/clients";
+    private final static String USERS_BASE_PATH = "/home/maciej/odum-docs/clients";
 
     private final ClientRepository clientRepository;
     private final DirectoryCreator directoryCreator;

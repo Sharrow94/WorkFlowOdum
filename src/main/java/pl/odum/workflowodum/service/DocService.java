@@ -19,4 +19,5 @@ public interface DocService {
     void downloadMergedClientsDocx(Client client, HttpServletResponse response) throws IOException;
     void addNotesToMeeting(List<MultipartFile> files, Meeting meeting);
     void edit(String uuid,MultipartFile file,User user);
+    List<Doc>findAllByPermitIdAndClientId(Long permitId,Long clientId);
 }

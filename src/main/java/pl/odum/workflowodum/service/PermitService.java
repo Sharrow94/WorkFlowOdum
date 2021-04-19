@@ -11,4 +11,5 @@ public interface PermitService {
     List<Permit>findAll();
     Permit findById(Long id);
     Permit findByPermitName(String name);
+    List<Permit>findAllExistForClient(Long id);
 }
