@@ -28,6 +28,12 @@
                     <span class="text-center">${permit.type}</span>
                 </div>
             </c:forEach>
+            <div class="col-md-3 icon">
+                <a href="/app/folders/${clientId}/trash" class="d-block">
+                    <i class="fas fa-folder-open fa-7x" style="color: #ffd700;"></i><br>
+                </a>
+                <span class="text-center">Kosz</span>
+            </div>
         </div>
     </div>
 </div>

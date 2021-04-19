@@ -133,6 +133,11 @@ public class DocServiceImpl implements DocService {
     }
 
     @Override
+    public List<Doc> findAllByClientIdAndDateOfRemovingIsNotNull(String uuid) {
+        return docRepository.findAllByClientIdAndDateOfRemovingIsNotNull(uuid);
+    }
+
+    @Override
     public void saveFilesFromMultiPart(List<MultipartFile> files,Client client,Permit permit,Long userId) {
         files.forEach(file -> {
             try {

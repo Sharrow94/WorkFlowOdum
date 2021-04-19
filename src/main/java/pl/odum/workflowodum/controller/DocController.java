@@ -56,4 +56,15 @@ public class DocController {
 
         return "folders/permitsForClient";
     }
+
+    @GetMapping("/doc/{uuid}")
+    public String showDetails(@PathVariable("uuid") String uuid, Model model){
+        model.addAttribute("docs", docService.findByUuid(uuid));
+        return "folders/detailsFolder";
+    }
+
+    @DeleteMapping("/delete/{uuid}")
+    public void delete(@PathVariable("uuid") String uuid){
+        docService.removeDocs();
+    }
 }

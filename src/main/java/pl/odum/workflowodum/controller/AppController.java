@@ -55,4 +55,11 @@ public class AppController {
         return "folders/all";
     }
 
+    @GetMapping("/folders/{clientId}/trash")
+    public String showAllClientFoldersTrash(Model model, @PathVariable Long clientId,@PathVariable("id")String uuid){
+        model.addAttribute("docs",docService.findAllByClientIdAndDateOfRemovingIsNotNull(uuid));
+        model.addAttribute("clientName",clientService.findById(clientId).getName());
+        return "folders/trash";
+    }
+
 }
