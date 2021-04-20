@@ -22,4 +22,5 @@ public interface DocService {
     void edit(String uuid,MultipartFile file,User user);
     List<Doc>findAllByPermitIdAndClientId(Long permitId,Long clientId);
     void downloadMergedPdfFromMeetings(Client client, HttpServletResponse response, Authentication auth) throws IOException;
+    List<Doc>findAllByClientIdAndDateOfRemovingIsNotNull(Long id);
 }
