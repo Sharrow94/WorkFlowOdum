@@ -20,4 +20,5 @@ public interface DocService {
     void addNotesToMeeting(List<MultipartFile> files, Meeting meeting);
     void edit(String uuid,MultipartFile file,User user);
     List<Doc>findAllByPermitIdAndClientId(Long permitId,Long clientId);
+    List<Doc>findAllByClientIdAndDateOfRemovingIsNotNull(Long id);
 }

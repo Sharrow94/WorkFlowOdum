@@ -113,14 +113,17 @@ public class DocServiceImpl implements DocService {
         });
     }
 
+    @SneakyThrows
     @Override
     public void edit(String uuid,MultipartFile file,User user) {
         Doc doc=docRepository.findByUuid(uuid);
         doc.setUserEditingId(user.getId());
         doc.setDateOfRemoving(null);
         doc.setDateOfLastEdit(LocalDateTime.now());
+        Files.delete(Path.of(doc.fullPath()));
         try {
-            file.transferTo(doc.getFile());
+            File destination=new File(doc.fullPath());
+            file.transferTo(destination);
             docRepository.save(doc);
         } catch (IOException e) {
             e.printStackTrace();
@@ -130,6 +133,11 @@ public class DocServiceImpl implements DocService {
     @Override
     public List<Doc> findAllByPermitIdAndClientId(Long permitId, Long clientId) {
         return docRepository.findAllByPermitIdAndClientIdAndDateOfRemovingIsNull(permitId,clientId);
+    }
+
+    @Override
+    public List<Doc> findAllByClientIdAndDateOfRemovingIsNotNull(Long id) {
+        return docRepository.findAllByClientIdAndDateOfRemovingIsNotNull(id);
     }
 
     @Override
