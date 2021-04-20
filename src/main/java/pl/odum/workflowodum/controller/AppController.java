@@ -36,10 +36,16 @@ public class AppController {
         return "redirect:/app/meeting/details/"+meetingId;
     }
 
-    @GetMapping("/client/{clientId}/meeting/download/merged")
-    public void downloadClientsMergedNotes(@PathVariable Long clientId, HttpServletResponse response, Authentication auth) throws IOException {
+    @GetMapping("/client/{clientId}/meeting/download/merged/pdf")
+    public void downloadClientsMergedNotesPdf(@PathVariable Long clientId, HttpServletResponse response, Authentication auth) throws IOException {
         Client client = clientService.findById(clientId);
         docService.downloadMergedPdfFromMeetings(client, response, auth);
+    }
+
+    @GetMapping("/client/{clientId}/meeting/download/merged/docx")
+    public void downloadClientsMergedNotesDocx(@PathVariable Long clientId, HttpServletResponse response, Authentication auth) throws IOException {
+        Client client = clientService.findById(clientId);
+        docService.downloadMergedClientsDocx(client, response);
     }
 
     @GetMapping("/folders")
