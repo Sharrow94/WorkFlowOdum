@@ -3,6 +3,7 @@ package pl.odum.workflowodum.service;
 import lombok.AllArgsConstructor;
 import lombok.SneakyThrows;
 import org.apache.commons.io.FileUtils;
+import org.springframework.security.core.Authentication;
 import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
 import pl.odum.workflowodum.model.*;
@@ -38,6 +39,7 @@ public class DocServiceImpl implements DocService {
     private final MeetingService meetingService;
     private final DirectoryCreator directoryCreator;
     private final PermitRepository permitRepository;
+    private final UserService userService;
     private final DownloadLogService downloadLogService;
     private final NotificationService notificationService;
     private final PdfMerge pdfMerge;
@@ -205,10 +207,11 @@ public class DocServiceImpl implements DocService {
     }
 
     @Override
-    public void downloadMergedPdfFromMeetings(Client client, HttpServletResponse response) throws IOException {
+    public void downloadMergedPdfFromMeetings(Client client, HttpServletResponse response, Authentication auth) throws IOException {
+        User user = userService.findByUserName(auth.getName());
         response.setContentType(RESPONSE_CONTENT_TYPE);
         response.setHeader(HEADER_KEY, HEADER_VALUE + "merged.pdf");
-        pdfMerge.mergeToPdf(client, response.getOutputStream());
+        pdfMerge.mergeToPdf(client, response.getOutputStream(), user.getId());
     }
 
 }

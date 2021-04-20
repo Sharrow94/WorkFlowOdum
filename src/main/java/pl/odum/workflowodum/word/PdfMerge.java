@@ -12,6 +12,7 @@ import javax.transaction.Transactional;
 import java.io.*;
 import java.nio.file.*;
 import java.util.List;
+import java.util.concurrent.atomic.AtomicInteger;
 
 @Component
 @AllArgsConstructor
@@ -23,30 +24,37 @@ public class PdfMerge {
 
     @Transactional
     @Async
-    public void mergeToPdf(Client client, OutputStream os) throws IOException {
+    public void mergeToPdf(Client client, OutputStream os, Long userId) throws IOException {
         List<Doc> docs = docRepository.findAllForClientMeetings(client);
-        String pdfDir = docs.get(0).getSourcePath() + "/pdf";
+        String pdfDir = docs.get(0).getSourcePath() + "/pdf"+userId;
 
-        Files.createDirectories(Paths.get(pdfDir));
+        try {
+            Files.createDirectories(Paths.get(pdfDir));
 
-        createPdfFromAllDocs(docs);
+            createPdfFromAllDocs(docs, pdfDir);
 
 //        String sourceFiles = getPdfFileNames(docs);
 //        System.out.println(sourceFiles);
 
-        String toPdf = pdfDir + "/" + MERGED_FILE_NAME;
-        createMerged(pdfDir, toPdf);
+            String toPdf = pdfDir + "/" + MERGED_FILE_NAME;
 
-        os.write(FileUtils.readFileToByteArray(new File(toPdf)));
+            createMerged(pdfDir, toPdf);
 
-        deleteDirectoryRecursion(Paths.get(pdfDir));
+            os.write(FileUtils.readFileToByteArray(new File(toPdf)));
+
+        }catch (NoSuchFileException e){
+//            System.out.println("zasady sa po to zeby je lamac");
+        }
+        finally {
+            deleteDirectoryRecursion(Paths.get(pdfDir));
+        }
     }
 
-    private void createPdfFromAllDocs(List<Doc> docs) {
+    private void createPdfFromAllDocs(List<Doc> docs, String pdfDir) {
+        AtomicInteger counter= new AtomicInteger();
         docs.forEach(d -> {
             try {
-                String pdfDir = d.getSourcePath()+"/pdf";
-                createPdfFromDoc(d, pdfDir);
+                createPdfFromDoc(d, pdfDir, counter.getAndIncrement());
             } catch (IOException e) {
                 e.printStackTrace();
             }
@@ -75,7 +83,7 @@ public class PdfMerge {
         }
     }
 
-    public void createPdfFromDoc(Doc doc, String source) throws IOException {
+    public void createPdfFromDoc(Doc doc, String source, int counter) throws IOException {
         Runtime runtime = Runtime.getRuntime();
         String cmd = CREATE_PDF_SCRIPT + " " + source + " " + doc.fullPath();
         System.out.println(cmd);
@@ -83,6 +91,10 @@ public class PdfMerge {
 
         try {
             exec.waitFor();
+            File file = new File(source + "/" + doc.getUuid() + ".pdf");
+            if(file.exists()){
+                file.renameTo(new File(source + "/" + counter + ".pdf"));
+            }
         } catch (InterruptedException e) {
             e.printStackTrace();
         }

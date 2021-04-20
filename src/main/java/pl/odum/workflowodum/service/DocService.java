@@ -1,5 +1,6 @@
 package pl.odum.workflowodum.service;
 
+import org.springframework.security.core.Authentication;
 import org.springframework.web.multipart.MultipartFile;
 import pl.odum.workflowodum.model.*;
 
@@ -20,5 +21,5 @@ public interface DocService {
     void addNotesToMeeting(List<MultipartFile> files, Meeting meeting);
     void edit(String uuid,MultipartFile file,User user);
     List<Doc>findAllByPermitIdAndClientId(Long permitId,Long clientId);
-    void downloadMergedPdfFromMeetings(Client client, HttpServletResponse response) throws IOException;
+    void downloadMergedPdfFromMeetings(Client client, HttpServletResponse response, Authentication auth) throws IOException;
 }
