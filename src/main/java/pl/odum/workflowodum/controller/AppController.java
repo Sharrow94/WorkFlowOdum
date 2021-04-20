@@ -41,24 +41,21 @@ public class AppController {
         docService.downloadMergedClientsDocx(client, response);
     }
 
-    @GetMapping("/folders")
-    public String showAllFolders(Model model){
-        model.addAttribute("clients", clientService.findAll());
-        return "folders/all";
-    }
 
     @GetMapping("/folders/{clientId}/{permitId}")
     public String showAllClientFolders(Model model, @PathVariable Long clientId,@PathVariable("permitId")Long permitId){
         model.addAttribute("docs",docService.findAllByPermitIdAndClientId(permitId, clientId));
         model.addAttribute("permitType",permitService.findById(permitId).getType());
         model.addAttribute("clientName",clientService.findById(clientId).getName());
+        model.addAttribute("client",clientService.findById(clientId));
         return "folders/all";
     }
 
     @GetMapping("/folders/{clientId}/trash")
-    public String showAllClientFoldersTrash(Model model, @PathVariable Long clientId,@PathVariable("id")String uuid){
-        model.addAttribute("docs",docService.findAllByClientIdAndDateOfRemovingIsNotNull(uuid));
+    public String showAllClientFoldersTrash(Model model, @PathVariable Long clientId){
+        model.addAttribute("docs",docService.findAllByClientIdAndDateOfRemovingIsNotNull(clientId));
         model.addAttribute("clientName",clientService.findById(clientId).getName());
+        model.addAttribute("client",clientService.findById(clientId));
         return "folders/trash";
     }
 

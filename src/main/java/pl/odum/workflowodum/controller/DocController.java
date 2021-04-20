@@ -7,9 +7,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
-import pl.odum.workflowodum.model.Client;
 import pl.odum.workflowodum.model.Doc;
-import pl.odum.workflowodum.model.Permit;
 import pl.odum.workflowodum.model.User;
 import pl.odum.workflowodum.service.*;
 
@@ -53,18 +51,34 @@ public class DocController {
         model.addAttribute("permits",permitService.findAllExistForClient(id));
         model.addAttribute("clientName",clientService.findById(id).getName());
         model.addAttribute("clientId",id);
-
         return "folders/permitsForClient";
     }
 
     @GetMapping("/doc/{uuid}")
     public String showDetails(@PathVariable("uuid") String uuid, Model model){
         model.addAttribute("docs", docService.findByUuid(uuid));
-        return "folders/detailsFolder";
+        return "folders/detailsFile";
     }
 
-    @DeleteMapping("/delete/{uuid}")
-    public void delete(@PathVariable("uuid") String uuid){
-        docService.removeDocs();
+    @GetMapping("/delete/{uuid}")
+    public String delete(@PathVariable("uuid") String uuid){
+        docService.prepareDocToRemoving(uuid);
+        Long permitId = docService.findByUuid(uuid).getPermit().getId();
+        Long clientId = docService.findByUuid(uuid).getClient().getId();
+        return "redirect:/app/folders/"+clientId +"/"+permitId;
+    }
+
+    @GetMapping("/edit/{uuid}")
+    public String editDoc(Model model, @PathVariable("uuid") String uuid){
+        model.addAttribute("docs", docService.findByUuid(uuid));
+        return "folders/uploadFile";
+    }
+
+    @PostMapping("/edit/{uuid}")
+    public String editDocUpload(@PathVariable("uuid") String uuid, MultipartFile file, Authentication auth){
+        docService.edit(uuid, file, userService.findByUserName(auth.getName()));
+        Long permitId = docService.findByUuid(uuid).getPermit().getId();
+        Long clientId = docService.findByUuid(uuid).getClient().getId();
+        return "redirect:/app/folders/"+clientId +"/"+permitId;
     }
 }

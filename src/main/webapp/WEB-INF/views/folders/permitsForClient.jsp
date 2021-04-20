@@ -15,8 +15,11 @@
     }
 </style>
 <div class="container-fluid">
-    <div class="mx-auto mt-md-5 col-md-8">
+    <div class="card-header py-3">
         <h1 class="h1 text-gray-700">Foldery klienta: ${clientName}</h1>
+        <a href="/app/client/list" class="btn btn-primary"
+           style="background-color:#81994D; color:#3a3b45;position: absolute;  right: 8%;width: 170px;margin:-25px; border: 10px #f6c23e;">
+            Cofnij</a>
     </div>
     <div class="container">
         <div class="row my-8">

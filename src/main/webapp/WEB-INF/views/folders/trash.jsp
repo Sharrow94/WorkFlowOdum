@@ -13,6 +13,9 @@
     <div class="card shadow mb-4">
         <div class="card-header py-3">
             <h6 class="m-0 font-weight-bold text-primary">${clientName}</h6>
+            <a href="/show/permits/${client.id}" class="btn btn-primary"
+               style="background-color:#81994D; color:#3a3b45;position: absolute;  right: 8%;width: 170px;margin:-25px; border: 10px #f6c23e;">
+                Cofnij</a>
 
         </div>
         <div class="card-body">
@@ -33,16 +36,16 @@
                                     aria-label="Position: activate to sort column ascending" style="width: 150px;">
                                     Data dodania
                                 </th>
-                                <th class="sorting" tabindex="0" aria-controls="dataTable" rowspan="1" colspan="1"
-                                    aria-label="Salary: activate to sort column ascending" style="width: 150px; ">
-                                    <spring:message code="app.action"/></th>
+<%--                                <th class="sorting" tabindex="0" aria-controls="dataTable" rowspan="1" colspan="1"--%>
+<%--                                    aria-label="Salary: activate to sort column ascending" style="width: 150px; ">--%>
+<%--                                    <spring:message code="app.action"/></th>--%>
                             </thead>
                             <tfoot>
 
                             <tr>
                                 <th rowspan="1" colspan="1">Nazwa dokumentu</th>
                                 <th rowspan="1" colspan="1">Data dodania</th>
-                                <th rowspan="1" colspan="1"><spring:message code="app.action"/></th>
+<%--                                <th rowspan="1" colspan="1"><spring:message code="app.action"/></th>--%>
                             </tr>
 
                             </tfoot>
@@ -53,21 +56,21 @@
                                     <td><c:out value="${doc.docName}"/></td>
                                     <td><c:out value="${doc.dateOfAdding}"/></td>
 
-                                    <td>
-                                        <a href='<c:url value="/doc/${doc.uuid}"/>'
-                                           class="btn btn-primary"
-                                           style="background-color:#81994D; border-color:#81994D;color:#3a3b45">Szczegóły</a>
-                                        <a href='<c:url value=""/>'
-                                           class="btn btn-primary"
-                                           style="background-color:#81994D; border-color:#81994D;color:#3a3b45">Podmień</a>
-                                        <a href='<c:url value="/delete/${doc.uuid}"/>'
-                                           class="btn btn-primary"
-                                           style="background-color:#81994D; border-color:#81994D;color:#3a3b45">Usuń</a>
-                                        <a href='<c:url value="/download/${doc.uuid}"/>'
-                                           class="btn btn-primary"
-                                           style="background-color:#81994D; border-color:#81994D;color:#3a3b45">Pobierz</a>
+<%--                                    <td>--%>
+<%--                                        <a href='<c:url value="/doc/${doc.uuid}"/>'--%>
+<%--                                           class="btn btn-primary"--%>
+<%--                                           style="background-color:#81994D; border-color:#81994D;color:#3a3b45">Szczegóły</a>--%>
+<%--                                        <a href='<c:url value=""/>'--%>
+<%--                                           class="btn btn-primary"--%>
+<%--                                           style="background-color:#81994D; border-color:#81994D;color:#3a3b45">Podmień</a>--%>
+<%--                                        <a href='<c:url value="/delete/${doc.uuid}"/>'--%>
+<%--                                           class="btn btn-primary"--%>
+<%--                                           style="background-color:#81994D; border-color:#81994D;color:#3a3b45">Usuń</a>--%>
+<%--                                        <a href='<c:url value="/download/${doc.uuid}"/>'--%>
+<%--                                           class="btn btn-primary"--%>
+<%--                                           style="background-color:#81994D; border-color:#81994D;color:#3a3b45">Pobierz</a>--%>
 
-                                    </td>
+<%--                                    </td>--%>
                                 </tr>
                             </c:forEach>
                             </tbody>
