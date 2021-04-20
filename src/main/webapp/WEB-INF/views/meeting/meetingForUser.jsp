@@ -62,9 +62,13 @@
                                             <a href='<c:url value="/app/meeting/edit/${meeting.id}"/>'
                                                class="btn btn-primary"
                                                style="background-color:#81994D; border-color:#81994D;color:#3a3b45">Edytuj</a>
-                                            <a href="/app/client/${meeting.client.id}/meeting/download/merged"
+                                            <a href="/app/client/${meeting.client.id}/meeting/download/merged/pdf"
                                                class="btn btn-primary">
-                                                Pobierz scalony plik ze spotkań
+                                                Pobierz scalony .pdf
+                                            </a>
+                                            <a href="/app/client/${meeting.client.id}/meeting/download/merged/docx"
+                                               class="btn btn-primary">
+                                                Pobierz scalony .docx
                                             </a>
                                         </td>
 

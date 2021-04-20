@@ -3,15 +3,18 @@ package pl.odum.workflowodum.service;
 import lombok.AllArgsConstructor;
 import lombok.SneakyThrows;
 import org.apache.commons.io.FileUtils;
+import org.springframework.security.core.Authentication;
 import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
 import pl.odum.workflowodum.model.*;
 import pl.odum.workflowodum.repository.DocRepository;
 import pl.odum.workflowodum.repository.PermitRepository;
 import pl.odum.workflowodum.utils.DirectoryCreator;
+import pl.odum.workflowodum.word.PdfMerge;
 import pl.odum.workflowodum.word.WordMerge;
 
 import javax.servlet.ServletOutputStream;
+import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.transaction.Transactional;
 import java.io.File;
@@ -36,8 +39,10 @@ public class DocServiceImpl implements DocService {
     private final MeetingService meetingService;
     private final DirectoryCreator directoryCreator;
     private final PermitRepository permitRepository;
+    private final UserService userService;
     private final DownloadLogService downloadLogService;
     private final NotificationService notificationService;
+    private final PdfMerge pdfMerge;
 
     @Override
     public List<Doc> getFiles() {
@@ -207,6 +212,14 @@ public class DocServiceImpl implements DocService {
             e.printStackTrace();
         }
 
+    }
+
+    @Override
+    public void downloadMergedPdfFromMeetings(Client client, HttpServletResponse response, Authentication auth) throws IOException {
+        User user = userService.findByUserName(auth.getName());
+        response.setContentType(RESPONSE_CONTENT_TYPE);
+        response.setHeader(HEADER_KEY, HEADER_VALUE + "merged.pdf");
+        pdfMerge.mergeToPdf(client, response.getOutputStream(), user.getId());
     }
 
 }
