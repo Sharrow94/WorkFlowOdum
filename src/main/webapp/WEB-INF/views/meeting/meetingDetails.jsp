@@ -81,8 +81,10 @@
                                                     ${d.dateOfAdding}
                                             </div>
                                             <div class="col-sm-4 mb-3 mb-sm-0">
+                                                <sec:authorize access="hasRole('ADMIN')">
                                                 <a class="btn btn-primary btn-sm"
                                                    href="/app/meeting/${meeting.id}/send-attachment/${d.uuid}">Wyślij</a>
+                                                </sec:authorize>
                                             </div>
                                         </div>
                                     </c:forEach>

@@ -1,9 +1,13 @@
+<%@ page import="java.time.LocalDate" %>
 <%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ taglib prefix="sec" uri="http://www.springframework.org/security/tags" %>
 <%@ taglib prefix="spring" uri="http://www.springframework.org/tags" %>
 <%@ include file="../header.jsp" %>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
-
+<%
+    LocalDate today=LocalDate.now();
+    pageContext.setAttribute("today",today);
+%>
 <style>
     .table-danger td{
         border-color: #e3e6f0;
@@ -46,7 +50,7 @@
                                 </tfoot>
                                 <tbody>
                                 <c:forEach items="${meetings}" var="meeting">
-                                    <c:if test="${meeting.countOfDocs==0}">
+                                    <c:if test="${meeting.countOfDocs==0&&meeting.dateOfMeeting.isBefore(today)}">
                                         <tr role="row" class="odd table-danger" style="border-color: #e3e6f0;">
                                     </c:if>
                                     <c:if test="${meeting.countOfDocs!=0}">
