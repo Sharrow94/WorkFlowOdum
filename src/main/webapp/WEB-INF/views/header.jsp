@@ -111,7 +111,6 @@
                 </div>
             </div>
         </li>
-        <sec:authorize access="hasRole('ADMIN')">
             <li class="nav-item">
                 <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseStorages"
                    aria-expanded="true" aria-controls="collapseStorages">
@@ -124,13 +123,10 @@
                      data-parent="#accordionSidebar">
                     <div class="bg-gray-900 py-2 collapse-inner rounded">
                             <%--                    <h6 class="collapse-header">Operacje:</h6>--%>
-                        <a class="collapse-item text-gray-100" href="<c:url value="/app/folders"/>">Wszystkie pliki</a>
                         <a class="collapse-item text-gray-100" href="<c:url value="/home"/>">Dodaj plik</a>
                     </div>
                 </div>
             </li>
-        </sec:authorize>
-        <sec:authorize access="hasRole('ADMIN')">
             <li class="nav-item">
                 <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseSupplier"
                    aria-expanded="true" aria-controls="collapseSupplier">
@@ -146,7 +142,6 @@
                     </div>
                 </div>
             </li>
-        </sec:authorize>
 
         <!-- Nav Item - Utilities Collapse Menu -->
         <sec:authorize access="hasRole('ADMIN')">
