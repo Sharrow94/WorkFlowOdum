@@ -70,10 +70,6 @@
                                                class="btn btn-primary">
                                                 Pobierz scalony .pdf
                                             </a>
-                                            <a href="/app/client/${meeting.client.id}/meeting/download/merged/docx"
-                                               class="btn btn-primary">
-                                                Pobierz scalony .docx
-                                            </a>
                                         </td>
 
                                     </tr>

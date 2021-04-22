@@ -42,13 +42,6 @@ public class AppController {
         docService.downloadMergedPdfFromMeetings(client, response, auth);
     }
 
-    @GetMapping("/client/{clientId}/meeting/download/merged/docx")
-    public void downloadClientsMergedNotesDocx(@PathVariable Long clientId, HttpServletResponse response, Authentication auth) throws IOException {
-        Client client = clientService.findById(clientId);
-        docService.downloadMergedClientsDocx(client, response);
-    }
-
-
     @GetMapping("/folders/{clientId}/{permitId}")
     public String showAllClientFolders(Model model, @PathVariable Long clientId, @PathVariable("permitId") Long permitId) {
         model.addAttribute("docs", docService.findAllByPermitIdAndClientId(permitId, clientId));
