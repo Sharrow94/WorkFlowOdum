@@ -25,7 +25,7 @@ public class ClientController {
     private final MeetingService meetingService;
 
     @GetMapping("/add")
-    public String addClientGet(Model model){
+    public String addClientGet(Model model) {
         model.addAttribute("client", new Client());
         return "client/add";
     }
@@ -37,57 +37,57 @@ public class ClientController {
     }
 
     @GetMapping("/list")
-    public String showAll(Model model){
-        model.addAttribute("clients",clientService.findAll());
+    public String showAll(Model model) {
+        model.addAttribute("clients", clientService.findAll());
         return "client/list";
     }
 
     @GetMapping("/{id}")
-    public String showDetails(@PathVariable("id")Long id, Model model){
-        model.addAttribute("client",clientService.findById(id));
+    public String showDetails(@PathVariable("id") Long id, Model model) {
+        model.addAttribute("client", clientService.findById(id));
         return "client/details";
     }
 
     @GetMapping("/edit/{id}")
-    public String showEditForm(@PathVariable("id")Long id,Model model){
-        model.addAttribute("client",clientService.findById(id));
+    public String showEditForm(@PathVariable("id") Long id, Model model) {
+        model.addAttribute("client", clientService.findById(id));
         return "client/edit";
     }
 
     @PostMapping("/edit")
-    public String edit(Client client){
+    public String edit(Client client) {
         clientService.edit(client);
         return "redirect:/app/client/list";
     }
 
 
     @GetMapping("/{id}/employee")
-    public String showEmployees(@PathVariable("id")Long id,Model model){
-        model.addAttribute("employees",clientEmployeeService.findAllForClient(id));
-        model.addAttribute("clientName",clientService.findById(id).getName());
-        model.addAttribute("clientId",id);
+    public String showEmployees(@PathVariable("id") Long id, Model model) {
+        model.addAttribute("employees", clientEmployeeService.findAllForClient(id));
+        model.addAttribute("clientName", clientService.findById(id).getName());
+        model.addAttribute("clientId", id);
         return "client/clientEmployees";
     }
 
     @GetMapping("/{id}/employee/add")
-    public String showAddForm(@PathVariable("id")Long id,Model model){
-        model.addAttribute("employee",new ClientEmployee());
-        model.addAttribute("clientName",clientService.findById(id).getName());
-        model.addAttribute("clientId",id);
+    public String showAddForm(@PathVariable("id") Long id, Model model) {
+        model.addAttribute("employee", new ClientEmployee());
+        model.addAttribute("clientName", clientService.findById(id).getName());
+        model.addAttribute("clientId", id);
         return "client/addEmployee";
     }
 
     @PostMapping("/{id}/employee/addEmployee")
-    public String addEmployee(ClientEmployee employee,@PathVariable("id")Long id){
+    public String addEmployee(ClientEmployee employee, @PathVariable("id") Long id) {
         clientService.addEmployeeToClient(id, employee);
         return "redirect:";
     }
 
     @RequestMapping("/{id}/meetings")
-    public String showMeetingsForClient(@PathVariable("id")Long id,Model model){
-        Client client=clientService.findById(id);
-        model.addAttribute("clientName",client.getName());
-        model.addAttribute("meetings",meetingService.findAllByClient(client));
+    public String showMeetingsForClient(@PathVariable("id") Long id, Model model) {
+        Client client = clientService.findById(id);
+        model.addAttribute("clientName", client.getName());
+        model.addAttribute("meetings", meetingService.findAllByClient(client));
         return "client/showMeetings";
     }
 

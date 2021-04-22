@@ -35,6 +35,7 @@ public class DocServiceImpl implements DocService {
     private final static String RESPONSE_CONTENT_TYPE = "application/octet-stream";
     private final static String HEADER_KEY = "Content-Disposition";
     private final static String HEADER_VALUE = "attachment; filename=";
+    private final static String MEETINGS = "meetings";
     private final DocRepository docRepository;
     private final MeetingService meetingService;
     private final DirectoryCreator directoryCreator;
@@ -216,10 +217,11 @@ public class DocServiceImpl implements DocService {
 
     @Override
     public void downloadMergedPdfFromMeetings(Client client, HttpServletResponse response, Authentication auth) throws IOException {
+        Permit permit = permitRepository.findByType(MEETINGS);
         User user = userService.findByUserName(auth.getName());
         response.setContentType(RESPONSE_CONTENT_TYPE);
         response.setHeader(HEADER_KEY, HEADER_VALUE + "merged.pdf");
-        pdfMerge.mergeToPdf(client, response.getOutputStream(), user.getId());
+        pdfMerge.mergeToPdf(client, response.getOutputStream(), user.getId(), permit.getId());
     }
 
 }
