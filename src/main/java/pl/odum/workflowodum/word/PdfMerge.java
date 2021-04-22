@@ -24,8 +24,8 @@ public class PdfMerge {
 
     @Transactional
     @Async
-    public void mergeToPdf(Client client, OutputStream os, Long userId) throws IOException {
-        List<Doc> docs = docRepository.findAllForClientMeetings(client);
+    public void mergeToPdf(Client client, OutputStream os, Long userId, Long permitId) throws IOException {
+        List<Doc> docs = docRepository.findAllByPermitIdAndClientIdAndDateOfRemovingIsNull(permitId, client.getId());
         String pdfDir = docs.get(0).getSourcePath() + "/pdf"+userId;
 
         try {
