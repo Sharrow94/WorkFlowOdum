@@ -2,6 +2,7 @@ package pl.odum.workflowodum.service;
 
 import org.springframework.stereotype.Service;
 import pl.odum.workflowodum.model.Client;
+import pl.odum.workflowodum.model.Doc;
 import pl.odum.workflowodum.model.Meeting;
 import pl.odum.workflowodum.model.User;
 import pl.odum.workflowodum.repository.MeetingRepository;
@@ -47,5 +48,10 @@ public class MeetingServiceImpl implements MeetingService {
     @Override
     public List<Meeting> findAllByClient(Client client) {
         return meetingRepository.findAllByClient(client);
+    }
+
+    @Override
+    public Meeting findByDoc(Doc doc) {
+        return meetingRepository.findByDoc(doc);
     }
 }

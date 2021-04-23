@@ -12,9 +12,7 @@ import pl.odum.workflowodum.repository.PermitRepository;
 import pl.odum.workflowodum.utils.DirectoryCreator;
 import pl.odum.workflowodum.word.PdfMerge;
 import pl.odum.workflowodum.word.WordMerge;
-
 import javax.servlet.ServletOutputStream;
-import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.transaction.Transactional;
 import java.io.File;
@@ -44,6 +42,7 @@ public class DocServiceImpl implements DocService {
     private final DownloadLogService downloadLogService;
     private final NotificationService notificationService;
     private final PdfMerge pdfMerge;
+    private final DeleteService deleteService;
 
     @Override
     public List<Doc> getFiles() {
@@ -147,6 +146,11 @@ public class DocServiceImpl implements DocService {
     }
 
     @Override
+    public void deleteDoc(Doc doc) {
+        docRepository.delete(doc);
+    }
+
+    @Override
     public void saveFilesFromMultiPart(List<MultipartFile> files,Client client,Permit permit,Long userId) {
         files.forEach(file -> {
             try {
@@ -183,14 +187,7 @@ public class DocServiceImpl implements DocService {
     @Override
     public void removeDocs() {
         List<Doc> docsToRemove = docRepository.findAllByDateOfRemovingBeforeAndDateOfRemovingIsNotNull(LocalDate.now());
-        docsToRemove.forEach(doc -> {
-            try {
-                Files.delete(Path.of(doc.getSourcePath()));
-            } catch (IOException e) {
-                e.printStackTrace();
-            }
-            docRepository.deleteByUuid(doc.getUuid());
-        });
+        docsToRemove.forEach(deleteService::whenDeletingDoc);
     }
 
 
