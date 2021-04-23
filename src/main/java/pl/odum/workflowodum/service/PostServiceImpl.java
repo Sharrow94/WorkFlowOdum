@@ -65,6 +65,11 @@ public class PostServiceImpl implements PostService {
         });
     }
 
+    @Override
+    public Post findPostByDoc(Doc doc) {
+        return postRepository.findPostByDoc(doc);
+    }
+
     public void addDocToPost(MultipartFile file, Post post, User user) throws IOException {
 
         Doc doc = new Doc();

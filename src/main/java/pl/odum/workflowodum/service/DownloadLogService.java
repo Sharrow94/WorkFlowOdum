@@ -8,6 +8,7 @@ import pl.odum.workflowodum.model.User;
 import pl.odum.workflowodum.repository.DownloadLogRepository;
 
 import java.time.LocalDateTime;
+import java.util.List;
 
 @Service
 @AllArgsConstructor
@@ -27,5 +28,13 @@ public class DownloadLogService {
             downloadLog.setDownloadDate(LocalDateTime.now());
             downloadLogRepository.save(downloadLog);
         }
+    }
+
+    public List<DownloadLog>findAllLogsForDoc(Doc doc){
+        return downloadLogRepository.findAllByDoc(doc);
+    }
+
+    public void deleteLog(DownloadLog log){
+        downloadLogRepository.delete(log);
     }
 }
