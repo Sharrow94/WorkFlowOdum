@@ -97,7 +97,7 @@ public class DocServiceImpl implements DocService {
         List<Doc> docs = meeting.getDoc();
         docs.add(doc);
 
-
+        meeting.updateCountOfDocs();
         docRepository.save(doc);
         meetingService.save(meeting);
         Notification notification= notificationService.findFirstByMeeting(meeting);

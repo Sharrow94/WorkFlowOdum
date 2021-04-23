@@ -26,6 +26,7 @@ public class PostServiceImpl implements PostService {
     private final ClientService clientService;
     private final PermitRepository permitRepository;
     private final DocRepository docRepository;
+    private final DeleteService deleteService;
 
 
     @Override
@@ -35,7 +36,9 @@ public class PostServiceImpl implements PostService {
 
     @Override
     public void delete(Long id) {
-        postRepository.deleteById(id);
+        Post post=findById(id);
+        deleteService.whenDeletingPost(post);
+        postRepository.delete(post);
     }
 
     @Override
