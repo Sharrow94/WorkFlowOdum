@@ -54,6 +54,7 @@ public class DeleteService {
             List<Doc>meetingDocs=meeting.getDoc();
             meetingDocs.remove(doc);
             meeting.setDoc(meetingDocs);
+            meeting.updateCountOfDocs();
             meetingRepository.save(meeting);
         }
     }

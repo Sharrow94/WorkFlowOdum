@@ -7,6 +7,7 @@ import org.springframework.format.annotation.DateTimeFormat;
 import javax.persistence.*;
 import java.time.LocalDate;
 import java.util.List;
+import java.util.stream.Collectors;
 
 @Data
 @Entity
@@ -23,8 +24,15 @@ public class Meeting {
     private User user;
     @OneToMany
     private List<Doc> doc;
+    private int countOfDocs;
+
+    public void updateCountOfDocs(){
+        this.countOfDocs = getCountOfDocs();
+    }
 
     public int getCountOfDocs(){
-        return this.doc.size();
+        int size = (int) doc.stream().filter(d -> d.getDateOfRemoving() == null).count();
+        System.out.println(size);
+        return size;
     }
 }
