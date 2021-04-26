@@ -17,6 +17,7 @@ import javax.servlet.http.HttpServletResponse;
 import javax.transaction.Transactional;
 import java.io.File;
 import java.io.IOException;
+import java.io.OutputStream;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
@@ -213,12 +214,10 @@ public class DocServiceImpl implements DocService {
     }
 
     @Override
-    public void downloadMergedPdfFromMeetings(Client client, HttpServletResponse response, Authentication auth) throws IOException {
+    public boolean downloadMergedPdfFromMeetings(Client client, HttpServletResponse response, Authentication auth) throws IOException {
         Permit permit = permitRepository.findByType(MEETINGS);
         User user = userService.findByUserName(auth.getName());
-        response.setContentType(RESPONSE_CONTENT_TYPE);
-        response.setHeader(HEADER_KEY, HEADER_VALUE + "merged.pdf");
-        pdfMerge.mergeToPdf(client, response.getOutputStream(), user.getId(), permit.getId());
+        return pdfMerge.mergeToPdf(client, response, user.getId(), permit.getId());
     }
 
 }

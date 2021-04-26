@@ -8,8 +8,10 @@ import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 import pl.odum.workflowodum.model.Client;
 import pl.odum.workflowodum.model.Meeting;
+import pl.odum.workflowodum.model.User;
 import pl.odum.workflowodum.service.*;
 
+import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 import java.util.List;
@@ -22,6 +24,7 @@ public class AppController {
     private final DocService docService;
     private final ClientService clientService;
     private final PermitService permitService;
+    private final UserService userService;
 
     @GetMapping("/meeting/details/{meetingId}")
     public String meetingDetailsGet(@PathVariable Long meetingId, Model model) {
@@ -39,7 +42,11 @@ public class AppController {
     @GetMapping("/client/{clientId}/meeting/download/merged/pdf")
     public void downloadClientsMergedNotesPdf(@PathVariable Long clientId, HttpServletResponse response, Authentication auth) throws IOException {
         Client client = clientService.findById(clientId);
-        docService.downloadMergedPdfFromMeetings(client, response, auth);
+        User user = userService.findByUserName(auth.getName());
+        boolean result = docService.downloadMergedPdfFromMeetings(client, response, auth);
+        if(!result){
+            response.sendRedirect("/app/doc/merge/fail");
+        }
     }
 
     @GetMapping("/folders/{clientId}/{permitId}")

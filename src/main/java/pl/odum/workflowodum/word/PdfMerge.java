@@ -8,6 +8,7 @@ import pl.odum.workflowodum.model.Client;
 import pl.odum.workflowodum.model.Doc;
 import pl.odum.workflowodum.repository.DocRepository;
 
+import javax.servlet.http.HttpServletResponse;
 import javax.transaction.Transactional;
 import java.io.*;
 import java.nio.file.*;
@@ -20,12 +21,24 @@ public class PdfMerge {
     private final static String CREATE_PDF_SCRIPT = "/home/mcs/IdeaProjects/odum-docs/scripts/convertToPdf.sh";
     private final static String MERGE_PDFS_SCRIPT = "/home/mcs/IdeaProjects/odum-docs/scripts/mergePdfs.sh";
     private final static String MERGED_FILE_NAME = "merged.pdf";
+    private final static String RESPONSE_CONTENT_TYPE = "application/octet-stream";
+    private final static String HEADER_KEY = "Content-Disposition";
+    private final static String HEADER_VALUE = "attachment; filename=";
     private final DocRepository docRepository;
 
     @Transactional
     @Async
-    public void mergeToPdf(Client client, OutputStream os, Long userId, Long permitId) throws IOException {
+    public boolean mergeToPdf(Client client, HttpServletResponse response, Long userId, Long permitId) throws IOException {
         List<Doc> docs = docRepository.findAllByPermitIdAndClientIdAndDateOfRemovingIsNull(permitId, client.getId());
+        System.out.println("=========="+docs.size());
+        if (docs.size()==0){
+            return false;
+        }
+
+        response.setHeader(HEADER_KEY, HEADER_VALUE+"merged.pdf");
+        response.setContentType(RESPONSE_CONTENT_TYPE);
+        OutputStream os = response.getOutputStream();
+
         String pdfDir = docs.get(0).getSourcePath() + "/pdf"+userId;
 
         try {
@@ -41,6 +54,7 @@ public class PdfMerge {
             createMerged(pdfDir, toPdf);
 
             os.write(FileUtils.readFileToByteArray(new File(toPdf)));
+            System.out.println("========== No nieeeee");
 
         }catch (NoSuchFileException e){
 //            System.out.println("zasady sa po to zeby je lamac");
@@ -48,6 +62,7 @@ public class PdfMerge {
         finally {
             deleteDirectoryRecursion(Paths.get(pdfDir));
         }
+        return true;
     }
 
     private void createPdfFromAllDocs(List<Doc> docs, String pdfDir) {

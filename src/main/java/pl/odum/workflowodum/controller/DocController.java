@@ -81,4 +81,9 @@ public class DocController {
         Long clientId = docService.findByUuid(uuid).getClient().getId();
         return "redirect:/app/folders/" + clientId + "/" + permitId;
     }
+
+    @GetMapping("/app/doc/merge/fail")
+    public String mergeFail(){
+        return "messages/files/cantDownloadMerged";
+    }
 }
