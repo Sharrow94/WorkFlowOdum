@@ -3,11 +3,10 @@ package pl.odum.workflowodum.model;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 import org.springframework.format.annotation.DateTimeFormat;
-
 import javax.persistence.*;
 import java.time.LocalDate;
 import java.util.List;
-import java.util.stream.Collectors;
+
 
 @Data
 @Entity
