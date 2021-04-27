@@ -12,5 +12,6 @@ public interface UserService {
     List<User> getUsers();
     List<User>findAllAdmins();
     void changeStatus(Long id);
+    void takeOffPermission(Long id);
     void saveUserPassword(User user);
 }

@@ -157,6 +157,8 @@
                             <%--                    <h6 class="collapse-header">Operacje:</h6>--%>
                         <a class="collapse-item text-gray-100" href="<c:url value="/admin/user/all"/>">Lista</a>
                                 <a class="collapse-item text-gray-100" href="<c:url value="/admin/user/add"/>">Dodaj</a>
+                                <a class="collapse-item text-gray-100" href="<c:url value="/super/admin/all"/>">Admini</a>
+
                     </div>
                 </div>
             </li>

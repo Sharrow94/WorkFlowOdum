@@ -1,13 +1,7 @@
 <%@ taglib prefix="spring" uri="http://www.springframework.org/tags" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ taglib prefix="sec" uri="http://www.springframework.org/security/tags" %>
-<%--
-  Created by IntelliJ IDEA.
-  User: robert
-  Date: 05.03.2021
-  Time: 15:16
-  To change this template use File | Settings | File Templates.
---%>
+
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <html>
 <head>
@@ -19,7 +13,7 @@
 <div class="container-fluid">
     <div class="card shadow mb-4">
         <div class="card-header py-3">
-            <h6 class="m-0 font-weight-bold text-primary">Lista użytkowników</h6>
+            <h6 class="m-0 font-weight-bold text-primary">Lista adminów</h6>
             <a href='<c:url value="/admin/user/add"/>'
                class="btn btn-primary"
                style="background-color:#81994D; color:#3a3b45;position: absolute;  right: 8%;width: 170px;margin:-25px; border: 10px #f6c23e;">
@@ -72,52 +66,29 @@
 
                             </tfoot>
                             <tbody>
-                            <c:forEach items="${user}" var="user">
+                            <c:forEach items="${admin}" var="admin">
                                 <tr role="row" class="odd">
-                                    <td><c:out value="${user.id}"/></td>
-                                    <td><c:out value="${user.userName}"/></td>
-                                    <td><c:out value="${user.firstName}"/></td>
-                                    <td><c:out value="${user.lastName}"/></td>
-                                    <td><c:out value="${user.email}"/></td>
+                                    <td><c:out value="${admin.id}"/></td>
+                                    <td><c:out value="${admin.userName}"/></td>
+                                    <td><c:out value="${admin.firstName}"/></td>
+                                    <td><c:out value="${admin.lastName}"/></td>
+                                    <td><c:out value="${admin.email}"/></td>
 
-                                        <%--                                    <sec:authorize access="hasRole('ADMIN')">--%>
+
                                     <td>
-                                        <a href='<c:url value="/admin/user/edit/${user.id}"/>'
+                                        <a href='<c:url value="/admin/user/edit/${admin.id}"/>'
                                            class="btn btn-primary"
                                            style="background-color:#81994D; border-color:#81994D;color:#3a3b45"><spring:message
                                                 code="app.edit"/></a>
 
-                                        <a href='<c:url value="/admin/user/switch-enable/${user.id}"/>'
+                                        <a href='<c:url value="/super/admin/take-off-permissions/${admin.id}"/>'
                                            class="btn btn-primary"
                                            style="background-color:#81994D; border-color:#81994D;color:#3a3b45">
-                                            <c:choose>
-                                                <c:when test="${user.enabled == true}">
-                                                    <spring:message code="app.blockAuthorization"/>
-                                                </c:when>
-                                                <c:when test="${user.enabled ==false}">
-                                                    <spring:message code="app.unlockAuthorization"/>
-                                                </c:when>
-                                            </c:choose>
-<%--                                            <c:forEach items="${user.roles}" var="role">--%>
-<%--                                                <c:if test='${role.toString().contains(role.name)}'>--%>
-<%--                                                    <spring:message code="app.blockAuthorization"/>--%>
-<%--                                                </c:if>--%>
-<%--                                                <c:if test='${role.name.contains(role.toString())}'>--%>
-<%--                                                    <spring:message code="app.unlockAuthorization"/>--%>
-<%--                                                </c:if>--%>
-<%--                                            </c:forEach>--%>
+                                            <spring:message
+                                                    code="app.takeOffPermission"/>
                                         </a>
-                                        <a href='<c:url value="/app/meeting/all/${user.id}"/>'
-                                           class="btn btn-primary"
-                                           style="background-color:#81994D; border-color:#81994D;color:#3a3b45"><spring:message
-                                                code="app.meetings"/></a>
-
-                                            <%--                                            <a href='<c:url value="/admin/user/delete/${user.id}"/>'--%>
-                                            <%--                                               class="btn btn-primary"--%>
-                                            <%--                                               style="background-color:#FF0000; border-color:#FF0000;color:#ffffff"><spring:message--%>
-                                            <%--                                                    code="app.delete"/></a>--%>
                                     </td>
-                                        <%--                                    </sec:authorize>--%>
+
                                 </tr>
                             </c:forEach>
                             </tbody>

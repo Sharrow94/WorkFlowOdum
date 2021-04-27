@@ -32,6 +32,7 @@ public class UserServiceImpl implements UserService{
     @Override
     public void saveUser(User user) {
         user.setPassword(passwordEncoder.encode(user.getPassword()));
+        user.setEnabled(true);
         Role userRole = roleRepository.findByName("ROLE_USER");
         user.setRoles(new HashSet<>(Collections.singletonList(userRole)));
         userRepository.save(user);
@@ -76,12 +77,28 @@ public class UserServiceImpl implements UserService{
         Set<Role>roles = user.getRoles();
         if(user.getRoles().contains(roleUser)){
             roles.remove(roleUser);
+            user.setEnabled(false);
         }
         else {
             roles.add(roleUser);
+            user.setEnabled(true);
         }
         user.setRoles(roles);
         userRepository.save(user);
+    }
+
+    @Override
+    public void takeOffPermission(Long id) {
+        User user = get(id);
+        Role roleTypeAdmin = roleRepository.findByName("ROLE_ADMIN");
+        Role roleTypeUser = roleRepository.findByName("ROLE_USER");
+
+        Set<Role> roles = user.getRoles();
+        roles.remove(roleTypeAdmin);
+        roles.add(roleTypeUser);
+        user.setRoles(roles);
+
+        add(user);
     }
 
 
