@@ -27,7 +27,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                     .access("@currentUser.isCurrentUsersMeeting(#meetingId, authentication) or hasRole('ADMIN')")
                 .antMatchers("/app/**").hasAnyRole( "USER","ADMIN","SUPERADMIN")
                 .antMatchers("/admin/**").hasAnyRole("ADMIN","SUPERADMIN")
-                .antMatchers("/super/**").hasAnyRole("SUPERADMIN")
+                .antMatchers("/super/**").hasRole("SUPERADMIN")
                 .antMatchers("/app/meeting/{meetingId}/send-attachment/{docUUID}").hasAnyRole("ADMIN", "SUPERADMIN")
 
                 .and().formLogin().loginPage("/login").defaultSuccessUrl("/app/home")
