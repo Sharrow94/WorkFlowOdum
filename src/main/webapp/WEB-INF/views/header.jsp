@@ -144,7 +144,7 @@
             </li>
 
         <!-- Nav Item - Utilities Collapse Menu -->
-        <sec:authorize access="hasRole('ADMIN')">
+        <sec:authorize access="hasAnyRole('ADMIN','SUPERADMIN')">
             <li class="nav-item">
                 <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseUsers"
                    aria-expanded="true" aria-controls="collapseUsers">
@@ -157,12 +157,15 @@
                             <%--                    <h6 class="collapse-header">Operacje:</h6>--%>
                         <a class="collapse-item text-gray-100" href="<c:url value="/admin/user/all"/>">Lista</a>
                                 <a class="collapse-item text-gray-100" href="<c:url value="/admin/user/add"/>">Dodaj</a>
+                                <sec:authorize access="hasRole('SUPERADMIN')">
+                                <a class="collapse-item text-gray-100" href="<c:url value="/super/admin/all"/>">Admini</a>
+                                </sec:authorize>
                     </div>
                 </div>
             </li>
         </sec:authorize>
 
-        <sec:authorize access="hasRole('ADMIN')">
+        <sec:authorize access="hasAnyRole('ADMIN','SUPERADMIN')">
             <li class="nav-item">
                 <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapsePost"
                    aria-expanded="true" aria-controls="collapsePost">
