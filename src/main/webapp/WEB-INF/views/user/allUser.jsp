@@ -98,20 +98,19 @@
                                                     <spring:message code="app.unlockAuthorization"/>
                                                 </c:when>
                                             </c:choose>
-<%--                                            <c:forEach items="${user.roles}" var="role">--%>
-<%--                                                <c:if test='${role.toString().contains(role.name)}'>--%>
-<%--                                                    <spring:message code="app.blockAuthorization"/>--%>
-<%--                                                </c:if>--%>
-<%--                                                <c:if test='${role.name.contains(role.toString())}'>--%>
-<%--                                                    <spring:message code="app.unlockAuthorization"/>--%>
-<%--                                                </c:if>--%>
-<%--                                            </c:forEach>--%>
                                         </a>
                                         <a href='<c:url value="/app/meeting/all/${user.id}"/>'
                                            class="btn btn-primary"
                                            style="background-color:#81994D; border-color:#81994D;color:#3a3b45"><spring:message
                                                 code="app.meetings"/></a>
-
+                                        <sec:authorize access="hasRole('SUPERADMIN')">
+                                        <a href='<c:url value="/super/admin/add-permissions/${user.id}"/>'
+                                           class="btn btn-primary"
+                                           style="background-color:#81994D; border-color:#81994D;color:#3a3b45">
+                                            <spring:message
+                                                    code="app.addPermission"/>
+                                        </a>
+                                        </sec:authorize>
                                             <%--                                            <a href='<c:url value="/admin/user/delete/${user.id}"/>'--%>
                                             <%--                                               class="btn btn-primary"--%>
                                             <%--                                               style="background-color:#FF0000; border-color:#FF0000;color:#ffffff"><spring:message--%>

@@ -14,10 +14,10 @@
     <div class="card shadow mb-4">
         <div class="card-header py-3">
             <h6 class="m-0 font-weight-bold text-primary">Lista adminów</h6>
-            <a href='<c:url value="/admin/user/add"/>'
+            <a href='<c:url value="/super/admin/add"/>'
                class="btn btn-primary"
                style="background-color:#81994D; color:#3a3b45;position: absolute;  right: 8%;width: 170px;margin:-25px; border: 10px #f6c23e;">
-                Dodaj użytkownika</a>
+                Dodaj admina</a>
         </div>
         <div class="card-body">
             <div class="table-responsive">

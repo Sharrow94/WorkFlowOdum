@@ -6,6 +6,7 @@ import java.util.List;
 public interface UserService {
     User findByUserName(String userName);
     void saveUser(User user);
+    void saveAdmin(User user);
     void add(User user);
     void delete(Long id);
     User get(Long id);
@@ -14,4 +15,5 @@ public interface UserService {
     void changeStatus(Long id);
     void takeOffPermission(Long id);
     void saveUserPassword(User user);
+    void addPermission(Long id);
 }
