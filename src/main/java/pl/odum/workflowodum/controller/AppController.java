@@ -7,6 +7,7 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 import pl.odum.workflowodum.model.Client;
+import pl.odum.workflowodum.model.Doc;
 import pl.odum.workflowodum.model.Meeting;
 import pl.odum.workflowodum.model.User;
 import pl.odum.workflowodum.service.*;
@@ -15,6 +16,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 import java.util.List;
+import java.util.stream.Collectors;
 
 @AllArgsConstructor
 @RequestMapping("/app")
@@ -28,7 +30,10 @@ public class AppController {
 
     @GetMapping("/meeting/details/{meetingId}")
     public String meetingDetailsGet(@PathVariable Long meetingId, Model model) {
-        model.addAttribute("meeting", meetingService.findById(meetingId));
+        Meeting meeting = meetingService.findById(meetingId);
+        List<Doc> docs = meeting.getDoc().stream().filter(d -> d.getDateOfRemoving() == null).collect(Collectors.toList());
+        model.addAttribute("meeting", meeting);
+        model.addAttribute("docs", docs);
         return "meeting/meetingDetails";
     }
 

@@ -72,7 +72,7 @@
                             </a>
                             <div class="collapse" id="collapseCardMeal">
                                 <div class="card-body">
-                                    <c:forEach items="${meeting.doc}" var="d">
+                                    <c:forEach items="${docs}" var="d">
                                         <div class="form-group row">
                                             <div class="col-sm-4 mb-3 mb-sm-0">
                                                     ${d.docName}
